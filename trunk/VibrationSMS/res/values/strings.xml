@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, inicio!</string>
     <string name="app_name">VibrationSMS</string>
+    <string name="tittle">SMS Custom Vibration</string>
 </resources>
