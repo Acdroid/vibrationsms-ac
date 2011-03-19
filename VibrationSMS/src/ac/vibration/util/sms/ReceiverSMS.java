@@ -53,7 +53,7 @@ public class ReceiverSMS extends BroadcastReceiver {
 			//Extraemos los numeros de telefono
 			for (int i=0; i<msgs.length; i++){
 				msgs[i] = SmsMessage.createFromPdu((byte[])pdus[i]);                
-				numTelf [index] += msgs[i].getOriginatingAddress();    
+				numTelf [index] = msgs[i].getOriginatingAddress();    
 				index++;
 			}
 			//---Mostrar el mensaje del SMS---
