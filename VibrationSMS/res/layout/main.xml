@@ -19,6 +19,35 @@
 		    android:textStyle="bold"
 		    android:textColor="@color/black"
 		    />
+		<LinearLayout
+		   	android:layout_width="fill_parent" 
+		   	android:layout_height="fill_parent"
+		   	android:gravity="center"
+		   	android:layout_margin="25dip"
+		   	>
+		   	<Button
+		   		android:layout_width="fill_parent" 
+		   		android:layout_height="wrap_content"
+		   		android:id="@+id/main_button_asignar"
+		   		android:gravity="center"
+		   		android:text="@string/main_button_asignar"
+		    	android:textStyle="bold"
+		    	android:textColor="@color/black"
+		    	android:textSize="20dip"
+		    	android:onClick="clickAsignar"
+		    	></Button>
+		   	<Button
+		   		android:layout_width="fill_parent" 
+		   		android:layout_height="wrap_content"
+		   		android:id="@+id/main_button_agregar"
+		    	android:gravity="center"
+		   		android:text="@string/main_button_agregar"
+		    	android:textStyle="bold"
+		    	android:textColor="@color/black"
+		    	android:textSize="20dip"
+		    	></Button>
+		    
+		</LinearLayout> 
 	</LinearLayout>
 
 </LinearLayout>

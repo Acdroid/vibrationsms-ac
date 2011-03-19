@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">VibrationSMS</string>
     <string name="tittle">SMS Custom Vibration</string>
+    <string name="main_button_asignar">Assign Vibration</string>
+    <string name="main_button_agregar">Create new Vibration</string>
 </resources>
