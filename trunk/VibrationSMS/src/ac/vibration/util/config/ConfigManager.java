@@ -9,8 +9,32 @@ package ac.vibration.util.config;
 public class ConfigManager {
 
 	
-
-	public 
+	/**
+	 * Obtiene la lista de todas los contactos con vibraciones
+	 * 
+	 * @return
+	 */
+	public Vector getContactList() {
+		
+		
+	}
 	
+	/**
+	 * Obtiene la vibracion de un usuario especifico
+	 * */
+	public Vibracion getVibrationByContact() {
+		
+		
+	}
+	
+	
+	/**
+	 * Obtiene la lista de todas las vibraciones
+	 * */
+	
+	
+	/**
+	 * 
+	 * */
 
 }
