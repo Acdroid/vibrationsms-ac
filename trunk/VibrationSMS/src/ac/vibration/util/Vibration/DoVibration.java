@@ -1,8 +1,8 @@
 /**
- * Indra Software Labs 
- * Departamente de I+D
- *
- * @Tactic Movil Todos los derechos reservados 
+ * Pner permisos
+ * @author Carlos Diaz Canovas y Marcos Trujillo Seoane
+ * 
+ * @version 1.0
  */
 package ac.vibration.util.Vibration;
 
