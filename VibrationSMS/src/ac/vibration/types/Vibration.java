@@ -13,7 +13,7 @@ public class Vibration {
 	
 	public void set(long[] vib) {
 		
-		this.vib = vib;
+		this.vib = vib; 
 	}
 	
 	/**
