@@ -82,7 +82,7 @@ public class DoVibration {
 	 * <b>USO:<br>   DoVibration.SMS((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));</ul><br><br>
 	 * @param Elemento Vibrator (new Vibrator)
 	 */
-	public static void  SMS(Vibrator vibrator){
+	public static void SMS(Vibrator vibrator){
 		long aux[] = {0,200,100,200,100,200,90,500,300,450,200,150,85,150,85,150};
 		vibrator.vibrate(aux, -1); //Vibra para avisar
 	}
