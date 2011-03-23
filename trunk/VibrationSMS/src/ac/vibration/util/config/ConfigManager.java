@@ -43,7 +43,7 @@ import android.util.Log;
 public class ConfigManager {
 
 	//Nombre del archivo donde se guardan los contactos
-	private String CONTACTFILE = Environment.getExternalStorageDirectory()+"/contacts.vib";
+	private String CONTACTFILE = Environment.getExternalStorageDirectory()+"/VibrationSMS/contacts.vib";
 
 	
 	
