@@ -2,6 +2,7 @@ package ac.vibration;
 
 import ac.vibration.exceptions.ContactFileErrorException;
 import ac.vibration.exceptions.NoContactFileException;
+import ac.vibration.exceptions.NoContactFoundException;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.types.Vibration;
@@ -61,7 +62,6 @@ public class Inicio extends Activity {
 			
 			
 			
-			//TODO: si el numero no esta en el archivo que el prog no se mate
 			//TODO: hay que crear la carpeta de destino para el archivo de config
 			Log.w("main", vcl.getVibContactByNumber("34").getVib().vibToString());
 			
@@ -72,7 +72,10 @@ public class Inicio extends Activity {
 			Log.e("main", "error no hay archivo");			
 		} catch (ContactFileErrorException e) {
 			
-			Log.e("main", "error al leer la lista");
+			Log.e("main", "error al leer la lista");			
+		} catch (NoContactFoundException e) {
+			
+			Log.e("main", "no se ha encontrado el contacto");
 		}
     }
     

@@ -45,11 +45,17 @@ public class ConfigManager {
 	//Nombre del archivo donde se guardan los contactos
 	private String CONTACTFILE = Environment.getExternalStorageDirectory()+"/VibrationSMS/contacts.vib";
 
+
 	
 	
-	
-	//El constructor vcerifica si existe ee archivo y si no lo crea
+	/**
+	 * El constructor vcerifica si existe ee archivo y si no lo crea
+	 * 
+	 * @throws NoContactFileException
+	 */
 	public ConfigManager() throws NoContactFileException {
+		
+		Log.i("ConfigManager", "ConfigManager called");
 		
 		boolean exists = (new File(this.CONTACTFILE)).exists();
 		
@@ -62,12 +68,20 @@ public class ConfigManager {
 		    	
 				boolean ok = file.createNewFile();
 				
-				if (!ok) throw new NoContactFileException("Unable to create file: "+this.CONTACTFILE);
+				if (!ok) {
+					Log.e("ConfigManager", "Unable to create file");
+					throw new NoContactFileException("Unable to create file: "+this.CONTACTFILE);
+				}
 				
-			} catch (IOException e) {			
-				throw new NoContactFileException("Unable to create file 2: "+this.CONTACTFILE);
+			} catch (IOException e) {
+				
+				Log.e("ConfigManager", "Unable to create file");
+				throw new NoContactFileException("Unable to create file: "+this.CONTACTFILE);
 			}
-		}	
+			
+			Log.i("ConfigManager", "Config file created");
+		}
+		
 	}
 	
 	
@@ -77,7 +91,8 @@ public class ConfigManager {
 	 * y devuelta se debe acceder a sus elementos con las funciones 
 	 * correspondientes en {@link VibContactList}
 	 * 
-	 * @return 
+	 * @return Una {@link VibContactList} con todo lo que hay en el archivo
+	 *  
 	 * @throws ContactFileErrorException 
 	 * */
 	public VibContactList loadVibContactList() throws NoContactFileException, ContactFileErrorException {
@@ -129,14 +144,15 @@ public class ConfigManager {
 	        	
 	        }
 			
+	        Log.i("ConfigManager", "Config file loaded to memory");
 	        in.close();
 									
 		} catch (FileNotFoundException e) {			
-			Log.e("config", "Unable to load contact list");
+			Log.e("ConfigManager", "Unable to load contact list");
 			throw new NoContactFileException("Unable to load contact list");
 			
 		} catch (IOException e) {
-			Log.e("config", "Error reading from file");
+			Log.e("ConfigManager", "Error reading from file");
 			throw new ContactFileErrorException("Error reading from file");
 		}
 		
@@ -150,7 +166,12 @@ public class ConfigManager {
 	
 	
 	/**
-	 * Anade un contacto al archivo de configuracion
+	 * Anade un contacto al archivo de configuracion, para simplificar no se
+	 * verifica si existe o no el contacto, si esta duplicado, a la hora de cargar solo
+	 * el ultimo sera considerado.
+	 * 
+	 * @param vc Un VibContact con datos
+	 * 
 	 * @throws NoContactFileException 
 	 * */
 	public void addVibContact(VibContact vc) throws NoContactFileException {
@@ -163,14 +184,16 @@ public class ConfigManager {
 			fstream = new FileWriter(this.CONTACTFILE,true);
 	        BufferedWriter out = new BufferedWriter(fstream);
 
-	        out.write(vc.getNumber()+"="+vc.getVib().vibToString());
+	        out.write(vc.getNumber()+"="+vc.getVib().vibToString()+"\n");
 	        
 	        out.close();
+	        
+	        Log.e("ConfigManager", "VibContact added with number: "+vc.getNumber());
 	        
 	    //No se puede hacer nada con el archivo
 		} catch (IOException e) {
 					
-			Log.e("config", "Cannot add entry: config file not found");
+			Log.e("ConfigManager", "Cannot add entry: config file not found");
 			throw new NoContactFileException("Cannot add entry: config file not found");
 		}
 
@@ -197,8 +220,15 @@ public class ConfigManager {
 	
 
 	/**
-	 * @throws VibrationErrorException 
+	 * Convierte una cadena con el formato:<br>
+	 * num,num,num...<br>
+	 * A un array de long, un long por cada elemento entre comas
 	 * 
+	 * @param s La cadena a convertir
+	 * 
+	 * @return Un array de long, que es una vibracion que se puede usar
+	 * 
+	 * @throws VibrationErrorException  Cuando el formato no es correcto
 	 * */
 	private static long[] vibrationStringToLong(String s) throws VibrationErrorException {
 		
@@ -213,7 +243,7 @@ public class ConfigManager {
 			vList = new long[splitted.length];
 		else {
 
-			Log.e("config", "Format error");
+			Log.e("ConfigManager", "Format error");
 			throw new VibrationErrorException("Format error");
 		}
 		
@@ -225,14 +255,18 @@ public class ConfigManager {
 			}
 			catch (NumberFormatException e){
 				
-				Log.e("config", "Format error");
+				Log.e("ConfigManager", "Format error");
 				throw new VibrationErrorException("Format error");
 			}
-						
 		}
 		
-		return vList;
+	return vList;
 	}
 
+	
+	
+	
+	
+	
 }
 
