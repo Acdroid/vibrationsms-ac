@@ -1,0 +1,10 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+TODO
+
+= Details =
+
+*Hacer una funcion que dumpee lo que hay en la memoria al archivo de config machacando lo que haya.
+
+*Una funcion que devuelva T/F  y compruebe si existe un numero en la lista wque hay en memoria
