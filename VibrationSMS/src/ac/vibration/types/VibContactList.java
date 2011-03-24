@@ -2,6 +2,8 @@ package ac.vibration.types;
 
 import java.util.HashMap;
 
+import ac.vibration.exceptions.NoContactFoundException;
+
 /**
  * Lista de contactos con sus vibraciones y las funciones
  * para acceder a ellos.
@@ -38,13 +40,15 @@ public class VibContactList {
 	 * 
 	 * @param num El numero de telefono
 	 * 
-	 * @return El VibContact o null en caso de no existir
+	 * @return El VibContact
+	 * 
+	 * @throws NoContactFoundException Cuando no se encuentra el contacto
 	 * */
-	public VibContact getVibContactByNumber(String num) {
+	public VibContact getVibContactByNumber(String num) throws NoContactFoundException{
 		
-		if (num == null) return null;
+		if (num == null) throw new NoContactFoundException();
 		
-		if (num.length() < 1) return null;
+		if (num.length() < 1) throw new NoContactFoundException();
 		
 		
 	return hm.get(num);
