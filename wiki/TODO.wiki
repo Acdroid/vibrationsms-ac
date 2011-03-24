@@ -8,3 +8,5 @@ TODO
 *Hacer una funcion que dumpee lo que hay en la memoria al archivo de config machacando lo que haya.
 
 *Una funcion que devuelva T/F  y compruebe si existe un numero en la lista wque hay en memoria
+
+*Que los getters de vibration o algunas de esas devuelvan excepciones si no hay nada
