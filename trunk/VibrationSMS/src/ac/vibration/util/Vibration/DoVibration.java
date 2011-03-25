@@ -84,7 +84,7 @@ public class DoVibration {
 	 */
 	public static void SMS(Vibrator vibrator){
 		long aux[] = {0,200,100,200,100,200,90,500,300,450,200,150,85,150,85,150};
-		vibrator.vibrate(aux, -1); //Vibra para avisar
+		vibrator.vibrate(aux, -1); //Vibra para avisar 
 	}
 	
 }
