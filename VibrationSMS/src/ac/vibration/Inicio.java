@@ -1,6 +1,7 @@
 package ac.vibration;
 
 import ac.vibration.exceptions.ContactFileErrorException;
+import ac.vibration.exceptions.GeneralException;
 import ac.vibration.exceptions.NoContactFileException;
 import ac.vibration.exceptions.NoContactFoundException;
 import ac.vibration.types.VibContact;
@@ -40,43 +41,61 @@ public class Inicio extends Activity {
 		
 		
 		try {
-				
+			/*	
 			//Cargamos la lista de contactos
 			VibContactList vcl = cm.loadVibContactList();
+			*/
 			
-			
+			VibContactList vcl = new VibContactList();
 			
 			//Creamos un contacto nuevo con su vibracion
 			long[] vi = {122,344,556,44};			
 			Vibration v = new Vibration();
 			v.set(vi);			
-			VibContact vc = new VibContact("aa", "34", v);			
-			
+			VibContact vc0 = new VibContact("aa", "340", v);
+			VibContact vc1 = new VibContact("aa", "341", v);
+			VibContact vc2 = new VibContact("aa", "342", v);
+			VibContact vc3 = new VibContact("aa", "343", v);
+			VibContact vc4 = new VibContact("aa", "344", v);
 			
 			
 			//Anadimos el contacto a la lista
-			vcl.add(vc);			
+			vcl.add(vc0);			
+			vcl.add(vc1);
+			vcl.add(vc2);
+			vcl.add(vc3);
+			vcl.add(vc4);
 			
 			//Anadimos el contacto a la config
-			cm.addVibContact(vc);
+			//cm.addVibContact(vc);
+			
+			try {
+				cm.dumpVibContactList(vcl);
+			} catch (GeneralException e) {
+
+				Log.e("main", "Error al dump");
+			}
 			
 			
 			
-			//TODO: hay que crear la carpeta de destino para el archivo de config
 			Log.w("main", vcl.getVibContactByNumber("34").getVib().vibToString());
 			
 			
-			
+			/*
 		} catch (NoContactFileException e) {			
 			
 			Log.e("main", "error no hay archivo");			
 		} catch (ContactFileErrorException e) {
 			
-			Log.e("main", "error al leer la lista");			
+			Log.e("main", "error al leer la lista");
+			*/
+			
 		} catch (NoContactFoundException e) {
 			
-			Log.e("main", "no se ha encontrado el contacto");
+			Log.e("main", "No se ha encontrado el contacto: "+e.getMessage());
 		}
+		
+
     }
     
     

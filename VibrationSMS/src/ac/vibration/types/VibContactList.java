@@ -1,6 +1,7 @@
 package ac.vibration.types;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import ac.vibration.exceptions.NoContactFoundException;
 
@@ -11,7 +12,7 @@ import ac.vibration.exceptions.NoContactFoundException;
 public class VibContactList {
 
 	//Aqui se guarda la lista de contactos con vibraciones leida
-	private HashMap<String, VibContact> hm;
+	private HashMap<String, VibContact> hm = null;
 	
 	
 	public VibContactList() {
@@ -46,14 +47,40 @@ public class VibContactList {
 	 * */
 	public VibContact getVibContactByNumber(String num) throws NoContactFoundException{
 		
-		if (num == null) throw new NoContactFoundException();
+		if (num == null) throw new NoContactFoundException("Key is null");
 		
-		if (num.length() < 1) throw new NoContactFoundException();
+		if (num.length() < 1) throw new NoContactFoundException("Contact list is void");
+		
+		if (!hm.containsKey(num)) throw new NoContactFoundException("Contact number doesn't exist");
 		
 		
 	return hm.get(num);
 	}
 	
+	
+	/**
+	 * Devuelve la longitud de la lista de contactos
+	 * 
+	 * @return La longitud
+	 * */
+	public int length() {
+		
+		if (hm == null) return 0;
+		
+		return hm.size();
+		
+	}
+	
+	
+	/**
+	 * Devuelve un Iterator del HashMap para poder recorrer sus elementos
+	 * 
+	 *  @return El Iterator o null en caso de error
+	 * */
+	public Iterator<VibContact> getIterator() {
+		
+		return hm.values().iterator();
+	}
 	
 	
 }
