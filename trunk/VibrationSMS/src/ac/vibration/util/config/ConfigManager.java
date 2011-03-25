@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 
 import ac.vibration.exceptions.*;
 import ac.vibration.types.VibContact;
@@ -42,8 +43,15 @@ import android.util.Log;
  */
 public class ConfigManager {
 
+	
+	//Carpeta para guardar el archivo
+	private String CONTACTPATH = Environment.getExternalStorageDirectory()+"/VibrationSMS/";
+	
 	//Nombre del archivo donde se guardan los contactos
-	private String CONTACTFILE = Environment.getExternalStorageDirectory()+"/VibrationSMS/contacts.vib";
+	private String CONTACTFILENAME = "contacts.vib";
+	
+	//Path completo
+	private String CONTACTFILE = this.CONTACTPATH+this.CONTACTFILENAME;
 
 
 	
@@ -66,12 +74,25 @@ public class ConfigManager {
 		    		    
 		    try {
 		    	
-				boolean ok = file.createNewFile();
+		    	File directory = new File(this.CONTACTPATH);		    	
+		    	
+		    	//Intentamos crear los directorios
+		    	boolean okDir  = directory.mkdirs();
+		    			    	
+		    	if (!okDir) {
+					Log.e("ConfigManager", "Unable to create directory: "+this.CONTACTPATH);
+					throw new NoContactFileException("Unable to create directory: "+this.CONTACTPATH);
+				}
+		    	
+		    	
+		    	//Intentamos pues crear el archivo
+				boolean okFile = file.createNewFile();
 				
-				if (!ok) {
-					Log.e("ConfigManager", "Unable to create file");
+				if (!okFile) {
+					Log.e("ConfigManager", "Unable to create file: "+this.CONTACTFILE);
 					throw new NoContactFileException("Unable to create file: "+this.CONTACTFILE);
 				}
+				
 				
 			} catch (IOException e) {
 				
@@ -156,10 +177,7 @@ public class ConfigManager {
 			throw new ContactFileErrorException("Error reading from file");
 		}
 		
-		
 
-				
-				
 		return vcList;
 	}
 	
@@ -188,15 +206,97 @@ public class ConfigManager {
 	        
 	        out.close();
 	        
-	        Log.e("ConfigManager", "VibContact added with number: "+vc.getNumber());
+	        Log.i("ConfigManager", "VibContact added with number: "+vc.getNumber());
 	        
 	    //No se puede hacer nada con el archivo
 		} catch (IOException e) {
 					
 			Log.e("ConfigManager", "Cannot add entry: config file not found");
 			throw new NoContactFileException("Cannot add entry: config file not found");
-		}
+		}		
+	}
+	
+	
+	
+	/**
+	 * Vuelca el contenido de una lista de VibContacts
+	 * al archivo de configuracion machacando lo que haya.
+	 * USAR CON CUIDADO
+	 * 
+	 * @param vcl Lista de VibContacts 
+	 * 
+	 * @throws GeneralException En caso de error  
+	 * */
+	public void dumpVibContactList(VibContactList vcl) throws GeneralException {
+		
+		if (vcl.length() < 1) throw new GeneralException("List is void");
+		
+		//Delete old file
+		File f = new File(this.CONTACTFILE);		
+		boolean ok = f.delete();
+		
+		
+		//Si hemos conseguido borrarlo...
+		if (ok) {
+			
+			
+			
+			
+			
+			
+			//...lo creamos de nuevo vacio y escribimos lo que haya
+			FileWriter fstream = null;
+			try {
+				fstream = new FileWriter(this.CONTACTFILE,true);
+			} catch (IOException e1) {				
+				Log.e("ConfigManager", "Error when opening file: "+this.CONTACTFILE);
+				throw new GeneralException("Error when opening file: "+this.CONTACTFILE);
+			}
+	        BufferedWriter out = new BufferedWriter(fstream);
 
+	        
+	        Log.i("ConfigManager", vcl.length()+" entries.");
+	        
+	        //Sacamos el iterator y lo recorremos
+	        Iterator<VibContact> iter = vcl.getIterator();
+	        VibContact vc = null;
+	
+	        
+	        
+	        while (iter.hasNext()) {
+	        	
+	        	vc = iter.next();
+	        	
+	        	Log.i("ConfigManager", "in");	        	
+	        	try {
+					out.write(vc.getNumber()+"="+vc.getVib().vibToString()+"\n");
+					Log.i("ConfigManager", "Written: "+vc.getNumber()+"="+vc.getVib().vibToString()+"\n");
+				} catch (IOException e) {
+					
+					Log.e("ConfigManager", "Error when writing entry");
+				}
+	        }
+	        
+	        //Cerramos el archivo, las excepciones son una puta mierda
+	        try {
+				out.close();
+			} catch (IOException e) {
+				Log.e("ConfigManager", "Error when closing file: "+this.CONTACTFILE);
+				throw new GeneralException("Error when closing file: "+this.CONTACTFILE);
+			}
+			
+			
+			
+			
+			
+			
+			
+		}
+		else {
+			Log.e("ConfigManager", "File couldn't be deleted: "+this.CONTACTFILE);
+			throw new GeneralException("File couldn't be deleted: "+this.CONTACTFILE);
+		}
+		
 		
 	}
 	
