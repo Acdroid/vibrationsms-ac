@@ -21,7 +21,7 @@ import java.util.Iterator;
 import ac.vibration.exceptions.*;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
-import ac.vibration.types.Vibration;
+import ac.vibration.types.Vib;
 import android.os.Environment;
 import android.util.Log;
 
@@ -152,8 +152,8 @@ public class ConfigManager {
 	        	
 	        	//Creamos la vibracion	        	
 	        	try {
-	        		Vibration vib = new Vibration();
-					vib.set(vibrationStringToLong(chunks[1]));
+	        		Vib vib = new Vib();
+					vib.set(vib.vibStringToLong(chunks[1]));
 					vc.setVib(vib);
 					
 					//A la lista 
@@ -319,49 +319,7 @@ public class ConfigManager {
 	
 	
 
-	/**
-	 * Convierte una cadena con el formato:<br>
-	 * num,num,num...<br>
-	 * A un array de long, un long por cada elemento entre comas
-	 * 
-	 * @param s La cadena a convertir
-	 * 
-	 * @return Un array de long, que es una vibracion que se puede usar
-	 * 
-	 * @throws VibrationErrorException  Cuando el formato no es correcto
-	 * */
-	private static long[] vibrationStringToLong(String s) throws VibrationErrorException {
-		
-		long[] vList;
-		
-		//Separamos por las comas
-		String[] splitted = s.split(",");
-		
-				
-		//Declaramos el long donde se va a guardar
-		if (splitted.length > 1)
-			vList = new long[splitted.length];
-		else {
-
-			Log.e("ConfigManager", "Format error");
-			throw new VibrationErrorException("Format error");
-		}
-		
-		//Vamos sacando los valores 
-		for (int i=0; i<splitted.length; i++) {
-			
-			try {
-				vList[i] = Long.parseLong(splitted[i]);
-			}
-			catch (NumberFormatException e){
-				
-				Log.e("ConfigManager", "Format error");
-				throw new VibrationErrorException("Format error");
-			}
-		}
-		
-	return vList;
-	}
+	
 
 	
 	
