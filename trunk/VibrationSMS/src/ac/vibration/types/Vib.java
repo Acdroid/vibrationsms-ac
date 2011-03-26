@@ -54,6 +54,14 @@ public class Vib {
 		this.vib = vib; 
 	}
 	
+	public void set(String v) throws VibrationErrorException{
+		vib = vibStringToLong(v);
+	}
+	
+	
+	
+	
+	
 	/**
 	 * Convierte la secuencia de long en una cadena
 	 * */
@@ -84,7 +92,7 @@ public class Vib {
 	 * 
 	 * @throws VibrationErrorException  Cuando el formato no es correcto
 	 * */
-	public long[] vibStringToLong(String s) throws VibrationErrorException {
+	public static long[] vibStringToLong(String s) throws VibrationErrorException {
 		
 		long[] vList;
 		
@@ -117,24 +125,5 @@ public class Vib {
 	return vList;
 	}
 	
-	
-	/**
-	 * <b>setStringToVib</b><br>
-	 *   public void setStringToVib(String s) throws VibrationErrorException<br><br>
-	 *   
-	 * <ul>Convierte una cadena con el formato:<br>
-	 * num,num,num...<br>
-	 * A un array de long, un long por cada elemento entre comas y
-	 * los asigna al atributo Vib donde se contiene la vibracion.</ul><br>
-	 * 
-	 * @param s La cadena a convertir
-	 * 
-	 * @return Un array de long, que es una vibracion que se puede usar
-	 * 
-	 * @throws VibrationErrorException  Cuando el formato no es correcto
-	 * */
-	public void setStringToVib(String v) throws VibrationErrorException{
-		vib = vibStringToLong(v);
-	}
 	
 }
