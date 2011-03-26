@@ -27,8 +27,23 @@ public class Inicio extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
-        //Creamos una instancia del cm (un handlder)
+
+        //leeConfig();
+        //escribirConfig();
+		
+
+    }
+    
+    
+    
+    
+    
+    
+    //Lee del archivo de config
+    public void leeConfig() {
+    	
+    	
+    	   //Creamos una instancia del cm (un handlder)
         ConfigManager cm = null;        
         try {
         	cm  = new ConfigManager();
@@ -39,12 +54,54 @@ public class Inicio extends Activity {
         
 		
 		
+
 		
 		try {
-			/*	
+				
 			//Cargamos la lista de contactos
 			VibContactList vcl = cm.loadVibContactList();
-			*/
+
+			//No esta
+			Log.w("main", vcl.getVibContactByNumber("34").getVib().vibToString());
+			
+			//Si esta
+			Log.w("main", vcl.getVibContactByNumber("341").getVib().vibToString());
+			
+			
+		} catch (NoContactFoundException e) {			
+			Log.e("main", "No se ha encontrado el contacto: "+e.getMessage());
+		} catch (ContactFileErrorException e) {			
+			Log.e("main", "Error en el archivo de contactos");		
+		} catch (NoContactFileException e) {
+			Log.e("main", "No se encuentra el archivo de contactos");
+		}
+    	
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //Prueba para escribir en el archivo de config
+    public void escribirConfig() {
+    	
+        //Creamos una instancia del cm (un handlder)
+        ConfigManager cm = null;        
+        try {
+        	cm  = new ConfigManager();
+		} catch (NoContactFileException e) {
+
+			Log.e("main", "error: "+e.getMessage());
+		} 
+    	
+		
+		
+		try {	
 			
 			VibContactList vcl = new VibContactList();
 			
@@ -66,8 +123,6 @@ public class Inicio extends Activity {
 			vcl.add(vc3);
 			vcl.add(vc4);
 			
-			//Anadimos el contacto a la config
-			//cm.addVibContact(vc);
 			
 			try {
 				cm.dumpVibContactList(vcl);
@@ -77,26 +132,26 @@ public class Inicio extends Activity {
 			}
 			
 			
-			
+			//Este no esta
 			Log.w("main", vcl.getVibContactByNumber("34").getVib().vibToString());
 			
+			//Este si
+			Log.w("main", vcl.getVibContactByNumber("341").getVib().vibToString());
 			
-			/*
-		} catch (NoContactFileException e) {			
-			
-			Log.e("main", "error no hay archivo");			
-		} catch (ContactFileErrorException e) {
-			
-			Log.e("main", "error al leer la lista");
-			*/
 			
 		} catch (NoContactFoundException e) {
 			
 			Log.e("main", "No se ha encontrado el contacto: "+e.getMessage());
 		}
 		
-
+    	
+    	
+    	
     }
+    
+    
+    
+    
     
     
     
