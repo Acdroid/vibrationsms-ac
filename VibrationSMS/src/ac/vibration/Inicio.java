@@ -6,7 +6,7 @@ import ac.vibration.exceptions.NoContactFileException;
 import ac.vibration.exceptions.NoContactFoundException;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
-import ac.vibration.types.Vibration;
+import ac.vibration.types.Vib;
 import ac.vibration.util.config.ConfigManager;
 import ac.vibration.util.contactos.AgregarVibracion;
 import android.app.Activity;
@@ -28,7 +28,7 @@ public class Inicio extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        //leeConfig();
+        leeConfig();
         //escribirConfig();
 		
 
@@ -61,11 +61,13 @@ public class Inicio extends Activity {
 			//Cargamos la lista de contactos
 			VibContactList vcl = cm.loadVibContactList();
 
+	
+			//Si esta
+			Log.w("main", vcl.getVibContactByNumber("341").getVib().vibToString());
+	
 			//No esta
 			Log.w("main", vcl.getVibContactByNumber("34").getVib().vibToString());
 			
-			//Si esta
-			Log.w("main", vcl.getVibContactByNumber("341").getVib().vibToString());
 			
 			
 		} catch (NoContactFoundException e) {			
@@ -107,7 +109,7 @@ public class Inicio extends Activity {
 			
 			//Creamos un contacto nuevo con su vibracion
 			long[] vi = {122,344,556,44};			
-			Vibration v = new Vibration();
+			Vib v = new Vib();
 			v.set(vi);			
 			VibContact vc0 = new VibContact("aa", "340", v);
 			VibContact vc1 = new VibContact("aa", "341", v);
@@ -130,13 +132,13 @@ public class Inicio extends Activity {
 
 				Log.e("main", "Error al dump");
 			}
-			
-			
+
+			//Este si esta
+			Log.w("main", vcl.getVibContactByNumber("341").getVib().vibToString());
+
+						
 			//Este no esta
 			Log.w("main", vcl.getVibContactByNumber("34").getVib().vibToString());
-			
-			//Este si
-			Log.w("main", vcl.getVibContactByNumber("341").getVib().vibToString());
 			
 			
 		} catch (NoContactFoundException e) {

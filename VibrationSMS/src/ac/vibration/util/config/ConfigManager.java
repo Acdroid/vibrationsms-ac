@@ -152,8 +152,10 @@ public class ConfigManager {
 	        	
 	        	//Creamos la vibracion	        	
 	        	try {
+
 	        		Vib vib = new Vib();
-					vib.set(vib.vibStringToLong(chunks[1]));
+					vib.set(Vib.vibStringToLong(chunks[1]));
+
 					vc.setVib(vib);
 					
 					//A la lista 
