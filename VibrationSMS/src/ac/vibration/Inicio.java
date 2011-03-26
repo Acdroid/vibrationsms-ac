@@ -23,7 +23,7 @@ public class Inicio extends Activity {
 	public static int RETURN_ERROR = 1;
 	
 	
-    @Override
+    @Override 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
