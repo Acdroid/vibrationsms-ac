@@ -10,12 +10,18 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
 import android.util.Log;
+import android.view.View;
 import android.widget.AlphabetIndexer;
+import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.TwoLineListItem;
 
 
 public final class AgregarVibracion extends ListActivity
@@ -49,9 +55,19 @@ public final class AgregarVibracion extends ListActivity
 				fields, to);
         
 		setListAdapter(adapter);
+		
 	}
 
-
+	@Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        
+        cursor.moveToPosition(position);
+        String nombre = cursor.getString(cursor.getColumnIndex(Data.DISPLAY_NAME));
+        Toast.makeText(this, nombre + " pos " + position, Toast.LENGTH_LONG).show();
+        cursor.moveToFirst();
+        
+    }
 
 	/**
 	 * Obtains the contact list for the currently selected account.
