@@ -9,6 +9,7 @@ import ac.vibration.types.VibContactList;
 import ac.vibration.types.Vib;
 import ac.vibration.util.config.ConfigManager;
 import ac.vibration.util.contactos.AgregarVibracion;
+import ac.vibration.util.mToast.mToast;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,8 +20,10 @@ public class Inicio extends Activity {
     /** Called when the activity is first created. */
 	
 	public static int ID = 1;
-	public static int RETURN_OK = 0;
-	public static int RETURN_ERROR = 1;
+	public static final int RESULT_OK = 0;
+	public static final int RESULT_ERROR = 1;
+	public static final int RESULT_VIBRATION_EDIT_OK = 2;
+	public static final int RESULT_SALIR = 3;
 	
 	
     @Override 
@@ -34,9 +37,7 @@ public class Inicio extends Activity {
 
     }
     
-    
-    
-    
+       
     
     
     //Lee del archivo de config
@@ -150,14 +151,7 @@ public class Inicio extends Activity {
     	
     	
     }
-    
-    
-    
-    
-    
-    
-    
-    
+  
     /**
      * <b>clickAsignar</b>
      *  public void clickAsignar (View v)
@@ -173,4 +167,25 @@ public class Inicio extends Activity {
     	startActivityForResult(i, ID);
     	
     }
+    
+    
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == ID){
+			switch (resultCode){
+			case RESULT_OK:
+				break;
+			case RESULT_ERROR:
+				break;
+			case RESULT_SALIR:
+				Inicio.this.finish();
+			case RESULT_VIBRATION_EDIT_OK:
+				mToast.Make(this, "Vibration Save!", 0);
+				break;
+			default:
+				
+			}
+		}
+	}
+    
+    
 }

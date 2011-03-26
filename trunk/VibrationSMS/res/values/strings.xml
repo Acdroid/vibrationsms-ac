@@ -5,24 +5,9 @@
     <string name="main_button_asignar">Assign Vibration</string>
     <string name="main_button_agregar">Create new Vibration</string>
     
+    <!-- Dialog -->
+    <string name = "edit_vibration"> Edit Vibration></string>
+	<string name = "dialog_selection">what you want to do?</string>    
     
     
-    
-    
-    
-        <string name="accountSpinnerLabel">Account</string>
-    <string name="addContactButtonLabel">Add Contact</string>
-    <string name="addContactTitle">Add Contact</string>
-    <string name="allAccounts">All Accounts</string>
-
-    <string name="contactCreationFailure">Contact creation failed, check logs.</string>
-    <string name="contactEmailLabel">Contact Email</string>
-    <string name="contactNameLabel">Contact Name</string>
-    <string name="contactPhoneLabel">Contact Phone</string>
-    <string name="save">Save</string>
-    <string name="selectAccountLabel">Select</string>
-    <string name="selectLabel">Select label</string>
-    <string name="showInvisible">Show Invisible Contacts (Only)</string>
-    <string name="targetAccountLabel">Target Account</string>
-    <string name="undefinedTypeLabel">(Undefined)</string>
 </resources>
