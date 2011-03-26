@@ -7,13 +7,13 @@ public class VibContact {
 	
 	private String name = "";
 	private String number = "";
-	private Vibration vib = new Vibration();
+	private Vib vib = new Vib();
 	
 	
 	public VibContact() {}
 	
 	
-	public VibContact(String name, String number, Vibration vib) {		
+	public VibContact(String name, String number, Vib vib) {		
 		setName(name);
 		setNumber(number);
 		setVib(vib);		
@@ -32,10 +32,10 @@ public class VibContact {
 	public void setNumber(String number) {
 		this.number = number;
 	}
-	public Vibration getVib() {
+	public Vib getVib() {
 		return vib;
 	}
-	public void setVib(Vibration vib) {
+	public void setVib(Vib vib) {
 		this.vib = vib;
 	}
 	
