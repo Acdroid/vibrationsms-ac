@@ -7,7 +7,10 @@ package ac.vibration.util.contactos;
 
 import ac.vibration.Inicio;
 import ac.vibration.R;
+import ac.vibration.exceptions.NoContactFileException;
+import ac.vibration.types.Vib;
 import ac.vibration.types.VibContact;
+import ac.vibration.util.config.ConfigManager;
 import ac.vibration.util.mToast.mToast;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -21,13 +24,10 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AlphabetIndexer;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 public final class AgregarVibracion extends ListActivity
@@ -142,13 +142,32 @@ public final class AgregarVibracion extends ListActivity
 			mToast.Make(this,"Elegido Custom Morse", 0);
 			break;
 		case 3:
-			mToast.Make(this,"Elegido Name in morse", 0);
+			addNameMorse();
 			break;
 		default:
 			return;
 
 		}
 
+	}
+	
+	
+	/**
+	 * Obtiene la vibracion en morse a partir del nombre y se guarda en ConfigurationManager
+	 * 
+	 */
+	private void addNameMorse(){
+		long aux[] = {0,100,100,200,100,300,100,400,100,500};
+		//Vib nameMorse = stringToMorse(contactSend.getName); 
+		//contactSend.setVib(nameMorse);
+		contactSend.setVib(new Vib(aux));
+		try {
+			new ConfigManager().addVibContact(contactSend);
+		} catch (NoContactFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
