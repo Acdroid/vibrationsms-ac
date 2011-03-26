@@ -4,15 +4,20 @@ import ac.vibration.exceptions.ContactFileErrorException;
 import ac.vibration.exceptions.GeneralException;
 import ac.vibration.exceptions.NoContactFileException;
 import ac.vibration.exceptions.NoContactFoundException;
+import ac.vibration.exceptions.VibrationErrorException;
+import ac.vibration.morse.MorseCode;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.types.Vib;
+import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.ConfigManager;
 import ac.vibration.util.contactos.AgregarVibracion;
 import ac.vibration.util.mToast.mToast;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 
@@ -31,10 +36,23 @@ public class Inicio extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        leeConfig();
+        //leeConfig();
         //escribirConfig();
 		
 
+        
+        long[] v = MorseCode.stringToVib("morse code", 1000, 4);
+      
+        DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), v);
+        
+        Vib vv = new Vib(v);
+        Log.i("main", vv.vibToString());
+        
+        
+        
+        
+        
+        
     }
     
        
