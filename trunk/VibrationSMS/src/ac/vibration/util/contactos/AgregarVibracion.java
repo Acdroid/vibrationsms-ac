@@ -6,24 +6,22 @@
 package ac.vibration.util.contactos;
 
 import ac.vibration.R;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.Data;
+import android.util.Log;
 import android.widget.AlphabetIndexer;
-import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.SimpleCursorAdapter;
 
 
-public final class AgregarVibracion extends Activity
+public final class AgregarVibracion extends ListActivity
 {
 	
 	public Cursor cursor;
-	private ListView list;
 
 
 	/**
@@ -33,11 +31,7 @@ public final class AgregarVibracion extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.lista_contactos);  
-		
-		list = (ListView) findViewById(R.id.lista_contactos);
-		list.setFastScrollEnabled(true);
-		
+		setContentView(R.layout.lista_contactos); 
 		
 
 		cursor = getContacts();
@@ -49,10 +43,12 @@ public final class AgregarVibracion extends Activity
 
         int[] to = new int[] { R.id.item_lista_nombre, R.id.item_lista_numero};
 
-		MiCursorAdapter adapter = new MiCursorAdapter(this, R.layout.item_lista_contactos, cursor,
+//		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.item_lista_contactos, cursor,
+//				fields, to);
+        MiCursorAdapter adapter = new MiCursorAdapter(this, R.layout.item_lista_contactos, cursor,
 				fields, to);
-
-		list.setAdapter(adapter);
+        
+		setListAdapter(adapter);
 	}
 
 
@@ -70,8 +66,7 @@ public final class AgregarVibracion extends Activity
 						+ Phone.NUMBER + " IS NOT NULL", null,
 						Data.DISPLAY_NAME + " ASC");
 	}
-	
-	
+
 	class MiCursorAdapter extends SimpleCursorAdapter implements SectionIndexer{
 		AlphabetIndexer alphaIndexer;
 
@@ -79,26 +74,31 @@ public final class AgregarVibracion extends Activity
 				String[] from, int[] to) {
 			super(context, layout, c, from, to);
 			// TODO Auto-generated constructor stub
-			
+			Log.d("DEBUG","entro1111");
 			alphaIndexer=new AlphabetIndexer(c,c.getColumnIndex(Data.DISPLAY_NAME), " ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 		}
 
 		@Override
 		public int getPositionForSection(int section) {
-			return alphaIndexer.getPositionForSection(section);
+			Log.d("DEBUG","entro");
+			 return alphaIndexer.getPositionForSection(section);
 		}
 
 		@Override
 		public int getSectionForPosition(int position) {
+			Log.d("DEBUG","entro2");
 			return alphaIndexer.getSectionForPosition(position);
 		}
 
 		@Override
 		public Object[] getSections() {
-			 return alphaIndexer.getSections();
+			Log.d("DEBUG","entro3");
+			return alphaIndexer.getSections();
 		}
 		
 		
 	}
-
+	
+	
+	
 }
