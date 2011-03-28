@@ -7,9 +7,14 @@ package ac.vibration.util.contactos;
 
 import ac.vibration.Inicio;
 import ac.vibration.R;
+import ac.vibration.exceptions.ContactFileErrorException;
+import ac.vibration.exceptions.GeneralException;
 import ac.vibration.exceptions.NoContactFileException;
+import ac.vibration.morse.MorseCode;
 import ac.vibration.types.Vib;
 import ac.vibration.types.VibContact;
+import ac.vibration.types.VibContactList;
+import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.ConfigManager;
 import ac.vibration.util.mToast.mToast;
 import android.app.AlertDialog;
@@ -20,14 +25,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
 import android.util.Log;
 import android.view.View;
 import android.widget.AlphabetIndexer;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.SimpleCursorAdapter;
+
 
 
 public final class AgregarVibracion extends ListActivity
@@ -43,7 +51,9 @@ public final class AgregarVibracion extends ListActivity
 
 	private Cursor cursor;
 	private CharSequence[] items = { op1, op2,op3,op4};
-	public VibContact contactSend;
+	public VibContact selectContact;
+
+	VibContactList vcl;
 
 	/**
 	 * Called when the activity is first created. Responsible for initializing the UI.
@@ -53,6 +63,16 @@ public final class AgregarVibracion extends ListActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lista_contactos); 
+
+		try {
+			vcl = new ConfigManager().loadVibContactList();
+		} catch (NoContactFileException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ContactFileErrorException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 
 		cursor = getContacts();
@@ -84,7 +104,7 @@ public final class AgregarVibracion extends ListActivity
 		cursor.moveToFirst();
 
 		//Creamos un VibContact para enviarlo por intent
-		contactSend = new VibContact(nombre,phone,null);
+		selectContact = new VibContact(nombre,phone,null);
 		showDialog(DIALOG_LIST_OPTIONS);
 
 	}
@@ -150,26 +170,21 @@ public final class AgregarVibracion extends ListActivity
 		}
 
 	}
-	
-	
+
+
 	/**
 	 * Obtiene la vibracion en morse a partir del nombre y se guarda en ConfigurationManager
 	 * 
 	 */
 	private void addNameMorse(){
-		long aux[] = {0,100,100,200,100,300,100,400,100,500};
-		//Vib nameMorse = stringToMorse(contactSend.getName); 
-		//contactSend.setVib(nameMorse);
-		contactSend.setVib(new Vib(aux));
-		try {
-			new ConfigManager().addVibContact(contactSend);
-		} catch (NoContactFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		long v[] = MorseCode.stringToVib(selectContact.getName(),0 , MorseCode.SPEED_DEFECTO);
+		selectContact.setVib(new Vib(v));
+		vcl.add(selectContact);
+
+		DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), v);
+		mToast.Make(this, "Vibration add correctly", 0);
 	}
-	
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == ID){
 			switch (resultCode){
@@ -184,11 +199,54 @@ public final class AgregarVibracion extends ListActivity
 				mToast.Make(this, "Vibration Save!", 0);
 				break;
 			default:
-				
+
 			}
 		}
 	}
-	
+
+
+	@Override
+	protected void onDestroy() {
+		try {
+			new ConfigManager().dumpVibContactList(vcl);
+		} catch (GeneralException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoContactFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		super.onDestroy();
+	}
+
+	@Override
+	protected void onResume() {
+		try {
+			new ConfigManager().dumpVibContactList(vcl);
+		} catch (GeneralException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoContactFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		super.onResume();
+	}
+
+	@Override
+	protected void onStop() {
+		try {
+			new ConfigManager().dumpVibContactList(vcl);
+		} catch (GeneralException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoContactFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		super.onStop();
+	}
+
 
 	class MiCursorAdapter extends SimpleCursorAdapter implements SectionIndexer{
 		AlphabetIndexer alphaIndexer;
@@ -199,9 +257,41 @@ public final class AgregarVibracion extends ListActivity
 			// TODO Auto-generated constructor stub
 			alphaIndexer=new AlphabetIndexer(c,c.getColumnIndex(Data.DISPLAY_NAME), " ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 		}
-      
 
-		
+
+
+
+		@Override
+		public void bindView(View view, Context context, Cursor cursor) {
+			String phone = cursor.getString(cursor.getColumnIndex(Phone.NUMBER));
+			if (vcl.isContactInList(phone)){
+				ImageView i = (ImageView) view.findViewById(R.id.item_list_image);
+				i.setBackgroundResource(R.drawable.tick_ok);
+			}
+			else{
+
+				ImageView i = (ImageView) view.findViewById(R.id.item_list_image);
+				i.setBackgroundResource(R.drawable.tick);
+			}
+
+			
+//			if ((cursor.getPosition() % 2) == 0){
+//				TextView l = (TextView) view.findViewById(R.id.item_lista_nombre);
+//				l.setBackgroundColor(R.color.lista_blue);	
+//				
+//
+//			}
+//			else {
+//
+//				TextView l = (TextView) view.findViewById(R.id.item_lista_numero);
+//				l.setBackgroundColor(R.color.lista_blue);
+//
+//			}
+			super.bindView(view, context, cursor);
+			}
+
+
+
 
 		@Override
 		public int getPositionForSection(int section) {

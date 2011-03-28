@@ -4,7 +4,6 @@ import ac.vibration.exceptions.ContactFileErrorException;
 import ac.vibration.exceptions.GeneralException;
 import ac.vibration.exceptions.NoContactFileException;
 import ac.vibration.exceptions.NoContactFoundException;
-import ac.vibration.exceptions.VibrationErrorException;
 import ac.vibration.morse.MorseCode;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
@@ -39,7 +38,6 @@ public class Inicio extends Activity {
 
         //leeConfig();
         //escribirConfig();
-		
         Log.i("DEBUG",Tools.cleanText("texto ??[]}limpio...;!"));
         
         long[] v = MorseCode.stringToVib("morse code", 1000, 4);

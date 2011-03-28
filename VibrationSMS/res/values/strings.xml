@@ -7,7 +7,7 @@
     
     <!-- Dialog -->
     <string name = "edit_vibration"> Edit Vibration></string>
-	<string name = "dialog_selection">what you want to do?</string>    
+	<string name = "dialog_selection">what do you want to do?</string>    
     
     
 </resources>
