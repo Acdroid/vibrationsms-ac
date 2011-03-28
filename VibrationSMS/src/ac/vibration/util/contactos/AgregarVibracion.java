@@ -197,7 +197,6 @@ public final class AgregarVibracion extends ListActivity
 				String[] from, int[] to) {
 			super(context, layout, c, from, to);
 			// TODO Auto-generated constructor stub
-			Log.d("DEBUG","entro1111");
 			alphaIndexer=new AlphabetIndexer(c,c.getColumnIndex(Data.DISPLAY_NAME), " ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 		}
       
@@ -206,19 +205,16 @@ public final class AgregarVibracion extends ListActivity
 
 		@Override
 		public int getPositionForSection(int section) {
-			Log.d("DEBUG","entro");
 			return alphaIndexer.getPositionForSection(section);
 		}
 
 		@Override
 		public int getSectionForPosition(int position) {
-			Log.d("DEBUG","entro2");
 			return alphaIndexer.getSectionForPosition(position);
 		}
 
 		@Override
 		public Object[] getSections() {
-			Log.d("DEBUG","entro3");
 			return alphaIndexer.getSections();
 		}
 
