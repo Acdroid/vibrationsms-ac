@@ -39,7 +39,8 @@ public class Inicio extends Activity {
         //leeConfig();
         //escribirConfig();
 		
-
+        Log.i("DEBUG","¿hola qué tal estás ñ´`p...;!");
+        Log.i("DEBUG",MorseCode.limpiaTexto("¿hola qué tal estás ñ´`p...;!"));
         
         long[] v = MorseCode.stringToVib("morse code", 1000, 4);
       
