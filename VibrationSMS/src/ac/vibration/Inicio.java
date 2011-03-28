@@ -13,6 +13,7 @@ import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.ConfigManager;
 import ac.vibration.util.contactos.AgregarVibracion;
 import ac.vibration.util.mToast.mToast;
+import ac.vibration.util.tools.Tools;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -39,8 +40,7 @@ public class Inicio extends Activity {
         //leeConfig();
         //escribirConfig();
 		
-        Log.i("DEBUG","¿hola qué tal estás ñ´`p...;!");
-        Log.i("DEBUG",MorseCode.limpiaTexto("¿hola qué tal estás ñ´`p...;!"));
+        Log.i("DEBUG",Tools.cleanText("texto ??[]}limpio...;!"));
         
         long[] v = MorseCode.stringToVib("morse code", 1000, 4);
       
