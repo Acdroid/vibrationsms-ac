@@ -71,6 +71,21 @@ public class VibContactList {
 	
 	
 	/**
+	 * Comprueba si un numero de telefono esta contenido en la 
+	 * lista de vibContact
+	 * 
+	 * @param num El numero de telefono
+	 * 
+	 * @return True si existe, false e.o.c.
+	 * 
+	 * */
+	public boolean isContactInList (String num){
+		return hm.containsKey(num);
+	}
+	
+	
+	
+	/**
 	 * Devuelve la longitud de la lista de contactos
 	 * 
 	 * @return La longitud

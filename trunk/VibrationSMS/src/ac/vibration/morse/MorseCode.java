@@ -4,7 +4,6 @@ import android.util.Log;
 
 public class MorseCode {
 
-	
 	/*
 	 * entra cada simbolo . o - hay 1 de espera
 	 * entre cada letra hay 3 de espera
@@ -16,7 +15,8 @@ public class MorseCode {
 	
 	///Duracion multiplo de todo
 	private static final int MULTIPLE = 50;
-	
+	//Speed por defecto. Se debera cambiar por configuracion
+	public static final int SPEED_DEFECTO = 2;
 	
 	
 	

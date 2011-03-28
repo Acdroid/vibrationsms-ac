@@ -84,7 +84,6 @@ public class ConfigManager {
 					throw new NoContactFileException("Unable to create directory: "+this.CONTACTPATH);
 				}
 
-
 				//Intentamos pues crear el archivo
 				boolean okFile = file.createNewFile();
 
