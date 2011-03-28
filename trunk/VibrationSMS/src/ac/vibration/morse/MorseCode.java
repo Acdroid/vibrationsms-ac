@@ -207,14 +207,9 @@ public class MorseCode {
 	
 	
 	/**
-	 * <b>limpiaTexto</b><br><br>
-	 *   public String limpiaTexto(String text)<br><br>
-	 * <ul>Este metodo se debe utilizar una vez leido el texto deseado
-	 * y lo que hace es devolver el mismo texto pero habiendo eliminado 
+	 * <ul>Devuelve el mismo texto pero habiendo eliminado 
 	 * todos los simbolos que no deseemos tales como parentesis, llaves,
 	 * corchetes etc.
-	 * Puntos y comas se dejaran en el texto.
-	 * Los numeros se pasan a su equivalente en letras.(individualmente).
 	 * Se elimina acentos y dieresis.</ul><br><br>
 	 * @param text Texto del cual queremos eliminar los simbolos.
 	 * @return Texto parseado sin simbolos.
