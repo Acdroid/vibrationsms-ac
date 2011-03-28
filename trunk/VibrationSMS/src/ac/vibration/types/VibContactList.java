@@ -35,6 +35,18 @@ public class VibContactList {
 		hm.put(vc.getNumber(), vc);
 	}
 	
+	/**
+	 * Elimina un elemento de la lista.
+	 * 
+	 * @param vc El VibContact a anadir, se asume que tiene datos
+	 * correctos
+	 * */
+	public void remove(VibContact vc) {
+				
+		
+		hm.remove(vc.getNumber());
+	}
+	
 	
 	/**
 	 * Extrae un VibContact de la lista a partir de un numero
