@@ -70,38 +70,7 @@ public class ContactsConfig {
 		//Si no existe intentamos crearlo
 		if (!exists) {
 
-			File file = new File(CONTACTFILE);
-
-			try {
-
-				File directory = new File(CONTACTPATH);		    	
-
-				//Intentamos crear los directorios si no existen ya
-				if (!directory.exists()) {
-					boolean okDir  = directory.mkdirs();
-	
-					if (!okDir) {
-						Log.e("ConfigManager", "Unable to create directory: "+CONTACTPATH);
-						throw new NoContactFileException("Unable to create directory: "+CONTACTPATH);
-					}
-				}
-
-				//Intentamos pues crear el archivo
-				boolean okFile = file.createNewFile();
-
-				if (!okFile) {
-					Log.e("ConfigManager", "Unable to create file: "+CONTACTFILE);
-					throw new NoContactFileException("Unable to create file: "+CONTACTFILE);
-				}
-
-
-			} catch (IOException e) {
-
-				Log.e("ConfigManager", "Unable to create file");
-				throw new NoContactFileException("Unable to create file: "+CONTACTFILE);
-			}
-
-			Log.i("ConfigManager", "Config file created");
+			ConfigBackend.createStructure(CONTACTPATH, CONTACTFILE);
 		}
 
 	}
@@ -138,11 +107,7 @@ public class ContactsConfig {
 
 
 				//Dividimos la linea
-				String chunks[] = line.split("=");
-
-				//Quitamos los espacios al final y al principio
-				chunks[0].replaceAll("\\s*", "");
-				chunks[1].replaceAll("\\s*", "");
+				String chunks[] = ConfigBackend.parseLine(line);
 
 
 				//Nuevo contacto
@@ -197,26 +162,8 @@ public class ContactsConfig {
 	 * */
 	public void addVibContact(VibContact vc) throws NoContactFileException {
 
-		FileWriter fstream;
-
-		try {
-
-			//Anadimos al final del archivo
-			fstream = new FileWriter(CONTACTFILE,true);
-			BufferedWriter out = new BufferedWriter(fstream);
-
-			out.write(vc.getNumber()+"="+vc.getVib().vibToString()+"\n");
-
-			out.close();
-
-			Log.i("ConfigManager", "VibContact added with number: "+vc.getNumber());
-
-			//No se puede hacer nada con el archivo
-		} catch (IOException e) {
-
-			Log.e("ConfigManager", "Cannot add entry: config file not found");
-			throw new NoContactFileException("Cannot add entry: config file not found");
-		}		
+				
+		ConfigBackend.addLine(CONTACTFILE, vc.getNumber(), vc.getVib().vibToString());
 	}
 
 
@@ -283,11 +230,6 @@ public class ContactsConfig {
 				Log.e("ConfigManager", "Error when closing file: "+CONTACTFILE);
 				throw new GeneralException("Error when closing file: "+CONTACTFILE);
 			}
-
-
-
-
-
 
 
 		}
