@@ -13,7 +13,7 @@ import ac.vibration.exceptions.NoVibrationFoundException;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.util.Vibration.DoVibration;
-import ac.vibration.util.config.ConfigManager;
+import ac.vibration.util.config.ContactsConfig;
 import ac.vibration.util.mToast.mToast;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -83,7 +83,7 @@ public class ReceiverSMS extends BroadcastReceiver {
 				try {
 					
 					//Cargamos la lista
-					vcl = new ConfigManager().loadVibContactList();
+					vcl = new ContactsConfig().loadVibContactList();
 					
 					//Buscamos el contacto por si tiene una vibración propia
 					VibContact vc = vcl.getVibContactByNumber(numTelf[i]);
