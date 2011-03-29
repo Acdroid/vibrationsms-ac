@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import ac.vibration.exceptions.NoContactFileException;
+import ac.vibration.exceptions.NoFileException;
 import android.util.Log;
 
 
@@ -31,7 +31,7 @@ public class ConfigBackend {
 	 * @throws NoContactFileException 
 	 * 
 	 * */
-	public static void createStructure(String dirPath, String fullPath) throws NoContactFileException {
+	public static void createStructure(String dirPath, String fullPath) throws NoFileException {
 		
 		File file = new File(fullPath);
 
@@ -45,7 +45,7 @@ public class ConfigBackend {
 
 				if (!okDir) {
 					Log.e("ConfigBackend", "Unable to create directory: "+dirPath);
-					throw new NoContactFileException("Unable to create directory: "+dirPath);
+					throw new NoFileException("Unable to create directory: "+dirPath);
 				}
 			}
 
@@ -54,14 +54,14 @@ public class ConfigBackend {
 
 			if (!okFile) {
 				Log.e("ConfigBackend", "Unable to create file: "+fullPath);
-				throw new NoContactFileException("Unable to create file: "+fullPath);
+				throw new NoFileException("Unable to create file: "+fullPath);
 			}
 
 
 		} catch (IOException e) {
 
 			Log.e("ConfigBackend", "Unable to create file");
-			throw new NoContactFileException("Unable to create file: "+fullPath);
+			throw new NoFileException("Unable to create file: "+fullPath);
 		}
 
 		Log.i("ConfigBackend", "Config file created");
@@ -108,7 +108,7 @@ public class ConfigBackend {
 	 * @throws NoContactFileException 
 	 * 
 	 * */
-	public static void addLine(String fullPath, String key, String value) throws NoContactFileException {
+	public static void addLine(String fullPath, String key, String value) throws NoFileException {
 		
 		FileWriter fstream;
 
@@ -128,7 +128,7 @@ public class ConfigBackend {
 		} catch (IOException e) {
 
 			Log.e("ConfigBackend", "Cannot add entry: config file not found");
-			throw new NoContactFileException("Cannot add entry: config file not found");
+			throw new NoFileException("Cannot add entry: config file not found");
 		}
 	}
 	

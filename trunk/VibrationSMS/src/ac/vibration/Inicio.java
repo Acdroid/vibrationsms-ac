@@ -2,8 +2,8 @@ package ac.vibration;
 
 import ac.vibration.exceptions.ContactFileErrorException;
 import ac.vibration.exceptions.GeneralException;
-import ac.vibration.exceptions.NoContactFileException;
 import ac.vibration.exceptions.NoContactFoundException;
+import ac.vibration.exceptions.NoFileException;
 import ac.vibration.morse.MorseCode;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
@@ -65,7 +65,7 @@ public class Inicio extends Activity {
     	ContactsConfig cm = null;        
         try {
         	cm  = new ContactsConfig();
-		} catch (NoContactFileException e) {
+		} catch (NoFileException e) {
 
 			Log.e("main", "error: "+e.getMessage());
 		} 
@@ -92,7 +92,7 @@ public class Inicio extends Activity {
 			Log.e("main", "No se ha encontrado el contacto: "+e.getMessage());
 		} catch (ContactFileErrorException e) {			
 			Log.e("main", "Error en el archivo de contactos");		
-		} catch (NoContactFileException e) {
+		} catch (NoFileException e) {
 			Log.e("main", "No se encuentra el archivo de contactos");
 		}
     	
@@ -114,7 +114,7 @@ public class Inicio extends Activity {
     	ContactsConfig cm = null;        
         try {
         	cm  = new ContactsConfig();
-		} catch (NoContactFileException e) {
+		} catch (NoFileException e) {
 
 			Log.e("main", "error: "+e.getMessage());
 		} 

@@ -9,7 +9,7 @@ import ac.vibration.Inicio;
 import ac.vibration.R;
 import ac.vibration.exceptions.ContactFileErrorException;
 import ac.vibration.exceptions.GeneralException;
-import ac.vibration.exceptions.NoContactFileException;
+import ac.vibration.exceptions.NoFileException;
 import ac.vibration.morse.MorseCode;
 import ac.vibration.types.Vib;
 import ac.vibration.types.VibContact;
@@ -65,7 +65,7 @@ public final class AgregarVibracion extends ListActivity
 
 		try {
 			vcl = new ContactsConfig().loadVibContactList();
-		} catch (NoContactFileException e1) {
+		} catch (NoFileException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (ContactFileErrorException e1) {
@@ -211,7 +211,7 @@ public final class AgregarVibracion extends ListActivity
 		} catch (GeneralException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NoContactFileException e) {
+		} catch (NoFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -225,7 +225,7 @@ public final class AgregarVibracion extends ListActivity
 		} catch (GeneralException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NoContactFileException e) {
+		} catch (NoFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -239,7 +239,7 @@ public final class AgregarVibracion extends ListActivity
 		} catch (GeneralException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NoContactFileException e) {
+		} catch (NoFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
