@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import ac.vibration.exceptions.NoContactFoundException;
+import ac.vibration.exceptions.NoVibrationFoundException;
 
 /**
  * Lista de contactos con sus vibraciones y las funciones
@@ -13,6 +14,12 @@ public class VibContactList {
 
 	//Aqui se guarda la lista de contactos con vibraciones leida
 	private HashMap<String, VibContact> hm = null;
+		
+	
+	//El contacto master es que aloja la vibración que se usa en caso de que no haya nada 
+	private static final String MASTERNUMBER = "master"; 
+	
+	
 	
 	
 	public VibContactList() {
@@ -70,6 +77,23 @@ public class VibContactList {
 	}
 	
 	
+	
+	
+	/**
+	 * La Vibracion master es la que suplanta a todas
+	 * las que no esten definidas para un usuario
+	 * especifico.
+	 *  
+	 * */
+	public VibContact getMasterContact() throws NoVibrationFoundException {
+
+		
+		return hm.get(MASTERNUMBER);		
+	}	
+	
+	
+	
+	
 	/**
 	 * Comprueba si un numero de telefono esta contenido en la 
 	 * lista de vibContact
@@ -79,7 +103,7 @@ public class VibContactList {
 	 * @return True si existe, false e.o.c.
 	 * 
 	 * */
-	public boolean isContactInList (String num){
+	public boolean contactExists(String num){
 		return hm.containsKey(num);
 	}
 	

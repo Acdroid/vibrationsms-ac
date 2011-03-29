@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.telephony.SmsMessage;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -65,38 +66,60 @@ public class ReceiverSMS extends BroadcastReceiver {
 			}
 			//---Mostrar el mensaje del SMS---
 
+			
+			
+			
+			
+			
+			//Vamos anecesitar la lista en todo el scope
+			VibContactList vcl = null;
+			
+
+			
 			//Para cada telefono recibido comprobamos si tiene una vibracion personificada
 			for (int i=0 ; i<numTelf.length ; i ++){
 
 
 				try {
-					VibContactList vcl = new ConfigManager().loadVibContactList();
+					
+					//Cargamos la lista
+					vcl = new ConfigManager().loadVibContactList();
+					
+					//Buscamos el contacto por si tiene una vibración propia
 					VibContact vc = vcl.getVibContactByNumber(numTelf[i]);
 
+					//Y a vibrar se ha dicho
 					DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), vc.getVib().get());
 					mToast.Make(mContext, "Vibracion Custom", 0);
 
 
-//FIXME tratamiento de excepciones mirar Preguntar a Carlos
+					
+				//En caso de no encontrar la vibracion personalizada ponemos la master
 				}catch (NoContactFoundException e) {
+					
+					
 					try {
-						DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), new ConfigManager().getMasterVibration());
+						DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), vcl.getMasterContact().getVib().get());
+						
+					//No esta la vibración master
 					} catch (NoVibrationFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (NoContactFileException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					mToast.Make(mContext, "Vibracion Master", 0);
-					e.printStackTrace();
-				}catch (NoContactFileException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ContactFileErrorException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
+
+						Log.w("ReceiverSMS", "No master vibration, that's bad");
+					} 
+					
+					
+					
+					mToast.Make(mContext, "Vibracion Master", 0);					
+					
+					
+				//Errores en el archivo	
+				} catch (NoContactFileException e) {
+					Log.e("ReceiverSMS", "Cannot find config file");
+				} catch (ContactFileErrorException e) {										
+					Log.e("ReceiverSMS", "Config file contains errors");
+				}
+				
+				
 				Toast.makeText(mContext, "Mensaje de " + numTelf[i], Toast.LENGTH_SHORT).show();
 				DoVibration.SMS((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE));
 			}

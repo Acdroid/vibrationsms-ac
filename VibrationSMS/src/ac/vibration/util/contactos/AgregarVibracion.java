@@ -28,7 +28,6 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
-import android.util.Log;
 import android.view.View;
 import android.widget.AlphabetIndexer;
 import android.widget.ImageView;
@@ -264,7 +263,7 @@ public final class AgregarVibracion extends ListActivity
 		@Override
 		public void bindView(View view, Context context, Cursor cursor) {
 			String phone = cursor.getString(cursor.getColumnIndex(Phone.NUMBER));
-			if (vcl.isContactInList(phone)){
+			if (vcl.contactExists(phone)){
 				ImageView i = (ImageView) view.findViewById(R.id.item_list_image);
 				i.setBackgroundResource(R.drawable.tick_ok);
 			}
