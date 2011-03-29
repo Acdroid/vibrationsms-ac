@@ -45,13 +45,13 @@ public class ConfigManager {
 
 
 	//Carpeta para guardar el archivo
-	private String CONTACTPATH = Environment.getExternalStorageDirectory()+"/VibrationSMS/";
+	private static String CONTACTPATH = Environment.getExternalStorageDirectory()+"/VibrationSMS/";
 
 	//Nombre del archivo donde se guardan los contactos
-	private String CONTACTFILENAME = "contacts.vib";
+	private static String CONTACTFILENAME = "contacts.vib";
 
 	//Path completo
-	private String CONTACTFILE = this.CONTACTPATH+this.CONTACTFILENAME;
+	private static String CONTACTFILE = CONTACTPATH+CONTACTFILENAME;
 
 
 
@@ -65,38 +65,40 @@ public class ConfigManager {
 
 		Log.i("ConfigManager", "ConfigManager called");
 
-		boolean exists = (new File(this.CONTACTFILE)).exists();
+		boolean exists = (new File(CONTACTFILE)).exists();
 
 		//Si no existe intentamos crearlo
 		if (!exists) {
 
-			File file = new File(this.CONTACTFILE);
+			File file = new File(CONTACTFILE);
 
 			try {
 
-				File directory = new File(this.CONTACTPATH);		    	
+				File directory = new File(CONTACTPATH);		    	
 
-				//Intentamos crear los directorios
-				boolean okDir  = directory.mkdirs();
-
-				if (!okDir) {
-					Log.e("ConfigManager", "Unable to create directory: "+this.CONTACTPATH);
-					throw new NoContactFileException("Unable to create directory: "+this.CONTACTPATH);
+				//Intentamos crear los directorios si no existen ya
+				if (!directory.exists()) {
+					boolean okDir  = directory.mkdirs();
+	
+					if (!okDir) {
+						Log.e("ConfigManager", "Unable to create directory: "+CONTACTPATH);
+						throw new NoContactFileException("Unable to create directory: "+CONTACTPATH);
+					}
 				}
 
 				//Intentamos pues crear el archivo
 				boolean okFile = file.createNewFile();
 
 				if (!okFile) {
-					Log.e("ConfigManager", "Unable to create file: "+this.CONTACTFILE);
-					throw new NoContactFileException("Unable to create file: "+this.CONTACTFILE);
+					Log.e("ConfigManager", "Unable to create file: "+CONTACTFILE);
+					throw new NoContactFileException("Unable to create file: "+CONTACTFILE);
 				}
 
 
 			} catch (IOException e) {
 
 				Log.e("ConfigManager", "Unable to create file");
-				throw new NoContactFileException("Unable to create file: "+this.CONTACTFILE);
+				throw new NoContactFileException("Unable to create file: "+CONTACTFILE);
 			}
 
 			Log.i("ConfigManager", "Config file created");
@@ -125,7 +127,7 @@ public class ConfigManager {
 
 		try {
 			//Abrimos el fichero para leer
-			FileInputStream fstream = new FileInputStream(this.CONTACTFILE);
+			FileInputStream fstream = new FileInputStream(CONTACTFILE);
 			in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
@@ -200,7 +202,7 @@ public class ConfigManager {
 		try {
 
 			//Anadimos al final del archivo
-			fstream = new FileWriter(this.CONTACTFILE,true);
+			fstream = new FileWriter(CONTACTFILE,true);
 			BufferedWriter out = new BufferedWriter(fstream);
 
 			out.write(vc.getNumber()+"="+vc.getVib().vibToString()+"\n");
@@ -232,9 +234,8 @@ public class ConfigManager {
 
 		if (vcl.length() < 1) throw new GeneralException("List is void");
 
-		//Delete old file
-		File f = new File(this.CONTACTFILE);		
-		boolean ok = f.delete();
+		//Delete old file	
+		boolean ok = deleteConfig();
 
 
 		//Si hemos conseguido borrarlo...
@@ -242,16 +243,13 @@ public class ConfigManager {
 
 
 
-
-
-
 			//...lo creamos de nuevo vacio y escribimos lo que haya
 			FileWriter fstream = null;
 			try {
-				fstream = new FileWriter(this.CONTACTFILE,true);
+				fstream = new FileWriter(CONTACTFILE,true);
 			} catch (IOException e1) {				
-				Log.e("ConfigManager", "Error when opening file: "+this.CONTACTFILE);
-				throw new GeneralException("Error when opening file: "+this.CONTACTFILE);
+				Log.e("ConfigManager", "Error when opening file: "+CONTACTFILE);
+				throw new GeneralException("Error when opening file: "+CONTACTFILE);
 			}
 			BufferedWriter out = new BufferedWriter(fstream);
 
@@ -282,8 +280,8 @@ public class ConfigManager {
 			try {
 				out.close();
 			} catch (IOException e) {
-				Log.e("ConfigManager", "Error when closing file: "+this.CONTACTFILE);
-				throw new GeneralException("Error when closing file: "+this.CONTACTFILE);
+				Log.e("ConfigManager", "Error when closing file: "+CONTACTFILE);
+				throw new GeneralException("Error when closing file: "+CONTACTFILE);
 			}
 
 
@@ -294,38 +292,26 @@ public class ConfigManager {
 
 		}
 		else {
-			Log.e("ConfigManager", "File couldn't be deleted: "+this.CONTACTFILE);
-			throw new GeneralException("File couldn't be deleted: "+this.CONTACTFILE);
+			Log.e("ConfigManager", "File couldn't be deleted: "+CONTACTFILE);
+			throw new GeneralException("File couldn't be deleted: "+CONTACTFILE);
 		}
 
 
 	}
-
-
-
-
+	
+	
+	
 	/**
-	 * La Vibracion master es la que suplanta a todas
-	 * las que no esten definidas para un usuario
-	 * especifico.
+	 * Elimina el archivo de configuracion de contactos
 	 * 
-	 * 
+	 * @return true si ha borrado false en caso de error
 	 * */
-	public long[] getMasterVibration() throws NoVibrationFoundException {
-
-		long[] aux = {0,1000,100,150};
-		return aux;	
+	public static boolean deleteConfig() {
+		
+		File f = new File(CONTACTFILE);
+		return f.delete();
 	}
-
-
-
-
-
-
-
-
-
-
+	
 
 }
 

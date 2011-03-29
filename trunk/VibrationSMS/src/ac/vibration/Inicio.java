@@ -40,7 +40,7 @@ public class Inicio extends Activity {
         //escribirConfig();
         Log.i("DEBUG",Tools.cleanText("texto ??[]}limpio...;!"));
         
-        long[] v = MorseCode.stringToVib("morse code", 1000, 4);
+        long[] v = MorseCode.stringToVib("morse code", 1000, 1);
       
         DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), v);
         
