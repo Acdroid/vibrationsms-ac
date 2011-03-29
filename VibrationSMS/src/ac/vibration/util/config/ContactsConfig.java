@@ -61,9 +61,9 @@ public class ContactsConfig {
 	 * 
 	 * @throws NoContactFileException
 	 */
-	public ContactsConfig() throws NoContactFileException {
+	public ContactsConfig() throws NoFileException {
 
-		Log.i("ConfigManager", "ConfigManager called");
+		Log.i("ContactsConfig", "ContactsConfig called");
 
 		boolean exists = (new File(CONTACTFILE)).exists();
 
@@ -86,7 +86,7 @@ public class ContactsConfig {
 	 *  
 	 * @throws ContactFileErrorException 
 	 * */
-	public VibContactList loadVibContactList() throws NoContactFileException, ContactFileErrorException {
+	public VibContactList loadVibContactList() throws NoFileException, ContactFileErrorException {
 
 		//Por necesidades del scope :P
 		DataInputStream in = null;
@@ -133,15 +133,15 @@ public class ContactsConfig {
 
 			}
 
-			Log.i("ConfigManager", "Config file loaded to memory");
+			Log.i("ContactsConfig", "Config file loaded to memory");
 			in.close();
 
 		} catch (FileNotFoundException e) {			
-			Log.e("ConfigManager", "Unable to load contact list");
-			throw new NoContactFileException("Unable to load contact list");
+			Log.e("ContactsConfig", "Unable to load contact list");
+			throw new NoFileException("Unable to load contact list");
 
 		} catch (IOException e) {
-			Log.e("ConfigManager", "Error reading from file");
+			Log.e("ContactsConfig", "Error reading from file");
 			throw new ContactFileErrorException("Error reading from file");
 		}
 
@@ -160,7 +160,7 @@ public class ContactsConfig {
 	 * 
 	 * @throws NoContactFileException 
 	 * */
-	public void addVibContact(VibContact vc) throws NoContactFileException {
+	public void addVibContact(VibContact vc) throws NoFileException {
 
 				
 		ConfigBackend.addLine(CONTACTFILE, vc.getNumber(), vc.getVib().vibToString());
@@ -195,13 +195,13 @@ public class ContactsConfig {
 			try {
 				fstream = new FileWriter(CONTACTFILE,true);
 			} catch (IOException e1) {				
-				Log.e("ConfigManager", "Error when opening file: "+CONTACTFILE);
+				Log.e("ContactsConfig", "Error when opening file: "+CONTACTFILE);
 				throw new GeneralException("Error when opening file: "+CONTACTFILE);
 			}
 			BufferedWriter out = new BufferedWriter(fstream);
 
 
-			Log.i("ConfigManager", vcl.length()+" entries.");
+			Log.i("ContactsConfig", vcl.length()+" entries.");
 
 			//Sacamos el iterator y lo recorremos
 			Iterator<VibContact> iter = vcl.getIterator();
@@ -213,28 +213,30 @@ public class ContactsConfig {
 
 				vc = iter.next();
 
-				Log.i("ConfigManager", "in");	        	
+				
+				Log.i("ContactsConfig", "in");	        	
 				try {
 					out.write(vc.getNumber()+"="+vc.getVib().vibToString()+"\n");
-					Log.i("ConfigManager", "Written: "+vc.getNumber()+"="+vc.getVib().vibToString()+"\n");
+					Log.i("ContactsConfig", "Written: "+vc.getNumber()+"="+vc.getVib().vibToString()+"\n");
 				} catch (IOException e) {
 
-					Log.e("ConfigManager", "Error when writing entry");
+					Log.e("ContactsConfig", "Error when writing entry");
 				}
+								
 			}
 
 			//Cerramos el archivo, las excepciones son una puta mierda
 			try {
 				out.close();
 			} catch (IOException e) {
-				Log.e("ConfigManager", "Error when closing file: "+CONTACTFILE);
+				Log.e("ContactsConfig", "Error when closing file: "+CONTACTFILE);
 				throw new GeneralException("Error when closing file: "+CONTACTFILE);
 			}
 
 
 		}
 		else {
-			Log.e("ConfigManager", "File couldn't be deleted: "+CONTACTFILE);
+			Log.e("ContactsConfig", "File couldn't be deleted: "+CONTACTFILE);
 			throw new GeneralException("File couldn't be deleted: "+CONTACTFILE);
 		}
 

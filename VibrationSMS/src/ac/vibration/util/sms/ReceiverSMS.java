@@ -7,7 +7,7 @@
 package ac.vibration.util.sms;
 
 import ac.vibration.exceptions.ContactFileErrorException;
-import ac.vibration.exceptions.NoContactFileException;
+import ac.vibration.exceptions.NoFileException;
 import ac.vibration.exceptions.NoContactFoundException;
 import ac.vibration.exceptions.NoVibrationFoundException;
 import ac.vibration.types.VibContact;
@@ -113,7 +113,7 @@ public class ReceiverSMS extends BroadcastReceiver {
 					
 					
 				//Errores en el archivo	
-				} catch (NoContactFileException e) {
+				} catch (NoFileException e) {
 					Log.e("ReceiverSMS", "Cannot find config file");
 				} catch (ContactFileErrorException e) {										
 					Log.e("ReceiverSMS", "Config file contains errors");
