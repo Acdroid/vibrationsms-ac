@@ -9,7 +9,7 @@ import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.types.Vib;
 import ac.vibration.util.Vibration.DoVibration;
-import ac.vibration.util.config.ConfigManager;
+import ac.vibration.util.config.ContactsConfig;
 import ac.vibration.util.contactos.AgregarVibracion;
 import ac.vibration.util.mToast.mToast;
 import ac.vibration.util.tools.Tools;
@@ -62,9 +62,9 @@ public class Inicio extends Activity {
     	
     	
     	   //Creamos una instancia del cm (un handlder)
-        ConfigManager cm = null;        
+    	ContactsConfig cm = null;        
         try {
-        	cm  = new ConfigManager();
+        	cm  = new ContactsConfig();
 		} catch (NoContactFileException e) {
 
 			Log.e("main", "error: "+e.getMessage());
@@ -111,9 +111,9 @@ public class Inicio extends Activity {
     public void escribirConfig() {
     	
         //Creamos una instancia del cm (un handlder)
-        ConfigManager cm = null;        
+    	ContactsConfig cm = null;        
         try {
-        	cm  = new ConfigManager();
+        	cm  = new ContactsConfig();
 		} catch (NoContactFileException e) {
 
 			Log.e("main", "error: "+e.getMessage());

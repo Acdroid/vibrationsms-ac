@@ -41,7 +41,7 @@ import android.util.Log;
  * 
  * 
  */
-public class ConfigManager {
+public class ContactsConfig {
 
 
 	//Carpeta para guardar el archivo
@@ -57,11 +57,11 @@ public class ConfigManager {
 
 
 	/**
-	 * El constructor vcerifica si existe ee archivo y si no lo crea
+	 * El constructor verifica si existe ee archivo y si no lo crea
 	 * 
 	 * @throws NoContactFileException
 	 */
-	public ConfigManager() throws NoContactFileException {
+	public ContactsConfig() throws NoContactFileException {
 
 		Log.i("ConfigManager", "ConfigManager called");
 

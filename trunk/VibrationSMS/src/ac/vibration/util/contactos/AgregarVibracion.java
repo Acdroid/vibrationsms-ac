@@ -15,7 +15,7 @@ import ac.vibration.types.Vib;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.util.Vibration.DoVibration;
-import ac.vibration.util.config.ConfigManager;
+import ac.vibration.util.config.ContactsConfig;
 import ac.vibration.util.mToast.mToast;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -64,7 +64,7 @@ public final class AgregarVibracion extends ListActivity
 		setContentView(R.layout.lista_contactos); 
 
 		try {
-			vcl = new ConfigManager().loadVibContactList();
+			vcl = new ContactsConfig().loadVibContactList();
 		} catch (NoContactFileException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -207,7 +207,7 @@ public final class AgregarVibracion extends ListActivity
 	@Override
 	protected void onDestroy() {
 		try {
-			new ConfigManager().dumpVibContactList(vcl);
+			new ContactsConfig().dumpVibContactList(vcl);
 		} catch (GeneralException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -221,7 +221,7 @@ public final class AgregarVibracion extends ListActivity
 	@Override
 	protected void onResume() {
 		try {
-			new ConfigManager().dumpVibContactList(vcl);
+			new ContactsConfig().dumpVibContactList(vcl);
 		} catch (GeneralException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -235,7 +235,7 @@ public final class AgregarVibracion extends ListActivity
 	@Override
 	protected void onStop() {
 		try {
-			new ConfigManager().dumpVibContactList(vcl);
+			new ContactsConfig().dumpVibContactList(vcl);
 		} catch (GeneralException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
