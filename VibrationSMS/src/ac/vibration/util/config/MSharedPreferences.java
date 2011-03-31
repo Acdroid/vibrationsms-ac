@@ -10,26 +10,25 @@ import android.content.SharedPreferences;
 
 /**
  * MSharedPreferences.java 30/03/2011
- * @author mtrujillo
+ * Clase creada para facilitar el uso de SharedPreferences.
  */
 public class MSharedPreferences {
-	public static final String PREFERENCE_NAME_DEF ="Config";
 	public static final int PREFERENCE_MODE = Context.MODE_PRIVATE;
 	public SharedPreferences pref;
 	public SharedPreferences.Editor prefEditor;
 	public String namePreferences = "";
 	
 	
-	/**
+	/*
   	 * <ul>Constructor de la clase MSharedPreferences
   	 * Selecciona por defecto las preferencias TacTIC_Movil</ul><br><br>
   	 * @param mContext contexto desde el que se llama al constructor
 	 */
-	public MSharedPreferences (Context mContext){
-		pref = mContext.getSharedPreferences(PREFERENCE_NAME_DEF, PREFERENCE_MODE);
-		prefEditor = pref.edit();
-		namePreferences = PREFERENCE_NAME_DEF;
-	}
+//	public MSharedPreferences (Context mContext){
+//		pref = mContext.getSharedPreferences(PREFERENCE_NAME_DEF, PREFERENCE_MODE);
+//		prefEditor = pref.edit();
+//		namePreferences = PREFERENCE_NAME_DEF;
+//	}
 	
 	/**
   	 * <ul>Constructor de la clase MSharedPreferences</ul><br><br>
