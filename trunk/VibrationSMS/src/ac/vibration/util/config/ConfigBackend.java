@@ -1,138 +1,43 @@
+
 package ac.vibration.util.config;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import ac.vibration.exceptions.NoFileException;
-import android.util.Log;
-
-
+import ac.vibration.R;
+import ac.vibration.util.mToast.mToast;
+import android.content.Context;
 
 /**
- * Esta clase se encarga de gestionar configuraciones independientemente del contenido
- * los archivo de configuración tienen este aspecto:<br>
- * <br>
- * clave1=valor<br>
- * clave2=valor
- * 
- * */
-public class ConfigBackend {
-
+ * CargarPrefPrimTime.java 30/03/2011
+ * @author mtrujillo
+ */
+public class ConfigBackend extends MSharedPreferences{
+	public static final String FIRST_TIME = "first_time";
+	public static final String IDIOMA_DEF = "idioma_def";
+	public static final String DELAY_DEF = "delay_def";
+	public static final String DELAY_INICIO_DEF = "delay_inicio_def";
+	public static final String BACKGROUND = "background_color";
+	public static final String TEXT_COLOR = "text_color";
 	
 	
+		
 	
-	/**
-	 * Crea la estructura hasta el archivo deseado
-	 * 
-	 * @param dirPath El directorio completo donde esta el archivo sin el nombre del archivo
-	 * @param fullPath
-	 * @throws NoContactFileException 
-	 * 
-	 * */
-	public static void createStructure(String dirPath, String fullPath) throws NoFileException {
+	public ConfigBackend(Context mContext, String name,int firstTime){
+		super(mContext,name);
 		
-		File file = new File(fullPath);
-
-		try {
-
-			File directory = new File(dirPath);		    	
-
-			//Intentamos crear los directorios si no existen ya
-			if (!directory.exists()) {
-				boolean okDir  = directory.mkdirs();
-
-				if (!okDir) {
-					Log.e("ConfigBackend", "Unable to create directory: "+dirPath);
-					throw new NoFileException("Unable to create directory: "+dirPath);
-				}
-			}
-
-			//Intentamos pues crear el archivo
-			boolean okFile = file.createNewFile();
-
-			if (!okFile) {
-				Log.e("ConfigBackend", "Unable to create file: "+fullPath);
-				throw new NoFileException("Unable to create file: "+fullPath);
-			}
-
-
-		} catch (IOException e) {
-
-			Log.e("ConfigBackend", "Unable to create file");
-			throw new NoFileException("Unable to create file: "+fullPath);
-		}
-
-		Log.i("ConfigBackend", "Config file created");
+		if(!pref.contains(FIRST_TIME)){
+			mToast.Make(mContext, "Aplicacion se inicia por primera vez, cargando preferencias", 1);
 		
-		
-		
-	}
-	
-	
-	
-	
-	/**
-	 * Recibe una linea de configuración y devuelve los valores de su contenido
-	 * 
-	 * @param String line La linea a parsear en la forma clave=valor
-	 * 
-	 * @return Un array de dos posiciones, la 0 es la clave la 1 el valor o null en cada posición en caso de error
-	 * */
-	public static String[] parseLine(String line) {
-		
-		if (line == null) return null;
-		
-		//Dividimos la linea
-		String chunks[] = line.split("=");
-
-		//Quitamos los espacios al final y al principio
-		if (chunks[0] != null) chunks[0].replaceAll("\\s*", "");
-		if (chunks[0] != null) chunks[1].replaceAll("\\s*", "");
-		
-		return chunks;
+			//Procedemos a cargar los valores por primera vez en las preferencias.
+			//Estos valores son por defecto
+			
+			//Valores por defecto
+			put(false,FIRST_TIME); //Flag para indicar que no es la primera vez que se usa
+			put(1, IDIOMA_DEF); //Idioma malossi
+			put(500, DELAY_DEF); //delay 500 mil entre letras
+			put(1000, DELAY_INICIO_DEF);
+//			put(R.color.gris, BACKGROUND); //Color de fondo de los layout
+			put(R.color.black, TEXT_COLOR); //Color del texto
 				
-		
-	} 
-	
-	
-	
-	
-	/**
-	 * Añade una linea al final del archivo bajo la forma clave=valor
-	 * 
-	 * @param file Fullpath al nombre del archivo
-	 * @param key La clave
-	 * @param value El valor
-	 * @throws NoContactFileException 
-	 * 
-	 * */
-	public static void addLine(String fullPath, String key, String value) throws NoFileException {
-		
-		FileWriter fstream;
-
-		try {
-
-			//Anadimos al final del archivo
-			fstream = new FileWriter(fullPath,true);
-			BufferedWriter out = new BufferedWriter(fstream);
-
-			out.write(key+"="+value+"\n");
-
-			out.close();
-
-			Log.i("ConfigBAckend", "Line added with key: "+key);
-
-			//No se puede hacer nada con el archivo
-		} catch (IOException e) {
-
-			Log.e("ConfigBackend", "Cannot add entry: config file not found");
-			throw new NoFileException("Cannot add entry: config file not found");
 		}
+		
 	}
-	
-	
-	
-	
 }
