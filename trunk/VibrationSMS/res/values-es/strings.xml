@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VibrationSMS</string>
+    <string name="tittle">SMS con Vibraciones personalizadas</string>
+    <string name="main_button_asignar">Asignar Vibración</string>
+    <string name="main_button_agregar">Crear Nueva Vibración</string>
+    
+    <!-- Dialog -->
+    <string name = "edit_vibration">Editar Vibración</string>
+	<string name = "dialog_selection">¿Qué es lo que quieres hacer?</string>    
+	
+	<!-- Miscelanea -->
+	<string name = "first_time_toast">Ésta es la primera vez que usas la aplicación VibrationSMS\n...</string>
+    
+    
+</resources>

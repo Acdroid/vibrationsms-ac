@@ -10,11 +10,13 @@ import ac.vibration.R;
 import ac.vibration.exceptions.ContactFileErrorException;
 import ac.vibration.exceptions.GeneralException;
 import ac.vibration.exceptions.NoFileException;
+import ac.vibration.exceptions.NoPreferenceException;
 import ac.vibration.morse.MorseCode;
 import ac.vibration.types.Vib;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.util.Vibration.DoVibration;
+import ac.vibration.util.config.AppConfig;
 import ac.vibration.util.config.ContactsConfig;
 import ac.vibration.util.mToast.mToast;
 import android.app.AlertDialog;
@@ -28,9 +30,11 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
+import android.util.Log;
 import android.view.View;
 import android.widget.AlphabetIndexer;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.SimpleCursorAdapter;
@@ -176,7 +180,14 @@ public final class AgregarVibracion extends ListActivity
 	 * 
 	 */
 	private void addNameMorse(){
-		long v[] = MorseCode.stringToVib(selectContact.getName(),0 , MorseCode.SPEED_DEFECTO);
+		AppConfig ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
+		long v[];
+		try {
+			v = MorseCode.stringToVib(selectContact.getName(),ac.getInt(AppConfig.DELAY_INI) , ac.getInt(AppConfig.VELOCIDAD_VIB));
+		} catch (NoPreferenceException e) {
+			Log.e("VibrationSMS_AV",e.getMessage());
+			v = MorseCode.stringToVib(selectContact.getName(),0 , 50);
+		}
 		selectContact.setVib(new Vib(v));
 		vcl.add(selectContact);
 
@@ -265,29 +276,24 @@ public final class AgregarVibracion extends ListActivity
 			String phone = cursor.getString(cursor.getColumnIndex(Phone.NUMBER));
 			if (vcl.contactExists(phone)){
 				ImageView i = (ImageView) view.findViewById(R.id.item_list_image);
-				i.setBackgroundResource(R.drawable.tick_ok);
+				i.setBackgroundResource(android.R.drawable.btn_star_big_on);
 			}
 			else{
-
 				ImageView i = (ImageView) view.findViewById(R.id.item_list_image);
-				i.setBackgroundResource(R.drawable.tick);
+				i.setBackgroundResource(android.R.drawable.btn_star_big_off);
 			}
 
-			
-//			if ((cursor.getPosition() % 2) == 0){
-//				TextView l = (TextView) view.findViewById(R.id.item_lista_nombre);
-//				l.setBackgroundColor(R.color.lista_blue);	
-//				
-//
-//			}
-//			else {
-//
-//				TextView l = (TextView) view.findViewById(R.id.item_lista_numero);
-//				l.setBackgroundColor(R.color.lista_blue);
-//
-//			}
-			super.bindView(view, context, cursor);
+			LinearLayout l = (LinearLayout) view.findViewById(R.id.lay_item);
+			if ((cursor.getPosition() % 2) == 0){
+				l.setBackgroundResource(R.color.lista_green);	
 			}
+			else {
+				l.setBackgroundResource(R.color.lista_green2);
+			}
+
+
+			super.bindView(view, context, cursor);
+		}
 
 
 

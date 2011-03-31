@@ -9,6 +9,7 @@ import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.types.Vib;
 import ac.vibration.util.Vibration.DoVibration;
+import ac.vibration.util.config.AppConfig;
 import ac.vibration.util.config.ContactsConfig;
 import ac.vibration.util.contactos.AgregarVibracion;
 import ac.vibration.util.mToast.mToast;
@@ -22,7 +23,6 @@ import android.util.Log;
 import android.view.View;
 
 public class Inicio extends Activity {
-    /** Called when the activity is first created. */
 	
 	public static int ID = 1;
 	public static final int RESULT_OK = 0;
@@ -30,20 +30,19 @@ public class Inicio extends Activity {
 	public static final int RESULT_VIBRATION_EDIT_OK = 2;
 	public static final int RESULT_SALIR = 3;
 	
+	private AppConfig ac;
 	
     @Override 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
         //leeConfig();
         //escribirConfig();
         Log.i("DEBUG",Tools.cleanText("texto ??[]}limpio...;!"));
         
-        long[] v = MorseCode.stringToVib("morse code", 1000, 1);
-      
+        long[] v = MorseCode.stringToVib("sms", 1000, 2);
         DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), v);
-        
         Vib vv = new Vib(v);
         Log.i("main", vv.vibToString());
         
@@ -170,9 +169,6 @@ public class Inicio extends Activity {
     }
   
     /**
-     * <b>clickAsignar</b>
-     *  public void clickAsignar (View v)
-     *  
      *  Este metodo es llamado por el boton agregar
      *  nueva vibracion personalizada de la actividad
      *  Inicio. Lanza la actividad AgregarVibracion
@@ -182,6 +178,17 @@ public class Inicio extends Activity {
     public void clickAsignar(View v){
     	Intent i = new Intent(Inicio.this,AgregarVibracion.class);
     	startActivityForResult(i, ID);
+    	
+    }
+    
+    /**
+     *  Este metodo es llamado por el boton Agregar
+     *  nueva vibracion.
+     * 
+     * @param v Componente que llama a la funcion
+     */
+    public void clickAgregar(View v){
+    	mToast.Make(this, "boton agregar sin funcion aun", 0);
     	
     }
     

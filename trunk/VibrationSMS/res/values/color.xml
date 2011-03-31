@@ -3,6 +3,6 @@
     <color name="background">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="grey">#666666</color>
-    <color name="lista_yelow">#FFFF99</color>
-    <color name="lista_blue">#CCFFFF</color>
+    <color name="lista_green2">#41A128</color>
+    <color name="lista_green">#85EB64</color>
 </resources>
