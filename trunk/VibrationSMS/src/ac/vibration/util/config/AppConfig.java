@@ -40,7 +40,7 @@ public class AppConfig extends MSharedPreferences{
 		
 		//Comprobamos si es la primera vez que se llama alconstructor, en tal caso
 		//se guardan los valores iniciales
-		if(!pref.contains(FIRST_TIME)){
+		//if(!pref.contains(FIRST_TIME)){
 			mToast.Make(mContext,mContext.getResources().getString(R.string.first_time_toast), 1);
 		
 			//Procedemos a cargar los valores por primera vez en las preferencias.
@@ -48,7 +48,7 @@ public class AppConfig extends MSharedPreferences{
 			
 			//Valores por defecto
 			put(false,FIRST_TIME); //Flag para indicar que no es la primera vez que se usa
-			put(0, DELAY_INI); //delay inicio, predefinido a 0
+			put(500, DELAY_INI); //delay inicio, predefinido a 0
 			put(50, DELAY_ENTRE_VIB); //delay entre vibraciones, predefinido a 40 milisegundos
 			put(2, VELOCIDAD_VIB);
 			put(true,DO_VIB_MASTER); //Se realiza vibmaster cuando llega un sms de contacto desconocido?
@@ -80,5 +80,5 @@ public class AppConfig extends MSharedPreferences{
 		
 		}
 		
-	}
+	//}
 }
