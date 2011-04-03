@@ -48,7 +48,7 @@ public class AppConfig extends MSharedPreferences{
 			
 			//Valores por defecto
 			put(false,FIRST_TIME); //Flag para indicar que no es la primera vez que se usa
-			put(500, DELAY_INI); //delay inicio, predefinido a 0
+			put(150, DELAY_INI); //delay inicio, predefinido a 0
 			put(50, DELAY_ENTRE_VIB); //delay entre vibraciones, predefinido a 40 milisegundos
 			put(2, VELOCIDAD_VIB);
 			put(true,DO_VIB_MASTER); //Se realiza vibmaster cuando llega un sms de contacto desconocido?
@@ -57,7 +57,7 @@ public class AppConfig extends MSharedPreferences{
 			//Agregamos vibracion master
 			try {
 				vcl = new ContactsConfig().loadVibContactList();
-				vcl.add(new VibContact("master", VibContactList.MASTERNUMBER, new Vib(MorseCode.stringToVib("sms",0, 2))));
+				vcl.add(new VibContact("master", VibContactList.MASTERNUMBER, new Vib(MorseCode.stringToVib("sms",150, 2))));
 			} catch (NoFileException e1) {
 				Log.e("VS_AppConfig", e1.getMessage());
 				e1.printStackTrace();
