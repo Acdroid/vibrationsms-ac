@@ -13,6 +13,8 @@ import ac.vibration.exceptions.NoContactFoundException;
 import ac.vibration.exceptions.NoFileException;
 import ac.vibration.exceptions.NoPreferenceException;
 import ac.vibration.exceptions.NoVibrationFoundException;
+import ac.vibration.morse.MorseCode;
+
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.util.Vibration.DoVibration;
@@ -42,13 +44,12 @@ public class ReceiverSMS extends BroadcastReceiver {
 
 	private String numTelf[];
 	private int index = 0; //index numeros telefono
-	VibContactList vcl = null;
 
 	//	public static String KEY_SMS = "SMS";
 	//	public static String KEY_CONTACTO = "CONTACTO";
 	//	private NotificationManager mNotificationManager;
 	//	private int SIMPLE_NOTFICATION_ID = 1984;
-
+	VibContactList vcl = null;
 
 	/* (non-Javadoc)
 	 * @see android.content.BroadcastReceiver#onReceive(android.content.Context, android.content.Intent)
@@ -102,8 +103,9 @@ public class ReceiverSMS extends BroadcastReceiver {
 				}
 
 				//Informamos por pantalla 
-				//FIXME ?¿?¿?¿?
+				//FIXME ?¿?¿?¿? 
 				Toast.makeText(mContext, mContext.getResources().getString(R.string.smsfrom) + " " + numTelf[i], Toast.LENGTH_SHORT).show();
+
 			}
 
 
@@ -136,18 +138,16 @@ public class ReceiverSMS extends BroadcastReceiver {
 				return;
 
 			//Obtenemos el delay y la velocidad por defecto en la configuracion
-			int delay = ac.getInt(AppConfig.DELAY_INI);
-			int speed = ac.getInt(AppConfig.VELOCIDAD_VIB);
-			long[] v;
-			v = vcl.getMasterContact().getVib().get();
+//			int delay = ac.getInt(AppConfig.DELAY_INI);
+//			int speed = ac.getInt(AppConfig.VELOCIDAD_VIB);
 
+			long[] v = vcl.getMasterContact().getVib().get();
 			DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE),v);
 		} catch (NoPreferenceException e1) {
 			Log.e("ReceiverSMS","Unable to obtain the configuration parameter");
 			return;
-
 		} catch (NoVibrationFoundException e) {
-			Log.e("VS_ReceiverSMS","Unable to get vibration");
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//FIXME
