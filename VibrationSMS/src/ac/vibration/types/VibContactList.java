@@ -17,7 +17,7 @@ public class VibContactList {
 		
 	
 	//El contacto master es que aloja la vibración que se usa en caso de que no haya nada 
-	private static final String MASTERNUMBER = "master"; 
+	public static final String MASTERNUMBER = "master"; 
 	
 	
 	

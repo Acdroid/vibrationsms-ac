@@ -2,8 +2,16 @@
 package ac.vibration.util.config;
 
 import ac.vibration.R;
+import ac.vibration.exceptions.ContactFileErrorException;
+import ac.vibration.exceptions.GeneralException;
+import ac.vibration.exceptions.NoFileException;
+import ac.vibration.morse.MorseCode;
+import ac.vibration.types.Vib;
+import ac.vibration.types.VibContact;
+import ac.vibration.types.VibContactList;
 import ac.vibration.util.mToast.mToast;
 import android.content.Context;
+import android.util.Log;
 
 /**
  * AppConfig.java 30/03/2011
@@ -22,6 +30,8 @@ public class AppConfig extends MSharedPreferences{
 	public static final String DELAY_ENTRE_VIB = "delay_entre_vib";
 	public static final String VELOCIDAD_VIB = "velocidad_vib";
 	public static final String DO_VIB_MASTER = "do_vib_master";
+	
+	VibContactList vcl;
 	
 		
 	
@@ -42,6 +52,30 @@ public class AppConfig extends MSharedPreferences{
 			put(50, DELAY_ENTRE_VIB); //delay entre vibraciones, predefinido a 40 milisegundos
 			put(2, VELOCIDAD_VIB);
 			put(true,DO_VIB_MASTER); //Se realiza vibmaster cuando llega un sms de contacto desconocido?
+			
+			
+			//Agregamos vibracion master
+			try {
+				vcl = new ContactsConfig().loadVibContactList();
+				vcl.add(new VibContact("master", VibContactList.MASTERNUMBER, new Vib(MorseCode.stringToVib("sms",0, 2))));
+			} catch (NoFileException e1) {
+				Log.e("VS_AppConfig", e1.getMessage());
+				e1.printStackTrace();
+			} catch (ContactFileErrorException e1) {
+				Log.e("VS_AppConfic", e1.getMessage());
+				e1.printStackTrace();
+			}
+			
+			try {
+				new ContactsConfig().dumpVibContactList(vcl);
+			} catch (GeneralException e) {
+				Log.e("VS_AppConfig",e.getMessage());
+				e.printStackTrace();
+			} catch (NoFileException e) {
+				Log.e("VS_AppConfig",e.getMessage());
+				e.printStackTrace();
+			}
+			return;
 			
 		
 		}
