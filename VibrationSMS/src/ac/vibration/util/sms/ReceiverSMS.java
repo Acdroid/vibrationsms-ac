@@ -1,18 +1,22 @@
-/**
- * Pner permisos
- * @author Carlos Diaz Canovas y Marcos Trujillo Seoane
+/*
+ * ReceiverSMS 
  * 
+ * 
+ * @author Carlos Diaz Canovas y Marcos Trujillo Seoane
  * @version 1.0
  */
 package ac.vibration.util.sms;
 
+import ac.vibration.R;
 import ac.vibration.exceptions.ContactFileErrorException;
 import ac.vibration.exceptions.NoFileException;
 import ac.vibration.exceptions.NoContactFoundException;
-import ac.vibration.exceptions.NoVibrationFoundException;
+import ac.vibration.exceptions.NoPreferenceException;
+import ac.vibration.morse.MorseCode;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.util.Vibration.DoVibration;
+import ac.vibration.util.config.AppConfig;
 import ac.vibration.util.config.ContactsConfig;
 import ac.vibration.util.mToast.mToast;
 import android.content.BroadcastReceiver;
@@ -26,6 +30,12 @@ import android.widget.Toast;
 
 /**
  * ReceiverSMS.java 09/03/2011
+ * 
+ * <ul>Esta clase esta implementada para agregarse como servicio o
+ * esuchador (Requiere de permisos de usuario en androidManifest)
+ * para que al recibir un SMS compruebe si el que lo envía
+ * esta en la lista de contactos con vibraciones especiales y
+ * en tal caso realiza la vibracion.
  * @author mtrujillo
  */
 public class ReceiverSMS extends BroadcastReceiver {
@@ -38,7 +48,6 @@ public class ReceiverSMS extends BroadcastReceiver {
 	//	public static String KEY_CONTACTO = "CONTACTO";
 	//	private NotificationManager mNotificationManager;
 	//	private int SIMPLE_NOTFICATION_ID = 1984;
-	//	
 
 
 	/* (non-Javadoc)
@@ -64,64 +73,37 @@ public class ReceiverSMS extends BroadcastReceiver {
 				numTelf [index] = msgs[i].getOriginatingAddress();    
 				index++;
 			}
-			//---Mostrar el mensaje del SMS---
-
-			
-			
-			
-			
-			
 			//Vamos anecesitar la lista en todo el scope
 			VibContactList vcl = null;
-			
 
-			
 			//Para cada telefono recibido comprobamos si tiene una vibracion personificada
 			for (int i=0 ; i<numTelf.length ; i ++){
 
 
 				try {
-					
 					//Cargamos la lista
 					vcl = new ContactsConfig().loadVibContactList();
-					
-					//Buscamos el contacto por si tiene una vibraciÃ³n propia
+					//Buscamos el contacto por si tiene una vibracion propia
 					VibContact vc = vcl.getVibContactByNumber(numTelf[i]);
-
 					//Y a vibrar se ha dicho
 					DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), vc.getVib().get());
+					//FIXME 
 					mToast.Make(mContext, "Vibracion Custom", 0);
-
-
-					
-				//En caso de no encontrar la vibracion personalizada ponemos la master
+					//En caso de no encontrar la vibracion personalizada ponemos la master
 				}catch (NoContactFoundException e) {
-					
-					
-					try {
-						DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), vcl.getMasterContact().getVib().get());
-						
-					//No esta la vibraciÃ³n master
-					} catch (NoVibrationFoundException e1) {
-
-						Log.w("ReceiverSMS", "No master vibration, that's bad");
-					} 
-					
-					
-					
-					mToast.Make(mContext, "Vibracion Master", 0);					
-					
-					
-				//Errores en el archivo	
+					doVibrationMaster(mContext);			
+					//Errores en el archivo	
 				} catch (NoFileException e) {
 					Log.e("ReceiverSMS", "Cannot find config file");
+					doVibrationMaster(mContext);
 				} catch (ContactFileErrorException e) {										
 					Log.e("ReceiverSMS", "Config file contains errors");
+					doVibrationMaster(mContext);
 				}
-				
-				
-				Toast.makeText(mContext, "Mensaje de " + numTelf[i], Toast.LENGTH_SHORT).show();
-				DoVibration.SMS((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE));
+
+				//Informamos por pantalla 
+				//FIXME ?¿?¿?¿?
+				Toast.makeText(mContext, mContext.getResources().getString(R.string.smsfrom) + numTelf[i], Toast.LENGTH_SHORT).show();
 			}
 
 
@@ -143,4 +125,26 @@ public class ReceiverSMS extends BroadcastReceiver {
 	//        mNotificationManager.notify(SIMPLE_NOTFICATION_ID, notifyDetails);
 	//	}
 
+	
+	public void doVibrationMaster(Context mContext){
+		AppConfig ac =  new AppConfig(mContext, AppConfig.CONFIG_NAME_DEF);
+		
+		try {			
+			//Comprobamos si se desea realizar vibracion master
+			boolean aux = ac.getBool(AppConfig.DO_VIB_MASTER);
+			if (!aux)
+				return;
+			
+			//Obtenemos el delay y la velocidad por defecto en la configuracion
+			int delay = ac.getInt(AppConfig.DELAY_INI);
+			int speed = ac.getInt(AppConfig.VELOCIDAD_VIB);
+
+			DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), MorseCode.stringToVib("sms", delay, speed));
+		} catch (NoPreferenceException e1) {
+			Log.e("ReceiverSMS","Unable to obtain the configuration parameter");
+			return;
+		}
+		//FIXME
+		mToast.Make(mContext, "Vibracion Master", 0);		
+	}
 }

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import ac.vibration.exceptions.NoPreferenceException;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 
 /**
@@ -78,7 +79,13 @@ public class MSharedPreferences {
 	 */
 	public final int getInt(String key)throws NoPreferenceException{
 	
-		int res = pref.getInt(key, -333333);
+		int res =  -333333;
+		try{
+			res = pref.getInt(key, -333333);
+		} catch ( ClassCastException e){
+			Log.e("MSharedPreferences","Error al llamar a la funcion get. No es de tipo Int");
+			throw new NoPreferenceException("La key " + key + " existe pero no es tipo Int");
+		}
 		if(res == -333333) throw new NoPreferenceException("No existe la preferencia con key " + key);
 		return res;
 	}
@@ -93,7 +100,13 @@ public class MSharedPreferences {
 	 */
 	public final float getFloat(String key)throws NoPreferenceException{
 		
-		float res = pref.getFloat(key, -333333);
+		float res = -333333;
+		try{
+			res = pref.getFloat(key, -333333);
+		} catch ( ClassCastException e){
+			Log.e("MSharedPreferences","Error al llamar a la funcion get. No es de tipo Float");
+			throw new NoPreferenceException("La key " + key + " existe pero no es tipo Float");
+		}
 		if(res == -333333) throw new NoPreferenceException("No existe la preferencia con key " + key);
 		return res;
 	}
@@ -107,10 +120,16 @@ public class MSharedPreferences {
 	 * @throws NoPreferenceException
 	 */
 	public final Long getLong( String key)throws NoPreferenceException{
-		
-		Long res = pref.getLong(key, -333333);
+		Long res = (long) -333333;
+		try{
+			res = pref.getLong(key, -333333);
+		} catch ( ClassCastException e){
+			Log.e("MSharedPreferences","Error al llamar a la funcion get. No es de tipo Long");
+			throw new NoPreferenceException("La key " + key + " existe pero no es tipo Long");
+		}
 		if(res == -333333) throw new NoPreferenceException("No existe la preferencia con key " + key);
 		return res;
+		
 	}
 	
 	/**

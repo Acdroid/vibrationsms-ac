@@ -11,6 +11,9 @@
 	
 	<!-- Miscelanea -->
 	<string name = "first_time_toast">This is the first time that you use VibrationSMS\n....</string>
+	<string name = "smsfrom">SMS from </string>
+	<string name = "vib_add_ok">successfully added vibration</string>
+	
     
     
 </resources>
