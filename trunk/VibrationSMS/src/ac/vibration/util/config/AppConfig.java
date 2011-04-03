@@ -21,6 +21,7 @@ public class AppConfig extends MSharedPreferences{
 	public static final String DELAY_INI = "delay_ini";
 	public static final String DELAY_ENTRE_VIB = "delay_entre_vib";
 	public static final String VELOCIDAD_VIB = "velocidad_vib";
+	public static final String DO_VIB_MASTER = "do_vib_master";
 	
 		
 	
@@ -40,7 +41,9 @@ public class AppConfig extends MSharedPreferences{
 			put(0, DELAY_INI); //delay inicio, predefinido a 0
 			put(50, DELAY_ENTRE_VIB); //delay entre vibraciones, predefinido a 40 milisegundos
 			put(2, VELOCIDAD_VIB);
-				
+			put(true,DO_VIB_MASTER); //Se realiza vibmaster cuando llega un sms de contacto desconocido?
+			
+		
 		}
 		
 	}

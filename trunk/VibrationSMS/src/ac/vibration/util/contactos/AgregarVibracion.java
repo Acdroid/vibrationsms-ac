@@ -70,11 +70,17 @@ public final class AgregarVibracion extends ListActivity
 		try {
 			vcl = new ContactsConfig().loadVibContactList();
 		} catch (NoFileException e1) {
-			// TODO Auto-generated catch block
+			Log.e("VS_AgregarVibracion", e1.getMessage());
 			e1.printStackTrace();
+			setResult(Inicio.RESULT_ERROR);
+			mToast.Make(this, "Error al cargar la lista de configuracion.El fichero no existe", 1);
+			AgregarVibracion.this.finish();
 		} catch (ContactFileErrorException e1) {
-			// TODO Auto-generated catch block
+			Log.e("VS_AgregarVibracion", e1.getMessage());
 			e1.printStackTrace();
+			setResult(Inicio.RESULT_ERROR);
+			mToast.Make(this, "Error al cargar la lista de configuracion", 1);
+			AgregarVibracion.this.finish();
 		}
 
 
@@ -181,18 +187,22 @@ public final class AgregarVibracion extends ListActivity
 	 */
 	private void addNameMorse(){
 		AppConfig ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
+		//TODO Mejora preguntar si solo el nombre o todo el nombre
+		//Es decir si por ejemplo carlos díaz canovas preguntar si carlos o carlos diaz canovas
+		
 		long v[];
 		try {
 			v = MorseCode.stringToVib(selectContact.getName(),ac.getInt(AppConfig.DELAY_INI) , ac.getInt(AppConfig.VELOCIDAD_VIB));
 		} catch (NoPreferenceException e) {
-			Log.e("VibrationSMS_AV",e.getMessage());
-			v = MorseCode.stringToVib(selectContact.getName(),0 , 50);
+			Log.e("VS_AgregarVibracion",e.getMessage());
+			v = MorseCode.stringToVib(selectContact.getName(),2 , 50);
 		}
 		selectContact.setVib(new Vib(v));
 		vcl.add(selectContact);
 
 		DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), v);
-		mToast.Make(this, "Vibration add correctly", 0);
+		mToast.Make(this, getResources().getString(R.string.vib_add_ok), 0);
+		dump();
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -217,46 +227,35 @@ public final class AgregarVibracion extends ListActivity
 
 	@Override
 	protected void onDestroy() {
-		try {
-			new ContactsConfig().dumpVibContactList(vcl);
-		} catch (GeneralException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		dump();
 		super.onDestroy();
 	}
 
 	@Override
 	protected void onResume() {
-		try {
-			new ContactsConfig().dumpVibContactList(vcl);
-		} catch (GeneralException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		dump();
 		super.onResume();
 	}
-
+	
 	@Override
 	protected void onStop() {
-		try {
-			new ContactsConfig().dumpVibContactList(vcl);
-		} catch (GeneralException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		dump();
 		super.onStop();
 	}
 
+	
+	public void dump(){
+		try {
+			new ContactsConfig().dumpVibContactList(vcl);
+		} catch (GeneralException e) {
+			Log.e("VS_AgregarVibracion",e.getMessage());
+			e.printStackTrace();
+		} catch (NoFileException e) {
+			Log.e("VS_AgregarVibracion",e.getMessage());
+			e.printStackTrace();
+		}
+		return;
+	}
 
 	class MiCursorAdapter extends SimpleCursorAdapter implements SectionIndexer{
 		AlphabetIndexer alphaIndexer;
