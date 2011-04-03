@@ -9,10 +9,10 @@ package ac.vibration.util.sms;
 
 import ac.vibration.R;
 import ac.vibration.exceptions.ContactFileErrorException;
-import ac.vibration.exceptions.NoFileException;
 import ac.vibration.exceptions.NoContactFoundException;
+import ac.vibration.exceptions.NoFileException;
 import ac.vibration.exceptions.NoPreferenceException;
-import ac.vibration.morse.MorseCode;
+import ac.vibration.exceptions.NoVibrationFoundException;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.util.Vibration.DoVibration;
@@ -42,7 +42,7 @@ public class ReceiverSMS extends BroadcastReceiver {
 
 	private String numTelf[];
 	private int index = 0; //index numeros telefono
-
+	VibContactList vcl = null;
 
 	//	public static String KEY_SMS = "SMS";
 	//	public static String KEY_CONTACTO = "CONTACTO";
@@ -74,7 +74,7 @@ public class ReceiverSMS extends BroadcastReceiver {
 				index++;
 			}
 			//Vamos anecesitar la lista en todo el scope
-			VibContactList vcl = null;
+
 
 			//Para cada telefono recibido comprobamos si tiene una vibracion personificada
 			for (int i=0 ; i<numTelf.length ; i ++){
@@ -103,7 +103,7 @@ public class ReceiverSMS extends BroadcastReceiver {
 
 				//Informamos por pantalla 
 				//FIXME ?¿?¿?¿?
-				Toast.makeText(mContext, mContext.getResources().getString(R.string.smsfrom) + numTelf[i], Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, mContext.getResources().getString(R.string.smsfrom) + " " + numTelf[i], Toast.LENGTH_SHORT).show();
 			}
 
 
@@ -125,24 +125,30 @@ public class ReceiverSMS extends BroadcastReceiver {
 	//        mNotificationManager.notify(SIMPLE_NOTFICATION_ID, notifyDetails);
 	//	}
 
-	
+
 	public void doVibrationMaster(Context mContext){
 		AppConfig ac =  new AppConfig(mContext, AppConfig.CONFIG_NAME_DEF);
-		
+
 		try {			
 			//Comprobamos si se desea realizar vibracion master
 			boolean aux = ac.getBool(AppConfig.DO_VIB_MASTER);
 			if (!aux)
 				return;
-			
+
 			//Obtenemos el delay y la velocidad por defecto en la configuracion
 			int delay = ac.getInt(AppConfig.DELAY_INI);
 			int speed = ac.getInt(AppConfig.VELOCIDAD_VIB);
+			long[] v;
+			v = vcl.getMasterContact().getVib().get();
 
-			DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), MorseCode.stringToVib("sms", delay, speed));
+			DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE),v);
 		} catch (NoPreferenceException e1) {
 			Log.e("ReceiverSMS","Unable to obtain the configuration parameter");
 			return;
+
+		} catch (NoVibrationFoundException e) {
+			Log.e("VS_ReceiverSMS","Unable to get vibration");
+			e.printStackTrace();
 		}
 		//FIXME
 		mToast.Make(mContext, "Vibracion Master", 0);		
