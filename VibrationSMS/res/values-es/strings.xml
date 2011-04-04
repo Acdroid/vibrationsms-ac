@@ -7,12 +7,16 @@
     
     <!-- Dialog -->
     <string name = "edit_vibration">Editar Vibración</string>
-	<string name = "dialog_selection">¿Qué es lo que quieres hacer?</string>    
+	<string name = "dialog_selection">¿Qué es lo que quieres hacer?</string>  
+	
+	<!-- Button -->
+	<string name = "dialog_str_morse_button">Asignar</string>    
 	
 	<!-- Miscelanea -->
 	<string name = "first_time_toast">Ésta es la primera vez que usas la aplicación VibrationSMS\n...</string>
 	<string name = "smsfrom">SMS de </string>
 	<string name = "vib_add_ok">Vibración agregada correctamente</string>
+	<string name = "dialog_str_morse_tittle">Texto a morse</string>
     
     
 </resources>
