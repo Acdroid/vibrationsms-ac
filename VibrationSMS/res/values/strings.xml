@@ -17,6 +17,7 @@
 	<string name = "smsfrom">SMS from </string>
 	<string name = "vib_add_ok">successfully added vibration</string>
 	<string name = "dialog_str_morse_tittle">Text to morse</string>
+	<string name = "dialog_str_morse_text">Type text to convert to morse</string>
 	
     
     
