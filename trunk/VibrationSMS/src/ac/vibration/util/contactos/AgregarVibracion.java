@@ -32,7 +32,10 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AlphabetIndexer;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -44,6 +47,7 @@ import android.widget.SimpleCursorAdapter;
 public final class AgregarVibracion extends ListActivity
 {
 	public static final int DIALOG_LIST_OPTIONS = 0;
+	public static final int DIALOG_STR_MORSE = 1;
 	public static final int ID = 2;
 	//FIXME mejorable por el momento se queda asi
 	public static final String op1 = "Edit Vibration";
@@ -55,6 +59,9 @@ public final class AgregarVibracion extends ListActivity
 	private Cursor cursor;
 	private CharSequence[] items = { op1, op2,op3,op4};
 	public VibContact selectContact;
+	public Context mContext;
+	public EditText textDialog;
+	public Dialog dialogStrMorse;
 
 	VibContactList vcl;
 
@@ -83,7 +90,7 @@ public final class AgregarVibracion extends ListActivity
 			AgregarVibracion.this.finish();
 		}
 
-
+		mContext = this;
 		cursor = getContacts();
 		startManagingCursor(cursor);
 		String[] fields = new String[] {
@@ -132,6 +139,41 @@ public final class AgregarVibracion extends ListActivity
 			});
 			return  builder.create();
 
+		case DIALOG_STR_MORSE:
+			dialogStrMorse = new Dialog(mContext);
+			dialogStrMorse.setContentView(R.layout.dialog_str_morse);
+			dialogStrMorse.setTitle(mContext.getResources().getString(R.string.dialog_str_morse_tittle));
+			Button buttonDialog= (Button) dialogStrMorse.findViewById(R.id.buttonDialog);
+			textDialog = (EditText) dialogStrMorse.findViewById(R.id.dialog_str_morse_text);
+
+			//Asignamos accion al boton parar.
+			buttonDialog.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					AppConfig ac = new AppConfig(mContext, AppConfig.CONFIG_NAME_DEF);
+					//TODO Mejora preguntar si solo el nombre o todo el nombre
+					//Es decir si por ejemplo carlos díaz canovas preguntar si carlos o carlos diaz canovas
+
+					long vi[];
+					try {
+						vi = MorseCode.stringToVib(selectContact.getName(),ac.getInt(AppConfig.DELAY_INI) , ac.getInt(AppConfig.VELOCIDAD_VIB));
+					} catch (NoPreferenceException e) {
+						Log.e("VS_AgregarVibracion",e.getMessage());
+						vi = MorseCode.stringToVib(selectContact.getName(),2 , 50);
+					}
+					selectContact.setVib(new Vib(vi));
+					vcl.add(selectContact);
+
+					DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), vi);
+					mToast.Make(mContext, getResources().getString(R.string.vib_add_ok), 0);
+					dump();
+					dialogStrMorse.cancel();
+
+				}
+			});
+			return dialogStrMorse;
+
 		default:
 		}
 		return dialog;
@@ -169,6 +211,7 @@ public final class AgregarVibracion extends ListActivity
 			break;
 		case 2:
 			mToast.Make(this,"Elegido Custom Morse", 0);
+			showDialog(DIALOG_STR_MORSE);
 			break;
 		case 3:
 			addNameMorse();
@@ -189,7 +232,7 @@ public final class AgregarVibracion extends ListActivity
 		AppConfig ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
 		//TODO Mejora preguntar si solo el nombre o todo el nombre
 		//Es decir si por ejemplo carlos díaz canovas preguntar si carlos o carlos diaz canovas
-		
+
 		long v[];
 		try {
 			v = MorseCode.stringToVib(selectContact.getName(),ac.getInt(AppConfig.DELAY_INI) , ac.getInt(AppConfig.VELOCIDAD_VIB));
@@ -236,14 +279,14 @@ public final class AgregarVibracion extends ListActivity
 		dump();
 		super.onResume();
 	}
-	
+
 	@Override
 	protected void onStop() {
 		dump();
 		super.onStop();
 	}
 
-	
+
 	public void dump(){
 		try {
 			new ContactsConfig().dumpVibContactList(vcl);
