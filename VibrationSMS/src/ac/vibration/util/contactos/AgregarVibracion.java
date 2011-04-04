@@ -31,8 +31,10 @@ import android.os.Vibrator;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AlphabetIndexer;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +43,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 
 
@@ -144,24 +147,29 @@ public final class AgregarVibracion extends ListActivity
 			dialogStrMorse.setContentView(R.layout.dialog_str_morse);
 			dialogStrMorse.setTitle(mContext.getResources().getString(R.string.dialog_str_morse_tittle));
 			Button buttonDialog= (Button) dialogStrMorse.findViewById(R.id.buttonDialog);
-			textDialog = (EditText) dialogStrMorse.findViewById(R.id.dialog_str_morse_text);
-
-			//Asignamos accion al boton parar.
 			buttonDialog.setOnClickListener(new OnClickListener() {
-
+				
 				@Override
 				public void onClick(View v) {
 					AppConfig ac = new AppConfig(mContext, AppConfig.CONFIG_NAME_DEF);
-					//TODO Mejora preguntar si solo el nombre o todo el nombre
-					//Es decir si por ejemplo carlos díaz canovas preguntar si carlos o carlos diaz canovas
-
 					long vi[];
+					String aux = getTextDialog().getText().toString();
+					
+					//Comprobamos si es nulo lo que se ha introducido
+					if ((aux == null) || (aux.equals(""))){
+						getTextDialog().setError(getString(R.string.error_missing_name_tomorse));
+						return;
+					}
+					
+					//Obtenemos la vibracion a partir del texto traduciendola a morse
 					try {
-						vi = MorseCode.stringToVib(selectContact.getName(),ac.getInt(AppConfig.DELAY_INI) , ac.getInt(AppConfig.VELOCIDAD_VIB));
+						vi = MorseCode.stringToVib(aux,ac.getInt(AppConfig.DELAY_INI) , ac.getInt(AppConfig.VELOCIDAD_VIB));
 					} catch (NoPreferenceException e) {
 						Log.e("VS_AgregarVibracion",e.getMessage());
 						vi = MorseCode.stringToVib(selectContact.getName(),2 , 50);
 					}
+					
+					//La asignamos y guardamos
 					selectContact.setVib(new Vib(vi));
 					vcl.add(selectContact);
 
@@ -169,9 +177,10 @@ public final class AgregarVibracion extends ListActivity
 					mToast.Make(mContext, getResources().getString(R.string.vib_add_ok), 0);
 					dump();
 					dialogStrMorse.cancel();
-
+					
 				}
 			});
+			textDialog = (EditText) dialogStrMorse.findViewById(R.id.dialog_str_morse_text);
 			return dialogStrMorse;
 
 		default:
@@ -286,6 +295,15 @@ public final class AgregarVibracion extends ListActivity
 		super.onStop();
 	}
 
+	
+	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		switch (actionId) {
+		case EditorInfo.IME_ACTION_DONE:
+			clickAsignarDialog(v);
+			break;
+		}
+		return false;
+	}
 
 	public void dump(){
 		try {
@@ -298,6 +316,14 @@ public final class AgregarVibracion extends ListActivity
 			e.printStackTrace();
 		}
 		return;
+	}
+	
+	public void clickAsignarDialog(View v){
+		
+	}
+
+	public EditText getTextDialog() {
+		return textDialog;
 	}
 
 	class MiCursorAdapter extends SimpleCursorAdapter implements SectionIndexer{
