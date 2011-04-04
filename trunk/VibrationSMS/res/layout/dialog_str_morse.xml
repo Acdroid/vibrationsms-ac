@@ -13,7 +13,9 @@
 		android:id="@+id/dialog_str_morse_text"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_weight="1.5"></EditText>
+		android:layout_weight="1.5"
+		android:imeOptions="actionDone"
+		android:inputType="text"></EditText>
 		
 	<Button
 		android:id="@+id/buttonDialog"
@@ -22,5 +24,6 @@
 		android:layout_width="fill_parent"
 		android:layout_marginTop="25dp"
 		android:layout_weight="0.3"
+		android:textStyle="bold"
 		></Button>
 </LinearLayout>
