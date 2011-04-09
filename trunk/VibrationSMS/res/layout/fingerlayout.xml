@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent">
+
+
+
+	<TextView
+		android:layout_alignParentTop="true"
+		android:text="Tap here to set your vibration:"
+		android:layout_width="fill_parent"
+		android:id="@+id/fingerInfo"
+		android:layout_height="wrap_content">
+	</TextView>
+
+    
+    
+    
+        <RelativeLayout
+    		android:id="@+id/fingerButtonLayout"
+	    	android:layout_width="fill_parent"
+    		android:layout_height="fill_parent"
+			android:layout_above="@+id/fingerCentralLayout"
+    		android:layout_below="@+id/fingerInfo">
+    		
+    		
+            <FrameLayout            	
+            	android:id="@+id/fingerWhiteFrame"
+            	android:layout_alignParentLeft="true"
+            	android:layout_height="fill_parent"
+            	android:layout_width="fill_parent"
+            	android:background="#FFFFFF"
+            	android:padding="20px">
+            	
+            	<FrameLayout            	
+	            	android:id="@+id/fingerRedSquare"
+	            	android:layout_alignParentLeft="true"
+	            	android:layout_height="fill_parent"
+	            	android:layout_width="fill_parent"
+	            	android:foreground="#AA1111"
+	            	android:padding="0px">            	            	
+           	 	</FrameLayout>
+            	
+            </FrameLayout>
+    		
+
+    		
+    		
+    		
+    	</RelativeLayout>
+    
+    
+
+    
+    
+    
+    
+    
+    <RelativeLayout
+    	android:id="@+id/fingerCentralLayout"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_above="@+id/InnerRelativeLayout"
+    	android:padding="5dp">
+    	
+    	
+    	
+    	<TextView
+			android:layout_alignParentTop="true"
+			android:text="Delay:"
+			android:layout_width="wrap_content"
+			android:id="@+id/fingerDelayLabel"
+			android:layout_height="wrap_content"
+			android:padding="2dp">
+		</TextView>
+		
+    	<SeekBar
+    		android:id="@+id/fingerDelaySeek"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:padding="2dp"
+    		    		
+    		android:layout_toRightOf="@+id/fingerDelayLabel"
+    		android:layout_alignTop="@+id/fingerDelayLabel"
+    		android:layout_alignBottom="@+id/fingerDelayLabel">
+    	</SeekBar>
+    	
+
+   	</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+    <RelativeLayout 
+        android:id="@+id/InnerRelativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <Button 
+            android:text="Cancel" 
+            android:id="@+id/fingerCancelButton"
+            android:layout_alignParentRight="true" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </Button>
+        
+        <Button
+        	android:id="@+id/fingerResetButton"
+        	android:layout_width="wrap_content"
+        	android:layout_toLeftOf="@+id/fingerCancelButton"
+        	android:layout_height="wrap_content"
+        	android:text="Reset"
+        	android:layout_alignTop="@+id/fingerCancelButton"
+        	android:layout_alignBottom="@+id/fingerCancelButton">
+       	</Button>
+   
+        <Button
+        	android:id="@+id/fingerSaveButton"
+        	android:layout_width="wrap_content"
+        	android:layout_toLeftOf="@+id/fingerResetButton"
+        	android:layout_height="wrap_content"
+        	android:text="Save"
+        	android:layout_alignTop="@+id/fingerResetButton"
+        	android:layout_alignBottom="@+id/fingerResetButton">
+       	</Button>
+   
+        <Button
+        	android:id="@+id/fingerTestButton"
+        	android:layout_width="wrap_content"
+        	android:layout_toLeftOf="@+id/fingerSaveButton"
+        	android:layout_height="wrap_content"
+        	android:text="Test"
+        	android:layout_alignTop="@+id/fingerSaveButton"
+        	android:layout_alignBottom="@+id/fingerSaveButton">
+       	</Button>
+       	
+        <TextView
+        	android:layout_toLeftOf="@+id/fingerTestButton"
+        	android:layout_width="fill_parent"
+        	android:text="0000 ms"
+        	android:id="@+id/fingerMsLabel"
+        	android:layout_height="wrap_content"
+        	android:padding="5dp">
+       </TextView>       	
+       	
+
+    </RelativeLayout>
+    
+    
+    
+    
+
+</RelativeLayout>
+ 

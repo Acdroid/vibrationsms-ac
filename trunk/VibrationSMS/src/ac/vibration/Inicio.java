@@ -8,6 +8,7 @@ import ac.vibration.morse.MorseCode;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.types.Vib;
+import ac.vibration.ui.AddVib;
 import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.AppConfig;
 import ac.vibration.util.config.ContactsConfig;
@@ -188,7 +189,9 @@ public class Inicio extends Activity {
      * @param v Componente que llama a la funcion
      */
     public void clickAgregar(View v){
-    	mToast.Make(this, "boton agregar sin funcion aun", 0);
+    	Intent i = new Intent(Inicio.this,AddVib.class);
+    	startActivityForResult(i, ID);
+    	//mToast.Make(this, "boton agregar sin funcion aun", 0);
     	
     }
     

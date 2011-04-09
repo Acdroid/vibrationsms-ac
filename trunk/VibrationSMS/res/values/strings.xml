@@ -5,6 +5,8 @@
     <string name="main_button_asignar">Assign Vibration</string>
     <string name="main_button_agregar">Create new Vibration</string>
     
+    <string name="hello">hello:)</string>
+    
     <!-- Dialog -->
     <string name = "edit_vibration"> Edit Vibration</string>
 	<string name = "dialog_selection">What do you want to do?</string>  
