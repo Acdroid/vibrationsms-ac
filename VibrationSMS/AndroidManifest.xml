@@ -21,7 +21,13 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"></action>
             </intent-filter>
         </receiver>
+
+
         <activity android:name=".util.contactos.AgregarVibracion"></activity>
+        
+        <activity android:name=".ui.AddVib"></activity>
+        <activity android:name=".ui.FingerActivity"></activity>
+        <activity android:name=".ui.MorseActivity"></activity>
 
     </application>
 </manifest>
