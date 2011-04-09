@@ -13,6 +13,11 @@ public class Preset {
 		setName(name);
 		setVib(vib);		
 	}
+	
+	public Preset(String name, Vib vib){
+		setName(name);
+		setVib(vib);
+	}
 
 
 	public String getName() {

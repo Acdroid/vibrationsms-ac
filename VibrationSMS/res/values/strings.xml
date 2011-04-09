@@ -20,9 +20,11 @@
 	<string name = "vib_add_ok">successfully added vibration</string>
 	<string name = "dialog_str_morse_tittle">Text to morse</string>
 	<string name = "dialog_str_morse_text">Type text to convert to morse</string>
+	<string name = "in_morse">InMorse</string>
 	
 	<!-- Errores -->
 	<string name = "error_missing_name_tomorse">You must to write something!</string>
+	<string name = "error_guardar_preset">Error al guardar la vibración en el fichero de configuración. Aún así la vibración se ha añadido.</string>
 	
     
     

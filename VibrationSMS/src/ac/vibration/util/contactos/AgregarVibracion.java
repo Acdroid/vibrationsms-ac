@@ -12,12 +12,15 @@ import ac.vibration.exceptions.GeneralException;
 import ac.vibration.exceptions.NoFileException;
 import ac.vibration.exceptions.NoPreferenceException;
 import ac.vibration.morse.MorseCode;
+import ac.vibration.types.Preset;
+import ac.vibration.types.PresetList;
 import ac.vibration.types.Vib;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.AppConfig;
 import ac.vibration.util.config.ContactsConfig;
+import ac.vibration.util.config.PresetsConfig;
 import ac.vibration.util.mToast.mToast;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -148,19 +151,19 @@ public final class AgregarVibracion extends ListActivity
 			dialogStrMorse.setTitle(mContext.getResources().getString(R.string.dialog_str_morse_tittle));
 			Button buttonDialog= (Button) dialogStrMorse.findViewById(R.id.buttonDialog);
 			buttonDialog.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					AppConfig ac = new AppConfig(mContext, AppConfig.CONFIG_NAME_DEF);
 					long vi[];
 					String aux = getTextDialog().getText().toString();
-					
+
 					//Comprobamos si es nulo lo que se ha introducido
 					if ((aux == null) || (aux.equals(""))){
 						getTextDialog().setError(getString(R.string.error_missing_name_tomorse));
 						return;
 					}
-					
+
 					//Obtenemos la vibracion a partir del texto traduciendola a morse
 					try {
 						vi = MorseCode.stringToVib(aux,ac.getInt(AppConfig.DELAY_INI) , ac.getInt(AppConfig.VELOCIDAD_VIB));
@@ -168,16 +171,40 @@ public final class AgregarVibracion extends ListActivity
 						Log.e("VS_AgregarVibracion",e.getMessage());
 						vi = MorseCode.stringToVib(selectContact.getName(),2 , 50);
 					}
-					
+
+					Vib vibResultante = new Vib (vi);
+
 					//La asignamos y guardamos
-					selectContact.setVib(new Vib(vi));
+					selectContact.setVib(vibResultante);
 					vcl.add(selectContact);
 
 					DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), vi);
 					mToast.Make(mContext, getResources().getString(R.string.vib_add_ok), 0);
 					dump();
+
+
+					//Guardamos la vibracion
+					Preset preset = new Preset(aux + getResources().getString(R.string.in_morse), vibResultante);
+					PresetsConfig pc;
+					try {
+						pc = new PresetsConfig();
+
+						PresetList pl = pc.loadPresets();
+						pl.add(preset);
+						pc.dumpVibContactList(pl);
+					} catch (NoFileException e) {
+						Log.e("VS_AgregarVibracion",e.getMessage());
+						mToast.Make(mContext, getResources().getString(R.string.error_guardar_preset), 0);
+					} catch (ContactFileErrorException e) {
+						mToast.Make(mContext, getResources().getString(R.string.error_guardar_preset), 0);
+						Log.e("VS_AgregarVibracion",e.getMessage());
+					} catch (GeneralException e) {
+						Log.e("VS_AgregarVibracion",e.getMessage());
+						mToast.Make(mContext, getResources().getString(R.string.error_guardar_preset), 0);
+					}
+
 					dialogStrMorse.cancel();
-					
+
 				}
 			});
 			textDialog = (EditText) dialogStrMorse.findViewById(R.id.dialog_str_morse_text);
@@ -295,7 +322,7 @@ public final class AgregarVibracion extends ListActivity
 		super.onStop();
 	}
 
-	
+
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 		switch (actionId) {
 		case EditorInfo.IME_ACTION_DONE:
@@ -317,9 +344,9 @@ public final class AgregarVibracion extends ListActivity
 		}
 		return;
 	}
-	
+
 	public void clickAsignarDialog(View v){
-		
+
 	}
 
 	public EditText getTextDialog() {
@@ -344,19 +371,19 @@ public final class AgregarVibracion extends ListActivity
 			String phone = cursor.getString(cursor.getColumnIndex(Phone.NUMBER));
 			if (vcl.contactExists(phone)){
 				ImageView i = (ImageView) view.findViewById(R.id.item_list_image);
-				i.setBackgroundResource(android.R.drawable.btn_star_big_on);
+				i.setBackgroundResource(R.drawable.btn_check_on);
 			}
 			else{
 				ImageView i = (ImageView) view.findViewById(R.id.item_list_image);
-				i.setBackgroundResource(android.R.drawable.btn_star_big_off);
+				i.setBackgroundResource(R.drawable.btn_check_off);
 			}
 
 			LinearLayout l = (LinearLayout) view.findViewById(R.id.lay_item);
 			if ((cursor.getPosition() % 2) == 0){
-				l.setBackgroundResource(R.color.lista_green);	
+				l.setBackgroundResource(R.color.white);	
 			}
 			else {
-				l.setBackgroundResource(R.color.lista_green2);
+				l.setBackgroundResource(R.color.lista_yellow);
 			}
 
 
