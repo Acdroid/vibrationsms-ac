@@ -8,8 +8,11 @@
     <string name="hello">hello:)</string>
     
     <!-- Dialog -->
-    <string name = "edit_vibration"> Edit Vibration</string>
 	<string name = "dialog_selection">What do you want to do?</string>  
+	<string name = "edit_vibracion">"Edit Vibration"</string>
+	<string name = "custom_vibration">"Custom Vibration"</string>
+	<string name = "custom_vibration_morse">"Custom Morse Vibration"</string>
+	<string name = "name_morse">"Name in Morse"</string>
 	
 	<!-- Button -->
 	<string name = "dialog_str_morse_button">Assign</string>  

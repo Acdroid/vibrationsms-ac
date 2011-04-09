@@ -6,8 +6,11 @@
     <string name="main_button_agregar">Crear Nueva Vibración</string>
     
     <!-- Dialog -->
-    <string name = "edit_vibration">Editar Vibración</string>
 	<string name = "dialog_selection">¿Qué es lo que quieres hacer?</string>  
+	<string name = "edit_vibracion">"Editar Vibración"</string>
+	<string name = "custom_vibration">"Vibración Personalizada"</string>
+	<string name = "custom_vibration_morse">"Vibración Morse Personalizada"</string>
+	<string name = "name_morse">"El nombre en morse"</string>
 	
 	<!-- Button -->
 	<string name = "dialog_str_morse_button">Asignar</string>    

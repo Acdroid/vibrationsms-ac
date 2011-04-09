@@ -3,7 +3,7 @@
  * @author Carlos Diaz Canovas y Marcos Trujillo Seoane
  * 
  */
-package ac.vibration.util.contactos;
+package ac.vibration.ui;
 
 import ac.vibration.Inicio;
 import ac.vibration.R;
@@ -55,15 +55,11 @@ public final class AgregarVibracion extends ListActivity
 	public static final int DIALOG_LIST_OPTIONS = 0;
 	public static final int DIALOG_STR_MORSE = 1;
 	public static final int ID = 2;
-	//FIXME mejorable por el momento se queda asi
-	public static final String op1 = "Edit Vibration";
-	public static final String op2 = "Custom Vibration";
-	public static final String op3 = "Custom Morse Vibration";
-	public static final String op4 = "Name in Morse";
-
+	public static final String KEY_CONTACTO = "CONTACTO";
+	public static final String KEY_NUMERO= "NUMERO";
 
 	private Cursor cursor;
-	private CharSequence[] items = { op1, op2,op3,op4};
+	private CharSequence[] items;
 	public VibContact selectContact;
 	public Context mContext;
 	public EditText textDialog;
@@ -79,6 +75,13 @@ public final class AgregarVibracion extends ListActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lista_contactos); 
+		
+		//Lista de items del dialog cuando se pulsa un contacto
+		CharSequence[] aux = {getResources().getString(R.string.edit_vibracion) ,
+							getResources().getString(R.string.custom_vibration),
+							getResources().getString(R.string.custom_vibration_morse),
+							getResources().getString(R.string.name_morse)};
+		items = aux;
 
 		try {
 			vcl = new ContactsConfig().loadVibContactList();
@@ -243,10 +246,9 @@ public final class AgregarVibracion extends ListActivity
 			mToast.Make(this,"Elegido edit",0);
 			break;
 		case 1:
-			mToast.Make(this,"Elegido Custom vibration", 0);
+			createVib();
 			break;
 		case 2:
-			mToast.Make(this,"Elegido Custom Morse", 0);
 			showDialog(DIALOG_STR_MORSE);
 			break;
 		case 3:
@@ -282,6 +284,15 @@ public final class AgregarVibracion extends ListActivity
 		DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), v);
 		mToast.Make(this, getResources().getString(R.string.vib_add_ok), 0);
 		dump();
+	}
+	
+	
+	private void createVib(){
+		Intent intent = new Intent(AgregarVibracion.this, AddVib.class);
+		intent.putExtra("KEY_CONTACTO", selectContact.getName());
+		intent.putExtra("KEY_NUMERO", selectContact.getNumber());
+		startActivityForResult(intent, ID);
+		
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
