@@ -9,7 +9,7 @@
 
 	<TextView
 		android:layout_alignParentTop="true"
-		android:text="Tap here to set your vibration:"
+		android:text="@string/taphere"
 		android:layout_width="fill_parent"
 		android:id="@+id/fingerInfo"
 		android:layout_height="wrap_content">
@@ -69,7 +69,7 @@
     	
     	<TextView
 			android:layout_alignParentTop="true"
-			android:text="Delay:"
+			android:text="@string/delay"
 			android:layout_width="wrap_content"
 			android:id="@+id/fingerDelayLabel"
 			android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
         android:layout_alignParentBottom="true" >
 
         <Button 
-            android:text="Cancel" 
+            android:text="@string/cancel" 
             android:id="@+id/fingerCancelButton"
             android:layout_alignParentRight="true" 
             android:layout_width="wrap_content"
@@ -119,7 +119,7 @@
         	android:layout_width="wrap_content"
         	android:layout_toLeftOf="@+id/fingerCancelButton"
         	android:layout_height="wrap_content"
-        	android:text="Reset"
+        	android:text="@string/reset"
         	android:layout_alignTop="@+id/fingerCancelButton"
         	android:layout_alignBottom="@+id/fingerCancelButton">
        	</Button>
@@ -129,7 +129,7 @@
         	android:layout_width="wrap_content"
         	android:layout_toLeftOf="@+id/fingerResetButton"
         	android:layout_height="wrap_content"
-        	android:text="Save"
+        	android:text="@string/save"
         	android:layout_alignTop="@+id/fingerResetButton"
         	android:layout_alignBottom="@+id/fingerResetButton">
        	</Button>
@@ -139,7 +139,7 @@
         	android:layout_width="wrap_content"
         	android:layout_toLeftOf="@+id/fingerSaveButton"
         	android:layout_height="wrap_content"
-        	android:text="Test"
+        	android:text="@string/test"
         	android:layout_alignTop="@+id/fingerSaveButton"
         	android:layout_alignBottom="@+id/fingerSaveButton">
        	</Button>
@@ -147,7 +147,7 @@
         <TextView
         	android:layout_toLeftOf="@+id/fingerTestButton"
         	android:layout_width="fill_parent"
-        	android:text="0000 ms"
+        	android:text="0 ms"
         	android:id="@+id/fingerMsLabel"
         	android:layout_height="wrap_content"
         	android:padding="5dp">
