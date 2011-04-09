@@ -12,7 +12,7 @@ import ac.vibration.ui.AddVib;
 import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.AppConfig;
 import ac.vibration.util.config.ContactsConfig;
-import ac.vibration.util.contactos.AgregarVibracion;
+import ac.vibration.ui.AgregarVibracion;
 import ac.vibration.util.mToast.mToast;
 import ac.vibration.util.tools.Tools;
 import android.app.Activity;
@@ -191,8 +191,6 @@ public class Inicio extends Activity {
     public void clickAgregar(View v){
     	Intent i = new Intent(Inicio.this,AddVib.class);
     	startActivityForResult(i, ID);
-    	mToast.Make(this, "boton agregar sin funcion aun", 0);
-    	
     }
     
     

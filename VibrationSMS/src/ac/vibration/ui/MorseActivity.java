@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 
 /**
- * Actividad para crear una vibración en morse
+ * Actividad para crear una vibracion en morse
  * */
 public class MorseActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {

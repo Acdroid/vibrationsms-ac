@@ -18,15 +18,20 @@ import android.widget.TextView;
 
 
 /**
- * Actividad para crear una vibraci√≥n con los dedos manualmente :)
+ * Actividad para crear una vibracion con los dedos manualmente :)
  * */
 public class FingerActivity extends Activity {
+	
+	private String name;
+	private String number;
+	
+	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        
         setContentView(R.layout.fingerlayout);
-       
+                //
+        init(); // <---------------- Te lo agrego por si hay que recoger el nombre y n˙mero del contacto que te paso por el intent
+                //
         
         //El medidor desplazable del delay
         SeekBar delayBar = (SeekBar) findViewById(R.id.fingerDelaySeek);
@@ -92,9 +97,23 @@ public class FingerActivity extends Activity {
               return false;
            }
         });
-		
+     
         
         
-        
+    }
+    
+    
+    
+    
+    private void init(){
+    	
+    	//Si existen extras pasados pro intent, los obtiene
+    	Bundle bundle = getIntent().getExtras();
+		if(bundle!=null){
+			name = bundle.getString(AgregarVibracion.KEY_CONTACTO); //Nombre del contacto al que agregar la vibracion
+			number = bundle.getString(AgregarVibracion.KEY_NUMERO); //Numero del contacto al que agregar la vibracion
+		}
+    	
+    	
     }
 }
