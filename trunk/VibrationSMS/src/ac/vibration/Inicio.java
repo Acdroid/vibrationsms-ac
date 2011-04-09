@@ -191,7 +191,7 @@ public class Inicio extends Activity {
     public void clickAgregar(View v){
     	Intent i = new Intent(Inicio.this,AddVib.class);
     	startActivityForResult(i, ID);
-    	//mToast.Make(this, "boton agregar sin funcion aun", 0);
+    	mToast.Make(this, "boton agregar sin funcion aun", 0);
     	
     }
     
