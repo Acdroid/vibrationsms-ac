@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
     <RelativeLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent">
+    	xmlns:android="http://schemas.android.com/apk/res/android"
+   	 	android:layout_width="fill_parent" 
+    	android:layout_height="fill_parent">
 
 
 
 	<TextView
 		android:layout_alignParentTop="true"
 		android:text="@string/taphere"
+		android:textStyle="bold"
+		android:layout_marginLeft = "5dip"
+		android:layout_marginTop = "5dip"
+		android:layout_marginBottom = "3dip"
 		android:layout_width="fill_parent"
 		android:id="@+id/fingerInfo"
 		android:layout_height="wrap_content">
@@ -24,68 +28,85 @@
     		android:layout_height="fill_parent"
 			android:layout_above="@+id/fingerCentralLayout"
     		android:layout_below="@+id/fingerInfo">
-    		
-    		
-            <FrameLayout            	
+    		<FrameLayout            	
             	android:id="@+id/fingerWhiteFrame"
             	android:layout_alignParentLeft="true"
             	android:layout_height="fill_parent"
             	android:layout_width="fill_parent"
-            	android:background="#FFFFFF"
-            	android:padding="20px">
+            	android:background="@color/white"
+            	android:padding="20dip">
+            	
             	
             	<FrameLayout            	
-	            	android:id="@+id/fingerRedSquare"
 	            	android:layout_alignParentLeft="true"
 	            	android:layout_height="fill_parent"
 	            	android:layout_width="fill_parent"
-	            	android:foreground="#AA1111"
-	            	android:padding="0px">            	            	
+	            	android:background="@color/black"
+	            	android:padding="3dip">   
+	            	<FrameLayout            	
+		            	android:id="@+id/fingerRedSquare"
+		            	android:layout_alignParentLeft="true"
+		            	android:layout_height="fill_parent"
+		            	android:layout_width="fill_parent"
+		            	android:foreground="@color/colorTapButtonOFF"
+		            	android:padding="2dip">            	            	
+	           	 	</FrameLayout>
            	 	</FrameLayout>
             	
             </FrameLayout>
-    		
-
-    		
-    		
-    		
     	</RelativeLayout>
-    
-    
-
-    
-    
-    
-    
-    
-    <RelativeLayout
+     <RelativeLayout
     	android:id="@+id/fingerCentralLayout"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
     	android:layout_above="@+id/InnerRelativeLayout"
-    	android:padding="5dp">
+    	android:padding="5dip">
     	
     	
     	
     	<TextView
 			android:layout_alignParentTop="true"
 			android:text="@string/delay"
+			android:textStyle= "bold"
+			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:id="@+id/fingerDelayLabel"
-			android:layout_height="wrap_content"
-			android:padding="2dp">
+			android:layout_marginLeft="5dip"
+			android:layout_marginBottom="3dip">
 		</TextView>
 		
     	<SeekBar
     		android:id="@+id/fingerDelaySeek"
     		android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"
-    		android:padding="2dp"
+    		android:layout_height="18dip"
+    		android:layout_marginLeft="3dip"
+			android:layout_marginBottom="3dip"
+			android:layout_marginRight="3dip"
     		    		
     		android:layout_toRightOf="@+id/fingerDelayLabel"
     		android:layout_alignTop="@+id/fingerDelayLabel"
-    		android:layout_alignBottom="@+id/fingerDelayLabel">
+    		android:layout_alignBottom="@+id/fingerDelayLabel"
+    		>
     	</SeekBar>
+    <RelativeLayout
+    	android:id="@+id/fingerCentralLayout"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_above="@+id/InnerRelativeLayout"
+    	>
+
+       <TextView
+        	android:layout_toLeftOf="@+id/fingerTestButton"
+        	android:layout_width="fill_parent"
+        	android:text="0 ms"
+        	android:textStyle="bold"
+        	android:id="@+id/fingerMsLabel"
+        	android:layout_height="wrap_content"
+        	android:padding="1dp"
+        	android:gravity="center">
+       </TextView>     
+
+</RelativeLayout>
     	
 
    	</RelativeLayout>
@@ -96,19 +117,19 @@
 
 
 
-
-
-
-
-    <RelativeLayout 
+    <LinearLayout 
+    	style="@android:style/ButtonBar"
+    	
         android:id="@+id/InnerRelativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
         <Button 
             android:text="@string/cancel" 
             android:id="@+id/fingerCancelButton"
+            android:layout_weight="1"
             android:layout_alignParentRight="true" 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -117,6 +138,7 @@
         <Button
         	android:id="@+id/fingerResetButton"
         	android:layout_width="wrap_content"
+        	android:layout_weight="1"
         	android:layout_toLeftOf="@+id/fingerCancelButton"
         	android:layout_height="wrap_content"
         	android:text="@string/reset"
@@ -127,6 +149,7 @@
         <Button
         	android:id="@+id/fingerSaveButton"
         	android:layout_width="wrap_content"
+        	android:layout_weight="1"
         	android:layout_toLeftOf="@+id/fingerResetButton"
         	android:layout_height="wrap_content"
         	android:text="@string/save"
@@ -137,24 +160,15 @@
         <Button
         	android:id="@+id/fingerTestButton"
         	android:layout_width="wrap_content"
+        	android:layout_weight="1"
         	android:layout_toLeftOf="@+id/fingerSaveButton"
         	android:layout_height="wrap_content"
         	android:text="@string/test"
         	android:layout_alignTop="@+id/fingerSaveButton"
         	android:layout_alignBottom="@+id/fingerSaveButton">
        	</Button>
-       	
-        <TextView
-        	android:layout_toLeftOf="@+id/fingerTestButton"
-        	android:layout_width="fill_parent"
-        	android:text="0 ms"
-        	android:id="@+id/fingerMsLabel"
-        	android:layout_height="wrap_content"
-        	android:padding="5dp">
-       </TextView>       	
-       	
+     </LinearLayout>
 
-    </RelativeLayout>
     
     
     

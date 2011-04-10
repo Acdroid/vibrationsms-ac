@@ -40,7 +40,7 @@ public class AppConfig extends MSharedPreferences{
 		
 		//Comprobamos si es la primera vez que se llama alconstructor, en tal caso
 		//se guardan los valores iniciales
-		//if(!pref.contains(FIRST_TIME)){
+		if(!pref.contains(FIRST_TIME)){
 			mToast.Make(mContext,mContext.getResources().getString(R.string.first_time_toast), 1);
 		
 			//Procedemos a cargar los valores por primera vez en las preferencias.
@@ -80,5 +80,5 @@ public class AppConfig extends MSharedPreferences{
 		
 		}
 		
-	//}
+	}
 }
