@@ -48,7 +48,7 @@
 		            	android:layout_alignParentLeft="true"
 		            	android:layout_height="fill_parent"
 		            	android:layout_width="fill_parent"
-		            	android:foreground="@color/colorTapButtonOFF"
+		            	android:background="@color/colorTapButtonOFF"
 		            	android:padding="2dip">            	            	
 	           	 	</FrameLayout>
            	 	</FrameLayout>
