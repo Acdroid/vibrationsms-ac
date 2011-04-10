@@ -26,6 +26,14 @@
 	<!-- Errores -->
 	<string name = "error_missing_name_tomorse">¡Debes escribir algo!</string>
 	<string name = "error_guardar_preset">Error al guardar la vibración en el fichero de configuración. Aún así la vibración se ha añadido.</string>
+	
+	<!-- Crear vibracion -->
+    <string name = "taphere">Pulsa aquí para crear tu vibración:</string>
+    <string name="delay">Retardo:</string>
+    <string name="cancel">Cancelar</string>
+    <string name="reset">Reset</string>
+    <string name="save">Guardar</string>
+    <string name="test">Test</string>
     
     
 </resources>
