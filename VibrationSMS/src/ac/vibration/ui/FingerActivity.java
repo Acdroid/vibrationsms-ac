@@ -94,20 +94,22 @@ public class FingerActivity extends Activity {
            public boolean onTouch(View v, MotionEvent event) {
               
         	   //La caja blanca
-        	   FrameLayout whiteBox = (FrameLayout) findViewById(R.id.fingerWhiteFrame);
-        	           	           	  
-        	   Random r = new Random();
-        	   int rNumber = r.nextInt()%1000000;
-        	   
-        	   whiteBox.setBackgroundColor(0x7f000000+rNumber);        	   
+//        	   FrameLayout whiteBox = (FrameLayout) findViewById(R.id.fingerWhiteFrame);
+//        	           	           	  
+//        	   Random r = new Random();
+//        	   int rNumber = r.nextInt()%1000000;
+//        	   
+//        	   whiteBox.setBackgroundColor(0x7f000000+rNumber);        	   
         	   if (flag){
 					Log.d("DEBUG","tic1" + flag);
 					redBox.setBackgroundResource(R.color.colorTapButtonOFF);
+					//Coger tiempo
 					flag=false;
 				}
 				else{
 					redBox.setBackgroundResource(R.color.colorTapButtonON);	
 					Log.d("DEBUG","tic2" + flag);
+					//coger tiempo
 					flag=true;
 				}   
         	   
