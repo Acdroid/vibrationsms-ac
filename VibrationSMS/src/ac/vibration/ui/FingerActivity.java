@@ -119,24 +119,7 @@ public class FingerActivity extends Activity {
            }
         });
         
-        redBox.setOnFocusChangeListener(new OnFocusChangeListener() {
-			
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
 
-				
-			}
-		});
-        
-        redBox.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				
-			}
-		});
-     
         
         
     }

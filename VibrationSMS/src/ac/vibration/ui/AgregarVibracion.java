@@ -17,6 +17,8 @@ import ac.vibration.types.PresetList;
 import ac.vibration.types.Vib;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
+import ac.vibration.ui.quickAction.ActionItem;
+import ac.vibration.ui.quickAction.QuickAction;
 import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.AppConfig;
 import ac.vibration.util.config.ContactsConfig;
@@ -47,6 +49,7 @@ import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 
@@ -64,6 +67,7 @@ public final class AgregarVibracion extends ListActivity
 	public Context mContext;
 	public EditText textDialog;
 	public Dialog dialogStrMorse;
+	public QuickAction q;
 
 	VibContactList vcl;
 
@@ -130,7 +134,9 @@ public final class AgregarVibracion extends ListActivity
 
 		//Creamos un VibContact para enviarlo por intent
 		selectContact = new VibContact(nombre,phone,null);
-		showDialog(DIALOG_LIST_OPTIONS);
+		//showDialog(DIALOG_LIST_OPTIONS);
+		
+		createQuickAction(v);
 
 	}
 
@@ -292,6 +298,66 @@ public final class AgregarVibracion extends ListActivity
 		intent.putExtra("KEY_CONTACTO", selectContact.getName());
 		intent.putExtra("KEY_NUMERO", selectContact.getNumber());
 		startActivityForResult(intent, ID);
+		
+	}
+	
+	private void createQuickAction(View v){
+		
+		final ActionItem edit = new ActionItem();
+		
+		edit.setTitle(mContext.getResources().getString(R.string.edit_vibracion));
+		edit.setIcon(getResources().getDrawable(android.R.drawable.ic_menu_manage));
+		edit.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mToast.Make(mContext,"Elegido edit",0);
+				q.dismiss();
+			}
+		});
+		
+		final ActionItem createVib = new ActionItem();
+		
+		createVib.setTitle(mContext.getResources().getString(R.string.custom_vibration));
+		createVib.setIcon(getResources().getDrawable(android.R.drawable.ic_menu_edit));
+		createVib.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				createVib();
+				q.dismiss();
+			}
+		});
+		
+		final ActionItem createMorse = new ActionItem();
+		
+		createMorse.setTitle(mContext.getResources().getString(R.string.custom_vibration_morse));
+		createMorse.setIcon(getResources().getDrawable(android.R.drawable.ic_menu_info_details));
+		createMorse.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showDialog(DIALOG_STR_MORSE);
+				q.dismiss();
+			}
+		});
+		
+		
+		final ActionItem nameMorse = new ActionItem();
+		
+		nameMorse.setTitle(mContext.getResources().getString(R.string.name_morse));
+		nameMorse.setIcon(getResources().getDrawable(android.R.drawable.ic_menu_my_calendar));
+		nameMorse.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				addNameMorse();
+				q.dismiss();
+			}
+		});
+		
+		q = new QuickAction(v);
+		q.addActionItem(edit);
+		q.addActionItem(createVib);
+		q.addActionItem(createMorse);
+		q.addActionItem(nameMorse);
+		q.show();
 		
 	}
 
