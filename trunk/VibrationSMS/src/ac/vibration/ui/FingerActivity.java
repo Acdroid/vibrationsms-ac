@@ -38,7 +38,7 @@ public class FingerActivity extends Activity {
         
         mContext = this;
                 //
-        init(); // <---------------- Te lo agrego por si hay que recoger el nombre y número del contacto que te paso por el intent
+        init(); // <---------------- Te lo agrego por si hay que recoger el nombre y nï¿½mero del contacto que te paso por el intent
                 //
         
         //El medidor desplazable del delay
@@ -72,17 +72,7 @@ public class FingerActivity extends Activity {
         
         
         
-                              
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         
         //La caja roja que hay
         redBox = (FrameLayout) findViewById(R.id.fingerRedSquare);
@@ -93,13 +83,7 @@ public class FingerActivity extends Activity {
            @Override
            public boolean onTouch(View v, MotionEvent event) {
               
-        	   //La caja blanca
-//        	   FrameLayout whiteBox = (FrameLayout) findViewById(R.id.fingerWhiteFrame);
-//        	           	           	  
-//        	   Random r = new Random();
-//        	   int rNumber = r.nextInt()%1000000;
-//        	   
-//        	   whiteBox.setBackgroundColor(0x7f000000+rNumber);        	   
+     	   
         	   if (flag){
 					Log.d("DEBUG","tic1" + flag);
 					redBox.setBackgroundResource(R.color.colorTapButtonOFF);
