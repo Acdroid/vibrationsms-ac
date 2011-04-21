@@ -40,12 +40,12 @@ public class Inicio extends Activity {
         ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
         //leeConfig();
         //escribirConfig();
-        Log.i("DEBUG",Tools.cleanText("texto ??[]}limpio...;!"));
+        //Log.i("DEBUG",Tools.cleanText("texto ??[]}limpio...;!"));
         
-        long[] v = MorseCode.stringToVib("sms", 1000, 2);
-        DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), v);
-        Vib vv = new Vib(v);
-        Log.i("main", vv.vibToString());
+        //long[] v = MorseCode.stringToVib("sms", 1000, 2);
+        //DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), v);
+        //Vib vv = new Vib(v);
+        //Log.i("main", vv.vibToString());
         
         
         
@@ -204,7 +204,7 @@ public class Inicio extends Activity {
 			case RESULT_SALIR:
 				Inicio.this.finish();
 			case RESULT_VIBRATION_EDIT_OK:
-				mToast.Make(this, "Vibration Save!", 0);
+				mToast.Make(this, "Vibration Saved!", 0);
 				break;
 			default:
 				

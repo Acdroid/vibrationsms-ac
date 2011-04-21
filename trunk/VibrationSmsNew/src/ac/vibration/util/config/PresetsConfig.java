@@ -143,7 +143,7 @@ public class PresetsConfig {
 	 * 
 	 * @throws NoContactFileException 
 	 * */
-	public void addVibContact(Preset p) throws NoFileException {
+	public void addPreset(Preset p) throws NoFileException {
 
 				
 		ConfigBackend.addLine(PRESETFILE, p.getName(), p.getVib().vibToString());
@@ -163,7 +163,7 @@ public class PresetsConfig {
 	 * 
 	 * @throws GeneralException En caso de error  
 	 * */
-	public void dumpVibContactList(PresetList pl) throws GeneralException {
+	public void dumpPresetList(PresetList pl) throws GeneralException {
 
 		if (pl.length() < 1) throw new GeneralException("List is void");
 

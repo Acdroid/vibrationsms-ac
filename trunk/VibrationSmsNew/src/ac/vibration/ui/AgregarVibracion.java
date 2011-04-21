@@ -200,7 +200,7 @@ public final class AgregarVibracion extends ListActivity
 
 						PresetList pl = pc.loadPresets();
 						pl.add(preset);
-						pc.dumpVibContactList(pl);
+						pc.dumpPresetList(pl);
 					} catch (NoFileException e) {
 						Log.e("VS_AgregarVibracion",e.getMessage());
 						mToast.Make(mContext, getResources().getString(R.string.error_guardar_preset), 0);
@@ -275,7 +275,7 @@ public final class AgregarVibracion extends ListActivity
 	private void addNameMorse(){
 		AppConfig ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
 		//TODO Mejora preguntar si solo el nombre o todo el nombre
-		//Es decir si por ejemplo carlos díaz canovas preguntar si carlos o carlos diaz canovas
+		//Es decir si por ejemplo carlos dï¿½az canovas preguntar si carlos o carlos diaz canovas
 
 		long v[];
 		try {
