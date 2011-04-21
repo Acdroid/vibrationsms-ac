@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VibrationSMS</string>
+    <string name="tittle">SMS con Vibraciones personalizadas</string>
+    <string name="main_button_asignar">Asignar Vibración</string>
+    <string name="main_button_agregar">Crear Nueva Vibración</string>
+    
+    <!-- Dialog -->
+	<string name = "dialog_selection">¿Qué es lo que quieres hacer?</string>  
+	<string name = "edit_vibracion">"Editar Vibración"</string>
+	<string name = "custom_vibration">"Vibración Personalizada"</string>
+	<string name = "custom_vibration_morse">"Vibración Morse Personalizada"</string>
+	<string name = "name_morse">"El nombre en morse"</string>
+	
+	<!-- Button -->
+	<string name = "dialog_str_morse_button">Asignar</string>    
+	
+	<!-- Miscelanea -->
+	<string name = "first_time_toast">Ésta es la primera vez que usas la aplicación VibrationSMS\n...</string>
+	<string name = "smsfrom">SMS de </string>
+	<string name = "vib_add_ok">Vibración agregada correctamente</string>
+	<string name = "dialog_str_morse_tittle">Texto a morse</string>
+	<string name = "dialog_str_morse_text">Escribe el texto para traducirlo a morse</string>
+	<string name = "in_morse">EnMorse</string>
+	
+	<!-- Errores -->
+	<string name = "error_missing_name_tomorse">¡Debes escribir algo!</string>
+	<string name = "error_guardar_preset">Error al guardar la vibración en el fichero de configuración. Aún así la vibración se ha añadido.</string>
+	
+	<!-- Crear vibracion -->
+    <string name = "taphere">Pulsa aquí para crear tu vibración:</string>
+    <string name="delay">Retardo:</string>
+    <string name="cancel">Cancelar</string>
+    <string name="reset">Reset</string>
+    <string name="save">Guardar</string>
+    <string name="test">Test</string>
+    
+    
+</resources>

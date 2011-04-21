@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@android:style/Theme.NoTitleBar"
+	
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background"
+    >
+   	<LinearLayout
+   		android:orientation="vertical"
+   		android:layout_width="fill_parent"
+   		android:layout_height="fill_parent"
+   		android:background="@drawable/icon_vibrationsms">
+		<TextView  
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content" 
+		    android:text="@string/tittle"
+		    android:gravity="center"
+		    android:textSize="25dip"
+		    android:textStyle="bold"
+		    android:textColor="@color/black"
+		    />
+		<LinearLayout
+		   	android:layout_width="fill_parent" 
+		   	android:layout_height="fill_parent"
+		   	android:gravity="center"
+		   	android:layout_margin="25dip"
+		   	android:orientation="vertical"
+		   	>
+		   	<Button
+		   		android:layout_width="fill_parent" 
+		   		android:layout_height="wrap_content"
+		   		android:id="@+id/main_button_asignar"
+		   		android:gravity="center"
+		   		android:text="@string/main_button_asignar"
+		    	android:textStyle="bold"
+		    	android:textColor="@color/black"
+		    	android:textSize="20dip"
+		    	android:onClick="clickAsignar"
+		    	></Button>
+		   	<Button
+		   		android:layout_width="fill_parent" 
+		   		android:layout_height="wrap_content"
+		   		android:id="@+id/main_button_agregar"
+		    	android:gravity="center"
+		   		android:text="@string/main_button_agregar"
+		    	android:textStyle="bold"
+		    	android:textColor="@color/black"
+		    	android:textSize="20dip"
+		    	android:onClick="clickAgregar"
+		    	></Button>
+		    
+		</LinearLayout> 
+	</LinearLayout>
+
+</LinearLayout>
