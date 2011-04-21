@@ -152,19 +152,17 @@ public class FingerActivity extends Activity {
               
         
          
-         
+         /*
          //Pulsar SAVE
          saveB.setOnTouchListener(new OnTouchListener() {
  			
  			@Override
  			public boolean onTouch(View v, MotionEvent event) {
  				
-				Dialog dialog = new Dialog(FingerActivity.this);
-				dialog.setContentView(R.layout.choose_name);
-				dialog.setTitle(R.string.vibration_saved_title);
+ 				
 						
 				//Al pulsar el Guardar del dialogo que sale al pulsar guardar
-				Button saveDialogB  = (Button) dialog.findViewById(R.id.chooserSaveButton);
+				Button saveDialogB  = (Button) findViewById(R.id.chooserSaveButton);
 				
 				
 				
@@ -173,8 +171,8 @@ public class FingerActivity extends Activity {
 					@Override
 					public boolean onTouch(View v, MotionEvent event) {
 						
-						Dialog dialog = new Dialog(FingerActivity.this);
-						TextView textName = (TextView) dialog.findViewById(R.id.chooserText);
+						
+						TextView textName = (TextView) findViewById(R.id.chooserText);
 						
 						
 						//Creamos la vib
@@ -202,14 +200,15 @@ public class FingerActivity extends Activity {
 					}
 				});
 				
-
+				Dialog dialog = new Dialog(FingerActivity.this);
+				dialog.setContentView(R.layout.choose_name);
 				dialog.show();
 
  				 				 		
  				return false;
  			}
  		});
-        
+        */
                  
         //La caja roja que hay
         tapB   = (Button) findViewById(R.id.fingerTapButton);

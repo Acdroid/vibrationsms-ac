@@ -48,8 +48,9 @@
 		            	android:layout_alignParentLeft="true"
 		            	android:layout_height="fill_parent"
 		            	android:layout_width="fill_parent"
-		            	android:background="@color/colorTapButtonOFF"
-		            	android:padding="2dip">            	            	
+		            	android:background="@color/black"
+		            	android:padding="2dip">
+	            		<Button android:layout_height="fill_parent" android:layout_width="fill_parent" android:id="@+id/fingerTapButton" android:background="@color/colorTapButtonOFF"></Button>            	            	
 	           	 	</FrameLayout>
            	 	</FrameLayout>
             	
@@ -127,25 +128,14 @@
         android:orientation="horizontal">
 
         <Button 
-            android:text="@string/cancel" 
-            android:id="@+id/fingerCancelButton"
+            android:text="@string/test" 
+            android:id="@+id/fingerTestButton"
             android:layout_weight="1"
             android:layout_alignParentRight="true" 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </Button>
         
-        <Button
-        	android:id="@+id/fingerResetButton"
-        	android:layout_width="wrap_content"
-        	android:layout_weight="1"
-        	android:layout_toLeftOf="@+id/fingerCancelButton"
-        	android:layout_height="wrap_content"
-        	android:text="@string/reset"
-        	android:layout_alignTop="@+id/fingerCancelButton"
-        	android:layout_alignBottom="@+id/fingerCancelButton">
-       	</Button>
-   
         <Button
         	android:id="@+id/fingerSaveButton"
         	android:layout_width="wrap_content"
@@ -158,14 +148,14 @@
        	</Button>
    
         <Button
-        	android:id="@+id/fingerTestButton"
+        	android:id="@+id/fingerResetButton"
         	android:layout_width="wrap_content"
         	android:layout_weight="1"
-        	android:layout_toLeftOf="@+id/fingerSaveButton"
+        	android:layout_toLeftOf="@+id/fingerCancelButton"
         	android:layout_height="wrap_content"
-        	android:text="@string/test"
-        	android:layout_alignTop="@+id/fingerSaveButton"
-        	android:layout_alignBottom="@+id/fingerSaveButton">
+        	android:text="@string/reset"
+        	android:layout_alignTop="@+id/fingerCancelButton"
+        	android:layout_alignBottom="@+id/fingerCancelButton">
        	</Button>
      </LinearLayout>
 

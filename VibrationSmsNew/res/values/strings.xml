@@ -24,6 +24,10 @@
 	<string name = "dialog_str_morse_tittle">Text to morse</string>
 	<string name = "dialog_str_morse_text">Type text to convert to morse</string>
 	<string name = "in_morse">InMorse</string>
+	<string name = "vibration_saved_title">Enter vibration name</string>
+	<string name = "vibration_saved">Your vibration was saved and set for the contact</string>
+	<string name = "enter_name">Please, enter the name for your new vibration:</string>
+	
 	
 	<!-- Errores -->
 	<string name = "error_missing_name_tomorse">You must to write something!</string>
