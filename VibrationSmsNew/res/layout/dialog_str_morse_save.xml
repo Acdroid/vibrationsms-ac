@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout 
+    	xmlns:android="http://schemas.android.com/apk/res/android"
+   	 	android:layout_width="fill_parent" 
+    	android:layout_height="fill_parent">
+
+
+
+	<TextView
+		android:layout_alignParentTop="true"
+		android:text="@string/typehere"
+		android:textStyle="bold"
+		android:layout_marginLeft = "5dip"
+		android:layout_marginTop = "5dip"
+		android:layout_marginBottom = "3dip"
+		android:layout_width="fill_parent"
+		android:id="@+id/morseInfo"
+		android:layout_height="wrap_content">
+	</TextView>
+
+    
+    
+    
+        <RelativeLayout
+    		android:id="@+id/morseButtonLayout"
+	    	android:layout_width="fill_parent"
+    		android:layout_height="fill_parent"
+			android:layout_above="@+id/morseCentralLayoutTop"
+    		android:layout_below="@+id/morseInfo">
+    		<FrameLayout            	
+            	android:id="@+id/morseWhiteFrame"
+            	android:layout_alignParentLeft="true"
+            	android:layout_height="fill_parent"
+            	android:layout_width="fill_parent"
+            	android:background="@color/black"
+            	android:padding="4dip">
+    			<EditText
+    					android:imeOptions="actionDone"
+						android:inputType="text"
+						android:id="@+id/morseText"
+						android:layout_width="fill_parent"
+						android:layout_height="fill_parent"
+						android:gravity="top"
+            			android:singleLine="false"
+            			android:lines="5"
+						
+						></EditText>
+            	
+            </FrameLayout>
+    	</RelativeLayout>
+    	
+    	
+    	
+    	
+    	
+    	<RelativeLayout
+    	android:id="@+id/morseCentralLayoutTop"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_above="@+id/morseCentralLayout"
+    	android:padding="5dip">
+    	 <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearDelayLayout" android:layout_alignParentRight="true" android:layout_width="fill_parent">
+    	         
+    	 	    
+	<TextView
+		android:text="@string/delay"
+		android:textStyle="bold"
+		android:layout_marginLeft = "0dip"
+		android:layout_marginRight = "5dip"
+		android:layout_marginTop = "5dip"
+		android:layout_marginBottom = "3dip"
+		android:layout_width="wrap_content"
+		android:id="@+id/morseDelayLabel"
+		android:layout_height="wrap_content">
+	</TextView>
+    	         
+    	         
+             <SeekBar android:layout_width="fill_parent" android:id="@+id/morseDelaySeek" android:layout_height="wrap_content"></SeekBar>             
+         </LinearLayout>
+    	</RelativeLayout>
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+     <RelativeLayout
+    	android:id="@+id/morseCentralLayout"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_above="@+id/InnerRelativeLayout"
+    	android:padding="5dip">
+    	
+    	
+         <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearSpeedLayout" android:layout_alignParentRight="true" android:layout_width="fill_parent">
+         
+         	<TextView
+		android:text="@string/speed"
+		android:textStyle="bold"
+		android:layout_marginLeft = "0dip"
+		android:layout_marginRight = "5dip"
+		android:layout_marginTop = "5dip"
+		android:layout_marginBottom = "3dip"
+		android:layout_width="wrap_content"
+		android:id="@+id/morseSpeedLabel"
+		android:layout_height="wrap_content">
+	</TextView>
+         
+         
+             <SeekBar android:layout_width="fill_parent" android:id="@+id/morseSpeedSeek" android:layout_height="wrap_content"></SeekBar>             
+         </LinearLayout>
+         
+         
+         
+         
+  	
+    	
+
+   	</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+    <LinearLayout 
+    	style="@android:style/ButtonBar"
+    	
+        android:id="@+id/InnerRelativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button 
+            android:text="@string/test" 
+            android:id="@+id/morseTestButton"
+            android:layout_weight="1"
+            android:layout_alignParentRight="true" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </Button>
+        
+        <Button
+        	android:id="@+id/morseSaveButton"
+        	android:layout_width="wrap_content"
+        	android:layout_weight="1"
+        	android:layout_toLeftOf="@+id/morseResetButton"
+        	android:layout_height="wrap_content"
+        	android:text="@string/save"
+        	android:layout_alignTop="@+id/morseResetButton"
+        	android:layout_alignBottom="@+id/morseResetButton">
+       	</Button>
+   
+        <Button
+        	android:id="@+id/morseResetButton"
+        	android:layout_width="wrap_content"
+        	android:layout_weight="1"
+        	android:layout_height="wrap_content"
+        	android:text="@string/reset">
+       	</Button>
+     </LinearLayout>
+
+    
+    
+    
+    
+
+</RelativeLayout>
+ 

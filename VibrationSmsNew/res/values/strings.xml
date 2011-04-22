@@ -36,8 +36,10 @@
     
     
     <!-- Crear vibracion -->
-    <string name = "taphere">Tap here to set your vibration:</string>
+    <string name="taphere">Tap here to set your vibration:</string>
+    <string name="typehere">Type here to set your vibration:</string>
     <string name="delay">Delay:</string>
+    <string name="speed">Speed:</string>
     <string name="cancel">Cancel</string>
     <string name="reset">Reset</string>
     <string name="save">Save</string>

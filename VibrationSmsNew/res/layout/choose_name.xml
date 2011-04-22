@@ -1,6 +1,6 @@
 
     <RelativeLayout android:id="@+id/relativeLayout1" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
-        <TextView android:text="@string/enter_name" android:layout_alignParentLeft="true" android:id="@+id/textView1" android:layout_height="wrap_content" android:layout_width="fill_parent"></TextView>
-        <EditText android:layout_height="wrap_content" android:layout_below="@+id/chooserText" android:id="@+id/editText1" android:layout_width="fill_parent" android:layout_alignLeft="@+id/textView1" android:layout_alignRight="@+id/textView1"></EditText>
-        <Button android:layout_height="wrap_content" android:id="@+id/chooserSaveButton" android:layout_below="@+id/editText1" android:text="@string/save" android:layout_width="fill_parent" android:layout_alignLeft="@+id/editText1"></Button>
+        <EditText android:id="@+id/chooserName" android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_width="fill_parent"></EditText>
+        <Button android:layout_below="@+id/chooserName" android:id="@+id/chooserSaveButton" android:layout_height="wrap_content" android:text="@string/save" android:layout_width="wrap_content" android:layout_alignLeft="@+id/chooserName" android:layout_alignRight="@+id/chooserName"></Button>
+        
     </RelativeLayout>
