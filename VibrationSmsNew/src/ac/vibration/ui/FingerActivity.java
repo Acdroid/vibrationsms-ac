@@ -1,5 +1,6 @@
 package ac.vibration.ui;
 
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
 
@@ -31,6 +32,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -48,8 +50,7 @@ public class FingerActivity extends Activity {
 	private boolean pressed = false;
 	
 	public FrameLayout redBox ;
-	public Button tapB;
-	public Context mContext = this;
+	public Button tapB;	
 		
 	long tStamp = 0;
 	long timePressed = 0;
@@ -60,11 +61,16 @@ public class FingerActivity extends Activity {
 	
 	
 	
+	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fingerlayout);
         
-        mContext = this;
+        final Context mContext = this;                
+        final Dialog dialog = new Dialog(mContext);
+        
+        
+        
                 //
         init(); // <---------------- Te lo agrego por si hay que recoger el nombre y n�mero del contacto que te paso por el intent
                 //
@@ -145,6 +151,46 @@ public class FingerActivity extends Activity {
 				
 				vibVec.clear();
 				tStamp = 0;
+								
+				
+				mToast.Make(FingerActivity.this.getParent(), "Reset", 0);
+				
+				
+				
+				
+				
+				
+				PresetList pl;
+				try {
+					pl = new PresetsConfig().loadPresets();
+
+					Iterator iter = pl.getIterator();
+					
+					while (iter.hasNext()){
+						
+						
+						Preset ps = (Preset)iter.next();
+						
+						Log.e("FingerActivity", ps.getName());
+					}
+					
+					
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				return false;
 			}
@@ -159,7 +205,7 @@ public class FingerActivity extends Activity {
  			@Override
  			public boolean onTouch(View v, MotionEvent event) {
  				
-				Dialog dialog = new Dialog(FingerActivity.this);
+				//Dialog dialog = new Dialog(FingerActivity.this.getParent());
 				dialog.setContentView(R.layout.choose_name);
 				dialog.setTitle(R.string.vibration_saved_title);
 						
@@ -173,8 +219,8 @@ public class FingerActivity extends Activity {
 					@Override
 					public boolean onTouch(View v, MotionEvent event) {
 						
-						Dialog dialog = new Dialog(FingerActivity.this);
-						TextView textName = (TextView) dialog.findViewById(R.id.chooserText);
+						//Dialog dialog = new Dialog(FingerActivity.this);
+						EditText textName = (EditText) dialog.findViewById(R.id.chooserName);
 						
 						
 						//Creamos la vib
@@ -286,7 +332,4 @@ public class FingerActivity extends Activity {
 
 
 
-	public Context getmContext() {
-		return mContext;
-	}
 }

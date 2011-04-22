@@ -1,10 +1,14 @@
 package ac.vibration;
 
+import java.util.Iterator;
+
 import ac.vibration.exceptions.ContactFileErrorException;
 import ac.vibration.exceptions.GeneralException;
 import ac.vibration.exceptions.NoContactFoundException;
 import ac.vibration.exceptions.NoFileException;
 import ac.vibration.morse.MorseCode;
+import ac.vibration.types.Preset;
+import ac.vibration.types.PresetList;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.types.Vib;
@@ -12,6 +16,7 @@ import ac.vibration.ui.AddVib;
 import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.AppConfig;
 import ac.vibration.util.config.ContactsConfig;
+import ac.vibration.util.config.PresetsConfig;
 import ac.vibration.ui.AgregarVibracion;
 import ac.vibration.util.mToast.mToast;
 import ac.vibration.util.tools.Tools;
@@ -46,6 +51,8 @@ public class Inicio extends Activity {
         //DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), v);
         //Vib vv = new Vib(v);
         //Log.i("main", vv.vibToString());
+        
+        
         
         
         
