@@ -4,6 +4,7 @@ package ac.vibration.ui;
 import ac.vibration.R;
 import android.app.Activity;
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -14,11 +15,14 @@ import android.widget.TabHost;
 public class AddVib extends TabActivity {
 	
 	
+	public Context mContext;
+	
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
+    	mContext = this;
     	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addvib);
@@ -46,6 +50,12 @@ public class AddVib extends TabActivity {
 
     	
     	
+    }
+    
+    
+    public Context getContext() {
+    	
+    	return mContext;
     }
     
     
