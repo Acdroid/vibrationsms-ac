@@ -25,7 +25,20 @@ public class mToast {
 	 * @param duracion 0 si queremos una duracion corta, 1 si queremos  una duracion larga
 	 */
 	public static void Make(Context mContext,String text,int duracion){
-		Toast.makeText(mContext, text, (duracion ==  0 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG) ).show();
+		Toast.makeText(mContext, text, (duracion ==  0 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG) ).show();			
+	}
+	
+	
+	/**
+	 * <b>Make</b><br><br>
+	 *   public void Make()<br>
+	 * <ul>Metodo de apoyo para mostrar un mensaje Toast por pantalla.</ul><br><br>
+	 * @param mContext Actividad donde se quiere mostrar el mensaje, normalmente this
+	 * @param resId Texto del mensaje
+	 * @param duracion 0 si queremos una duracion corta, 1 si queremos  una duracion larga
+	 */
+	public static void Make(Context mContext,int resId,int duracion){
+		Toast.makeText(mContext, resId, (duracion ==  0 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG) ).show();			
 	}
 
 }

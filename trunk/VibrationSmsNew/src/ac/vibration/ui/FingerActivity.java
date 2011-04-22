@@ -115,10 +115,10 @@ public class FingerActivity extends Activity {
          
          
          //Pulsar TEST
-         testB.setOnTouchListener(new OnTouchListener() {
+         testB.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
+			public void onClick(View v) {
 				
 				String tmp = "";
 												
@@ -135,8 +135,7 @@ public class FingerActivity extends Activity {
 				Log.e("FingerActivity", tmp);
 				
 				DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), vt);
-											
-				return false;				
+			
 			}
 		});
          
@@ -144,17 +143,16 @@ public class FingerActivity extends Activity {
          
          
          //Pulsar RESET
-         resetB.setOnTouchListener(new OnTouchListener() {
+         resetB.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
+			public void onClick(View v) {
 				
 				vibVec.clear();
 				tStamp = 0;
 								
 				
-				mToast.Make(FingerActivity.this.getParent(), "Reset", 0);
-				
+				mToast.Make(FingerActivity.this.getParent(), R.string.reset, 0);				
 				
 				
 				
@@ -181,18 +179,7 @@ public class FingerActivity extends Activity {
 				} 
 				
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				return false;
+
 			}
 		});
               
@@ -200,10 +187,10 @@ public class FingerActivity extends Activity {
          
          
          //Pulsar SAVE
-         saveB.setOnTouchListener(new OnTouchListener() {
+         saveB.setOnClickListener(new OnClickListener() {
  			
  			@Override
- 			public boolean onTouch(View v, MotionEvent event) {
+ 			public void onClick(View v) {
  				
 				//Dialog dialog = new Dialog(FingerActivity.this.getParent());
 				dialog.setContentView(R.layout.choose_name);
@@ -214,45 +201,53 @@ public class FingerActivity extends Activity {
 				
 				
 				
-				saveDialogB.setOnTouchListener(new OnTouchListener() {
+				saveDialogB.setOnClickListener(new OnClickListener() {
 					
 					@Override
-					public boolean onTouch(View v, MotionEvent event) {
+					public void onClick(View v) {
 						
 						//Dialog dialog = new Dialog(FingerActivity.this);
 						EditText textName = (EditText) dialog.findViewById(R.id.chooserName);
 						
+						//Hace falta un nombre !
+						if (textName.getText().toString().compareTo("") != 0) {
+											
+							
+							//Creamos la vib
+			 				SeekBar delayBar = (SeekBar) findViewById(R.id.fingerDelaySeek);
+							long vt[] = new long[vibVec.size()+1];
+							vt[0] = delayBar.getProgress()*20;						
+							
+							for (int i=0; i<vibVec.size(); i++)
+								vt[i+1] = Long.parseLong((vibVec.elementAt(i)).toString());
+							
+							
+							
+			 				//La guardamos en la lsta de presets
+			 				PresetList pl;
+							try {
+								pl = new PresetsConfig().loadPresets();
+								pl.add(new Preset(textName.getText().toString(), new Vib(vt)));
+								new PresetsConfig().dumpPresetList(pl);
+							} catch (Exception e) {
+								e.printStackTrace();
+							} 
+							
+							FingerActivity.this.finish();
+						}
+						//Si no hay nada escrito
+						else {
+							
+							mToast.Make(FingerActivity.this.getParent(), R.string.write_something, 0);
+							
+						}
 						
-						//Creamos la vib
-		 				SeekBar delayBar = (SeekBar) findViewById(R.id.fingerDelaySeek);
-						long vt[] = new long[vibVec.size()+1];
-						vt[0] = delayBar.getProgress()*20;						
-						
-						for (int i=0; i<vibVec.size(); i++)
-							vt[i+1] = Long.parseLong((vibVec.elementAt(i)).toString());
-						
-						
-						
-		 				//La guardamos en la lsta de presets
-		 				PresetList pl;
-						try {
-							pl = new PresetsConfig().loadPresets();
-							pl.add(new Preset(textName.getText().toString(), new Vib(vt)));
-							new PresetsConfig().dumpPresetList(pl);
-						} catch (Exception e) {
-							e.printStackTrace();
-						} 
-						
-						FingerActivity.this.finish();
-						return false;
 					}
 				});
 				
 
 				dialog.show();
-
  				 				 		
- 				return false;
  			}
  		});
         

@@ -27,6 +27,7 @@
 	<string name = "vibration_saved_title">Enter vibration name</string>
 	<string name = "vibration_saved">Your vibration was saved and set for the contact</string>
 	<string name = "enter_name">Please, enter the name for your new vibration:</string>
+	<string name = "write_something">Please, write something !</string>
 	
 	
 	<!-- Errores -->
