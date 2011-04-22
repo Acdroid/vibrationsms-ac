@@ -7,6 +7,7 @@ import ac.vibration.types.PresetList;
 import ac.vibration.types.Vib;
 import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.PresetsConfig;
+import ac.vibration.util.mToast.mToast;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,11 +18,13 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -29,7 +32,7 @@ import android.widget.TextView;
  * */
 public class MorseActivity extends Activity {
 	
-		
+	public Context pContext;
 	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +42,12 @@ public class MorseActivity extends Activity {
         final Dialog dialog = new Dialog(mContext);
         final EditText textName = (EditText) dialog.findViewById(R.id.chooserName);
         */
+        pContext = this.getParent();
+                
 
         setContentView(R.layout.dialog_str_morse_save);
         
+             
         
         Button testB   =  (Button) findViewById(R.id.morseTestButton);
         Button saveB   =  (Button) findViewById(R.id.morseSaveButton);
@@ -50,10 +56,10 @@ public class MorseActivity extends Activity {
         
         
         //Al pulsar TEST
-        testB.setOnTouchListener(new OnTouchListener() {
+        testB.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
+			public void onClick(View v) {
 				
 				
 				//Sacamos el texto que hay en el edit text
@@ -67,27 +73,26 @@ public class MorseActivity extends Activity {
 				long[] vi = MorseCode.stringToVib(texto.getText().toString(), delayBar.getProgress()*20, speed);
 				
 				DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), vi);
-				
-				
-				return false;
+
 			}
 		});
         
         
         
         //Al pulsar RESET
-        resetB.setOnTouchListener(new OnTouchListener() {
+        resetB.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				
-				
+			public void onClick(View v) {
+								
 				//Sacamos el texto que hay en el edit text
 				EditText texto = (EditText) findViewById(R.id.morseText);
-
-				texto.setText("");				
+				texto.setText("");
 				
-				return false;
+				mToast.Make(MorseActivity.this.getParent(), R.string.reset, 0);
+				
+
+								
 			}
 		});
         
@@ -96,85 +101,86 @@ public class MorseActivity extends Activity {
         
         
         //Pulsar SAVE
-        saveB.setOnTouchListener(new OnTouchListener() {
+        saveB.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
+			public void onClick(View v) {
 				
-				
-				//Dialog dialog = new Dialog(MorseActivity.this.getParent());
-				final Dialog dialog = new Dialog(MorseActivity.this.getParent());
-				//final Dialog dialog = new Dialog(mContext);
-				dialog.setContentView(R.layout.choose_name);
-				dialog.setTitle(R.string.vibration_saved_title);
-						
-				//Al pulsar el Guardar del dialogo que sale al pulsar guardar
-				Button saveDialogB  = (Button) dialog.findViewById(R.id.chooserSaveButton);
+				//El texto a convertir
+				final EditText texto = (EditText) findViewById(R.id.morseText);
 				
 				
 				
-				saveDialogB.setOnTouchListener(new OnTouchListener() {
+				//Solo mostramos el dialogo de guardar si ha escrito algo				
+				if (texto.getText().toString().compareTo("") != 0) {
 					
-					@Override
-					public boolean onTouch(View v, MotionEvent event) {
+					final Dialog dialog = new Dialog(MorseActivity.this.getParent());
+					dialog.setContentView(R.layout.choose_name);
+					dialog.setTitle(R.string.vibration_saved_title);
+							
+					//Al pulsar el Guardar del dialogo que sale al pulsar guardar
+					Button saveDialogB  = (Button) dialog.findViewById(R.id.chooserSaveButton);				
+					
+					
+					saveDialogB.setOnClickListener(new OnClickListener() {
 						
+						@Override
+						public void onClick(View v) {
+							
+																				
+							//Dialog dialog = new Dialog(MorseActivity.this);
+							TextView textName = (TextView) dialog.findViewById(R.id.chooserName);
+							
+							//Hace falta un nombre !
+							if (textName.getText().toString().compareTo("") != 0) {
+														
+								SeekBar delayBar = (SeekBar) findViewById(R.id.morseDelaySeek);							
+								SeekBar speedBar = (SeekBar) findViewById(R.id.morseSpeedSeek);
+								
 												
-						
-						//Dialog dialog = new Dialog(MorseActivity.this);
-						TextView textName = (TextView) dialog.findViewById(R.id.chooserName);
-						
-						
-						//Creamos la vib
-						//Sacamos el texto que hay en el edit text
-						EditText texto = (EditText) findViewById(R.id.morseText);
-						SeekBar delayBar = (SeekBar) findViewById(R.id.morseDelaySeek);
-						SeekBar speedBar = (SeekBar) findViewById(R.id.morseSpeedSeek);
-						
-						delayBar.setProgress(10);
-						speedBar.setProgress(80);
-										
-						int speed = (100-speedBar.getProgress())/10;
-						if (speed == 0) speed++;
-						
-						long[] vi = MorseCode.stringToVib(texto.getText().toString(), delayBar.getProgress()*20, speed);
-						
-						
-						
-		 				//La guardamos en la lsta de presets
-		 				PresetList pl;
-						try {
-							pl = new PresetsConfig().loadPresets();
-							pl.add(new Preset(textName.getText().toString(), new Vib(vi)));							
-							new PresetsConfig().dumpPresetList(pl);
-						} catch (Exception e) {
-							e.printStackTrace();
-						} 
-						
-						MorseActivity.this.finish();
-						
-						return false;
-					}
-				});
+								int speed = (100-speedBar.getProgress())/10;
+								if (speed == 0) speed++;
+								
+								long[] vi = MorseCode.stringToVib(texto.getText().toString(), delayBar.getProgress()*20, speed);
+								
+								
+								
+				 				//La guardamos en la lsta de presets
+				 				PresetList pl;
+								try {
+									pl = new PresetsConfig().loadPresets();
+									pl.add(new Preset(textName.getText().toString(), new Vib(vi)));							
+									new PresetsConfig().dumpPresetList(pl);
+								} catch (Exception e) {
+									e.printStackTrace();
+								} 
+								
+								MorseActivity.this.finish();
+							}
+							//Si no hay nada escrito
+							else {
+								
+								mToast.Make(MorseActivity.this.getParent(), R.string.write_something, 0);
+								
+							}
+	
+						}
+					});
+					
+	
+					dialog.show();
+				}
 				
-
-				dialog.show();
-
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+				//Si no hay nada escrito
+				else {
+					
+					mToast.Make(MorseActivity.this.getParent(), R.string.write_something, 0);
+					
+				}
 				
 				
 				
 
-				 				 		
-				return false;
 			}
 		});
         
