@@ -232,7 +232,7 @@ public class PresetsConfig {
 	
 	
 	/**
-	 * Elimina el archivo de configuracion de contactos
+	 * Elimina el archivo de configuracion 
 	 * 
 	 * @return true si ha borrado false en caso de error
 	 * */

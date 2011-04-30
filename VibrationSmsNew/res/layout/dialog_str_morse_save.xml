@@ -60,23 +60,28 @@
     	android:layout_height="wrap_content"
     	android:layout_above="@+id/morseCentralLayout"
     	android:padding="5dip">
-    	 <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearDelayLayout" android:layout_alignParentRight="true" android:layout_width="fill_parent">
+    	
+    	 <LinearLayout android:orientation="horizontal" android:layout_height="wrap_content" android:id="@+id/linearDelayLayout" android:layout_alignParentRight="true" android:layout_width="fill_parent">
     	         
-    	 	    
-	<TextView
-		android:text="@string/delay"
-		android:textStyle="bold"
-		android:layout_marginLeft = "0dip"
-		android:layout_marginRight = "5dip"
-		android:layout_marginTop = "5dip"
-		android:layout_marginBottom = "3dip"
-		android:layout_width="wrap_content"
-		android:id="@+id/morseDelayLabel"
-		android:layout_height="wrap_content">
-	</TextView>
+
+			<TextView
+				android:text="@string/delay"
+				android:textStyle="bold"
+	      		android:layout_weight=".25"
+	  			android:layout_width="0dip"	
+				android:id="@+id/morseDelayLabel"
+				android:layout_height="wrap_content">
+			</TextView>
     	         
     	         
-             <SeekBar android:layout_width="fill_parent" android:id="@+id/morseDelaySeek" android:layout_height="wrap_content"></SeekBar>             
+             <SeekBar
+             	android:layout_weight=".75"
+	  			android:layout_width="0dip"	
+             	android:id="@+id/morseDelaySeek"
+             	android:layout_height="wrap_content">
+             </SeekBar>
+             
+                          
          </LinearLayout>
     	</RelativeLayout>
     	
@@ -97,20 +102,25 @@
     	
          <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearSpeedLayout" android:layout_alignParentRight="true" android:layout_width="fill_parent">
          
-         	<TextView
-		android:text="@string/speed"
-		android:textStyle="bold"
-		android:layout_marginLeft = "0dip"
-		android:layout_marginRight = "5dip"
-		android:layout_marginTop = "5dip"
-		android:layout_marginBottom = "3dip"
-		android:layout_width="wrap_content"
-		android:id="@+id/morseSpeedLabel"
-		android:layout_height="wrap_content">
-	</TextView>
-         
-         
-             <SeekBar android:layout_width="fill_parent" android:id="@+id/morseSpeedSeek" android:layout_height="wrap_content"></SeekBar>             
+
+             <TextView
+				android:text="@string/speed"
+				android:textStyle="bold"
+	      		android:layout_weight=".25"
+	  			android:layout_width="0dip"	
+				android:id="@+id/morseSpeedLabel"
+				android:layout_height="wrap_content">
+			</TextView>
+    	         
+    	         
+             <SeekBar
+             	android:layout_weight=".75"
+	  			android:layout_width="0dip"	
+             	android:id="@+id/morseSpeedSeek"
+             	android:layout_height="wrap_content">
+             </SeekBar>
+             
+                     
          </LinearLayout>
          
          

@@ -13,6 +13,7 @@ import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.types.Vib;
 import ac.vibration.ui.AddVib;
+import ac.vibration.ui.ShowPresetList;
 import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.AppConfig;
 import ac.vibration.util.config.ContactsConfig;
@@ -21,6 +22,7 @@ import ac.vibration.ui.AgregarVibracion;
 import ac.vibration.util.mToast.mToast;
 import ac.vibration.util.tools.Tools;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -52,13 +54,7 @@ public class Inicio extends Activity {
         //Vib vv = new Vib(v);
         //Log.i("main", vv.vibToString());
         
-        
-        
-        
-        
-        
-        
-        
+ 
     }
     
        
@@ -176,18 +172,39 @@ public class Inicio extends Activity {
     	
     }
   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      *  Este metodo es llamado por el boton agregar
      *  nueva vibracion personalizada de la actividad
      *  Inicio. Lanza la actividad AgregarVibracion
      * 
      * @param v Componente que llama a la funcion
-     */
+    */ 
     public void clickAsignar(View v){
+    	
+    	ProgressDialog dialog = ProgressDialog.show(Inicio.this, "", "Loading. Please wait...", true);
+    	
     	Intent i = new Intent(Inicio.this,AgregarVibracion.class);
     	startActivityForResult(i, ID);
     	
+    	dialog.dismiss();
+    	
     }
+    
     
     /**
      *  Este metodo es llamado por el boton Agregar
@@ -199,6 +216,42 @@ public class Inicio extends Activity {
     	Intent i = new Intent(Inicio.this,AddVib.class);
     	startActivityForResult(i, ID);
     }
+    
+    
+    /**
+     *  Este metodo es llamado por el boton Preset list
+     * 
+     * @param v Componente que llama a la funcion
+     */
+    public void clickPresets(View v){
+    	Intent i = new Intent(Inicio.this,ShowPresetList.class);
+    	startActivityForResult(i, ID);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

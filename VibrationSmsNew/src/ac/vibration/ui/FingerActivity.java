@@ -153,30 +153,7 @@ public class FingerActivity extends Activity {
 								
 				
 				mToast.Make(FingerActivity.this.getParent(), R.string.reset, 0);				
-				
-				
-				
-				
-				
-				PresetList pl;
-				try {
-					pl = new PresetsConfig().loadPresets();
-
-					Iterator iter = pl.getIterator();
-					
-					while (iter.hasNext()){
-						
-						
-						Preset ps = (Preset)iter.next();
-						
-						Log.e("FingerActivity", ps.getName());
-					}
-					
-					
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				} 
+							
 				
 				
 
@@ -199,6 +176,9 @@ public class FingerActivity extends Activity {
 				//Al pulsar el Guardar del dialogo que sale al pulsar guardar
 				Button saveDialogB  = (Button) dialog.findViewById(R.id.chooserSaveButton);
 				
+				final EditText textName = (EditText) dialog.findViewById(R.id.chooserName);
+				textName.setText("[Tap] ");
+				textName.selectAll();
 				
 				
 				saveDialogB.setOnClickListener(new OnClickListener() {
@@ -207,7 +187,7 @@ public class FingerActivity extends Activity {
 					public void onClick(View v) {
 						
 						//Dialog dialog = new Dialog(FingerActivity.this);
-						EditText textName = (EditText) dialog.findViewById(R.id.chooserName);
+						//EditText textName = (EditText) dialog.findViewById(R.id.chooserName);
 						
 						//Hace falta un nombre !
 						if (textName.getText().toString().compareTo("") != 0) {
@@ -215,7 +195,7 @@ public class FingerActivity extends Activity {
 							
 							//Creamos la vib
 			 				SeekBar delayBar = (SeekBar) findViewById(R.id.fingerDelaySeek);
-							long vt[] = new long[vibVec.size()+1];
+							final long vt[] = new long[vibVec.size()+1];
 							vt[0] = delayBar.getProgress()*20;						
 							
 							for (int i=0; i<vibVec.size(); i++)
@@ -224,16 +204,54 @@ public class FingerActivity extends Activity {
 							
 							
 			 				//La guardamos en la lsta de presets
-			 				PresetList pl;
+			 				final PresetList pl;
 							try {
 								pl = new PresetsConfig().loadPresets();
-								pl.add(new Preset(textName.getText().toString(), new Vib(vt)));
-								new PresetsConfig().dumpPresetList(pl);
+								
+								
+								//El preset ya existe !
+								if (pl.getPresetByName(textName.getText().toString()) != null) {
+									
+									final AlertDialog.Builder alert = new AlertDialog.Builder(FingerActivity.this.getParent());
+
+									alert.setTitle(R.string.information);
+									alert.setMessage(R.string.preset_exist_overwrite_question);
+
+									alert.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog, int whichButton) {
+										pl.add(new Preset(textName.getText().toString(), new Vib(vt)));
+										
+										try {
+											new PresetsConfig().dumpPresetList(pl);
+										} catch (Exception e) {
+											e.printStackTrace();
+										}
+										
+										FingerActivity.this.finish();										
+									  }
+									});
+
+									alert.setNegativeButton(R.string.no, null);
+
+									alert.show();
+									
+									
+								}
+								
+								//El preset no existe
+								else {					
+																
+									pl.add(new Preset(textName.getText().toString(), new Vib(vt)));
+									new PresetsConfig().dumpPresetList(pl);
+									FingerActivity.this.finish();
+								}
+								
+								
 							} catch (Exception e) {
 								e.printStackTrace();
 							} 
 							
-							FingerActivity.this.finish();
+							
 						}
 						//Si no hay nada escrito
 						else {

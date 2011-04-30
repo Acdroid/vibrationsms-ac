@@ -117,6 +117,10 @@ public class MorseActivity extends Activity {
 					final Dialog dialog = new Dialog(MorseActivity.this.getParent());
 					dialog.setContentView(R.layout.choose_name);
 					dialog.setTitle(R.string.vibration_saved_title);
+					
+					final EditText textName = (EditText) dialog.findViewById(R.id.chooserName);
+					textName.setText("[Morse] ");
+					textName.selectAll();
 							
 					//Al pulsar el Guardar del dialogo que sale al pulsar guardar
 					Button saveDialogB  = (Button) dialog.findViewById(R.id.chooserSaveButton);				
@@ -129,7 +133,7 @@ public class MorseActivity extends Activity {
 							
 																				
 							//Dialog dialog = new Dialog(MorseActivity.this);
-							TextView textName = (TextView) dialog.findViewById(R.id.chooserName);
+							//TextView textName = (TextView) dialog.findViewById(R.id.chooserName);
 							
 							//Hace falta un nombre !
 							if (textName.getText().toString().compareTo("") != 0) {
@@ -141,29 +145,55 @@ public class MorseActivity extends Activity {
 								int speed = (100-speedBar.getProgress())/10;
 								if (speed == 0) speed++;
 								
-								long[] vi = MorseCode.stringToVib(texto.getText().toString(), delayBar.getProgress()*20, speed);
+								final long[] vt = MorseCode.stringToVib(texto.getText().toString(), delayBar.getProgress()*20, speed);
+																
 								
-								
-								
-				 				//La guardamos en la lsta de presets
-				 				PresetList pl;
+								//La guardamos en la lsta de presets
+				 				final PresetList pl;
 								try {
 									pl = new PresetsConfig().loadPresets();
-									pl.add(new Preset(textName.getText().toString(), new Vib(vi)));							
-									new PresetsConfig().dumpPresetList(pl);
+									
+									
+									//El preset ya existe !
+									if (pl.getPresetByName(textName.getText().toString()) != null) {
+										
+										final AlertDialog.Builder alert = new AlertDialog.Builder(MorseActivity.this.getParent());
+
+										alert.setTitle(R.string.information);
+										alert.setMessage(R.string.preset_exist_overwrite_question);
+
+										alert.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+										public void onClick(DialogInterface dialog, int whichButton) {
+											pl.add(new Preset(textName.getText().toString(), new Vib(vt)));
+											
+											try {
+												new PresetsConfig().dumpPresetList(pl);
+											} catch (Exception e) {
+												e.printStackTrace();
+											}
+											
+											MorseActivity.this.finish();										
+										  }
+										});
+
+										alert.setNegativeButton(R.string.no, null);
+										
+										alert.show();
+									}
+									
+									//El preset no existe
+									else {																					
+										pl.add(new Preset(textName.getText().toString(), new Vib(vt)));
+										new PresetsConfig().dumpPresetList(pl);
+										MorseActivity.this.finish();
+									}
+
 								} catch (Exception e) {
 									e.printStackTrace();
 								} 
-								
-								MorseActivity.this.finish();
 							}
 							//Si no hay nada escrito
-							else {
-								
-								mToast.Make(MorseActivity.this.getParent(), R.string.write_something, 0);
-								
-							}
-	
+							else mToast.Make(MorseActivity.this.getParent(), R.string.write_something, 0);
 						}
 					});
 					

@@ -41,8 +41,7 @@ public class PresetList {
 	/**
 	 * Elimina un elemento de la lista.
 	 * 
-	 * @param vc El VibContact a anadir, se asume que tiene datos
-	 * correctos
+	 * @param vc El VibContact a eleminar
 	 * */
 	public void remove(Preset vc) {
 				
@@ -52,13 +51,12 @@ public class PresetList {
 	
 	
 	/**
-	 * Extrae un VibContact de la lista a partir de un numero
+	 * Extrae un Preset de la lista a partir de un numero
 	 * 
 	 * @param num El numero de telefono
 	 * 
-	 * @return El VibContact
+	 * @return El Preset o null si no existe
 	 * 
-	 * @throws NoContactFoundException Cuando no se encuentra el contacto
 	 * */
 	public Preset getPresetByName(String name) throws GeneralException{
 		
@@ -66,7 +64,7 @@ public class PresetList {
 		
 		if (name.length() < 1) throw new GeneralException("List is void");
 		
-		if (!hm.containsKey(name)) throw new GeneralException("Name doesn't exist");
+		if (!hm.containsKey(name)) return null;
 		
 		
 	return hm.get(name);

@@ -2,17 +2,19 @@
 <resources>
     <string name="app_name">VibrationSMS</string>
     <string name="tittle">SMS Custom Vibration</string>
-    <string name="main_button_asignar">Assign Vibration</string>
-    <string name="main_button_agregar">Create new Vibration</string>
+    
+    <string name="main_button_asignar">Assign vibration</string>
+    <string name="main_button_agregar">Create new vibration</string>
+    <string name="presets_list">Presets list</string>
     
     <string name="hello">hello:)</string>
     
     <!-- Dialog -->
 	<string name = "dialog_selection">What do you want to do?</string>  
-	<string name = "edit_vibracion">"Edit Vibration"</string>
-	<string name = "custom_vibration">"Custom Vibration"</string>
-	<string name = "custom_vibration_morse">"Custom Morse Vibration"</string>
-	<string name = "name_morse">"Name in Morse"</string>
+	<string name = "select_vibration">"Select vibration"</string>
+	<string name = "custom_vibration">"Create new vibration"</string>
+	<string name = "custom_vibration_morse">"Custom morse vibration"</string>
+	<string name = "name_morse">"Contact name in morse"</string>
 	
 	<!-- Button -->
 	<string name = "dialog_str_morse_button">Assign</string>  
@@ -23,16 +25,40 @@
 	<string name = "vib_add_ok">successfully added vibration</string>
 	<string name = "dialog_str_morse_tittle">Text to morse</string>
 	<string name = "dialog_str_morse_text">Type text to convert to morse</string>
-	<string name = "in_morse">InMorse</string>
+	<string name = "in_morse">In morse</string>
 	<string name = "vibration_saved_title">Enter vibration name</string>
 	<string name = "vibration_saved">Your vibration was saved and set for the contact</string>
 	<string name = "enter_name">Please, enter the name for your new vibration:</string>
 	<string name = "write_something">Please, write something !</string>
+	<string name = "noContacts">No contacts found</string>
+	<string name = "noPresets">No presets found</string>
+	<string name = "hold_long">Click and hold an item to edit its options.</string>
+	<string name = "preset_exist_overwrite_question">This preset already exists, do you want to overwrite it ?</string>
+	<string name = "preset_clear_question">This will clean your list, do you want to continue ?</string>
+	
+	
+	
+	
+	<!-- Comun -->
+	<string name = "yes">Yes</string>
+	<string name = "no">No</string>
+	<string name = "options">Options</string>
+	<string name = "cancel">Cancel</string>
+    <string name = "reset">Reset</string>
+    <string name = "save">Save</string>
+    <string name = "test">Test</string>
+    <string name = "rename">Rename</string>
+    <string name = "delete">Delete</string>
+    <string name = "error">Error</string>
+    <string name = "new_common">New</string>
+    <string name = "refresh">Refresh</string>
+    <string name = "information">Information</string>
+    <string name = "clear">Clear</string>
 	
 	
 	<!-- Errores -->
-	<string name = "error_missing_name_tomorse">You must to write something!</string>
-	<string name = "error_guardar_preset">Error al guardar la vibración en el fichero de configuración. Aún así la vibración se ha añadido.</string>
+	<string name = "error_missing_name_tomorse">You must to write something !</string>
+	<string name = "error_guardar_preset">Error saving. We tried to save it anyway !</string>
 	
     
     
@@ -41,10 +67,8 @@
     <string name="typehere">Type here to set your vibration:</string>
     <string name="delay">Delay:</string>
     <string name="speed">Speed:</string>
-    <string name="cancel">Cancel</string>
-    <string name="reset">Reset</string>
-    <string name="save">Save</string>
-    <string name="test">Test</string>
+
     
     
 </resources>
+
