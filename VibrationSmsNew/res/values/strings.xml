@@ -54,10 +54,11 @@
     <string name = "refresh">Refresh</string>
     <string name = "information">Information</string>
     <string name = "clear">Clear</string>
+    <string name = "loading">Loading...</string>
 	
 	
 	<!-- Errores -->
-	<string name = "error_missing_name_tomorse">You must to write something !</string>
+	<string name = "error_missing_name_tomorse">You must write something !</string>
 	<string name = "error_guardar_preset">Error saving. We tried to save it anyway !</string>
 	
     
