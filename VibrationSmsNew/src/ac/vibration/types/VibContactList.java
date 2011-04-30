@@ -5,6 +5,11 @@ import java.util.Iterator;
 
 import ac.vibration.exceptions.NoContactFoundException;
 import ac.vibration.exceptions.NoVibrationFoundException;
+import ac.vibration.util.tools.Telephony;
+import android.content.Context;
+import android.telephony.PhoneNumberUtils;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 
 /**
  * Lista de contactos con sus vibraciones y las funciones
@@ -18,8 +23,6 @@ public class VibContactList {
 	
 	//El contacto master es que aloja la vibración que se usa en caso de que no haya nada 
 	public static final String MASTERNUMBER = "master"; 
-	
-	
 	
 	
 	public VibContactList() {
@@ -69,10 +72,20 @@ public class VibContactList {
 		
 		if (num.length() < 1) throw new NoContactFoundException("Contact list is void");
 		
-		if (!hm.containsKey(num)) return null;
 		
+		//Vamos a comparar todo lo que tenemos, por culpa del codigo de area etc...
+		Iterator it = hm.values().iterator();		
+		while (it.hasNext()) {
+			
+			VibContact vc = (VibContact)it.next();			
+			if (PhoneNumberUtils.compare(num, vc.getNumber())) return hm.get(num);	
+			
+		}
 		
-	return hm.get(num);
+						
+		//if (!hm.containsKey(num)) return null;
+				
+	return null;
 	}
 	
 	
