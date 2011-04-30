@@ -23,6 +23,7 @@
         </receiver>
         
         <activity android:name=".ui.AddVib"></activity>
+        <activity android:name=".ui.ShowPresetList"></activity>
         <activity android:name=".ui.FingerActivity"></activity>
         <activity android:name=".ui.MorseActivity"></activity>
         <activity android:name=".ui.AgregarVibracion"></activity>
