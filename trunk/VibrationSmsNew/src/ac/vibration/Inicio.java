@@ -13,6 +13,7 @@ import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.types.Vib;
 import ac.vibration.ui.AddVib;
+import ac.vibration.ui.MasterMenu;
 import ac.vibration.ui.ShowPresetList;
 import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.AppConfig;
@@ -40,14 +41,21 @@ public class Inicio extends Activity {
 	
 	private AppConfig ac;
 	
+	
+	private boolean progressOn = false;
+	private ProgressDialog progress;
+	
+	
     @Override 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
+        
+        progress = new ProgressDialog(Inicio.this);
+        
         //leeConfig();
         //escribirConfig();
-        //Log.i("DEBUG",Tools.cleanText("texto ??[]}limpio...;!"));
         
         //long[] v = MorseCode.stringToVib("sms", 1000, 2);
         //DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), v);
@@ -57,7 +65,131 @@ public class Inicio extends Activity {
  
     }
     
+   //Al volver a la app, quitamos el progreso si es que estaba
+   @Override
+   public void onRestart() {
+       super.onRestart(); 
        
+	   //Quitamos el progreso
+	   if (progressOn) {		   
+		   progress.dismiss();
+		   progressOn = false;
+	   }
+	   
+   }
+    
+       
+    
+    
+
+    
+    
+    
+    
+    
+    /**
+     *  Este metodo es llamado por el boton agregar
+     *  nueva vibracion personalizada de la actividad
+     *  Inicio. Lanza la actividad AgregarVibracion
+     * 
+     * @param v Componente que llama a la funcion
+    */ 
+    public void clickAsignar(View v){
+    	
+    	
+    	progress.setMessage(this.getString(R.string.loading));
+    	progress.show();
+    	progressOn = true;
+    	
+    	Intent i = new Intent(Inicio.this,AgregarVibracion.class);
+    	startActivityForResult(i, ID);
+    	
+    	
+    }
+    
+    
+    /**
+     *  Este metodo es llamado por el boton Agregar
+     *  nueva vibracion.
+     * 
+     * @param v Componente que llama a la funcion
+     */
+    public void clickAgregar(View v){
+    	Intent i = new Intent(Inicio.this,AddVib.class);
+    	startActivityForResult(i, ID);
+    }
+    
+    
+    /**
+     *  Este metodo es llamado por el boton Preset list
+     * 
+     * @param v Componente que llama a la funcion
+     */
+    public void clickPresets(View v){
+    	Intent i = new Intent(Inicio.this,ShowPresetList.class);
+    	startActivityForResult(i, ID);
+    }
+    
+    /**
+     *  Este metodo es llamado por el boton Master Vib
+     * 
+     * @param v Componente que llama a la funcion
+     */
+    public void clickMaster(View v){
+    	Intent i = new Intent(Inicio.this,MasterMenu.class);
+    	startActivityForResult(i, ID);
+    }
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == ID){
+			switch (resultCode){
+			case RESULT_OK:
+				break;
+			case RESULT_ERROR:
+				break;
+			case RESULT_SALIR:
+				Inicio.this.finish();
+			case RESULT_VIBRATION_EDIT_OK:
+				mToast.Make(this, "Vibration Saved!", 0);
+				break;
+			default:
+				
+			}
+		}
+	}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /////////////////Codigo de muestra////////////////////
+    
+    
+    
+    
+    
     
     
     //Lee del archivo de config
@@ -101,10 +233,6 @@ public class Inicio extends Activity {
     	
     	
     }
-    
-    
-    
-    
     
     
     
@@ -173,104 +301,7 @@ public class Inicio extends Activity {
     }
   
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /**
-     *  Este metodo es llamado por el boton agregar
-     *  nueva vibracion personalizada de la actividad
-     *  Inicio. Lanza la actividad AgregarVibracion
-     * 
-     * @param v Componente que llama a la funcion
-    */ 
-    public void clickAsignar(View v){
-    	
-    	ProgressDialog dialog = ProgressDialog.show(Inicio.this, "", "Loading. Please wait...", true);
-    	
-    	Intent i = new Intent(Inicio.this,AgregarVibracion.class);
-    	startActivityForResult(i, ID);
-    	
-    	dialog.dismiss();
-    	
-    }
-    
-    
-    /**
-     *  Este metodo es llamado por el boton Agregar
-     *  nueva vibracion.
-     * 
-     * @param v Componente que llama a la funcion
-     */
-    public void clickAgregar(View v){
-    	Intent i = new Intent(Inicio.this,AddVib.class);
-    	startActivityForResult(i, ID);
-    }
-    
-    
-    /**
-     *  Este metodo es llamado por el boton Preset list
-     * 
-     * @param v Componente que llama a la funcion
-     */
-    public void clickPresets(View v){
-    	Intent i = new Intent(Inicio.this,ShowPresetList.class);
-    	startActivityForResult(i, ID);
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == ID){
-			switch (resultCode){
-			case RESULT_OK:
-				break;
-			case RESULT_ERROR:
-				break;
-			case RESULT_SALIR:
-				Inicio.this.finish();
-			case RESULT_VIBRATION_EDIT_OK:
-				mToast.Make(this, "Vibration Saved!", 0);
-				break;
-			default:
-				
-			}
-		}
-	}
+   
     
     
 }

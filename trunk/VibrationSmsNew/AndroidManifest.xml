@@ -27,6 +27,7 @@
         <activity android:name=".ui.FingerActivity"></activity>
         <activity android:name=".ui.MorseActivity"></activity>
         <activity android:name=".ui.AgregarVibracion"></activity>
+        <activity android:name=".ui.MasterMenu"></activity>
 
     </application>
 </manifest>

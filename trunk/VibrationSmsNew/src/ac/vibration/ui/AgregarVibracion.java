@@ -5,6 +5,9 @@
  */
 package ac.vibration.ui;
 
+import java.util.Iterator;
+import java.util.Vector;
+
 import ac.vibration.Inicio;
 import ac.vibration.R;
 import ac.vibration.exceptions.ContactFileErrorException;
@@ -70,6 +73,8 @@ public final class AgregarVibracion extends ListActivity
 	public QuickAction q;
 
 	VibContactList vcl;
+	
+	MiCursorAdapter myAdapter;
 
 	/**
 	 * Called when the activity is first created. Responsible for initializing the UI.
@@ -84,7 +89,8 @@ public final class AgregarVibracion extends ListActivity
 		CharSequence[] aux = {getResources().getString(R.string.select_vibration) ,
 							getResources().getString(R.string.custom_vibration),
 							getResources().getString(R.string.custom_vibration_morse),
-							getResources().getString(R.string.name_morse)};
+							getResources().getString(R.string.name_morse),
+							getResources().getString(R.string.remove_vib)};
 		items = aux;
 
 		try {
@@ -115,10 +121,11 @@ public final class AgregarVibracion extends ListActivity
 
 		//		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.item_lista_contactos, cursor,
 		//				fields, to);
-		MiCursorAdapter adapter = new MiCursorAdapter(this, R.layout.item_lista_contactos, cursor,
+		myAdapter = new MiCursorAdapter(this, R.layout.item_lista_contactos, cursor,
 				fields, to);
-
-		setListAdapter(adapter);
+	
+		
+		setListAdapter(myAdapter);
 
 	}
 
@@ -181,7 +188,7 @@ public final class AgregarVibracion extends ListActivity
 						vi = MorseCode.stringToVib(selectContact.getName(),2 , 50);
 					}
 
-					Vib vibResultante = new Vib (vi);
+					Vib vibResultante = new Vib(vi);
 
 					//La asignamos y guardamos
 					selectContact.setVib(vibResultante);
@@ -213,6 +220,8 @@ public final class AgregarVibracion extends ListActivity
 					}
 
 					dialogStrMorse.cancel();
+					
+					AgregarVibracion.this.finish();
 
 				}
 			});
@@ -290,6 +299,8 @@ public final class AgregarVibracion extends ListActivity
 		DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), v);
 		mToast.Make(this, getResources().getString(R.string.vib_add_ok), 0);
 		dump();
+		
+		AgregarVibracion.this.finish();
 	}
 	
 	
@@ -306,17 +317,65 @@ public final class AgregarVibracion extends ListActivity
 	//Abre un dialogo con la lista de vibraciones y elige una al clickar sobre ella
 	private void selectVib() {
 		
-		final CharSequence[] items = {"Red", "Green", "Blue"};
 
+		
+		//Leemos la lista de presets y los metemos en un array
+		Vector presetsV = new Vector(); 
+		
+		PresetList pl;
+		try {
+			pl = new PresetsConfig().loadPresets();
+			Iterator iter = pl.getIterator();				
+			
+			while (iter.hasNext()){
+								
+				Preset ps = (Preset)iter.next();			
+				Log.i("ShowPresetList", ps.getName());
+				presetsV.add(ps.getName());
+			}
+						
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+							
+		//Pasamos el vector a un array		
+		final CharSequence presetsA[] = new CharSequence[presetsV.size()];
+		for (int i=0; i<presetsV.size(); i++) presetsA[i] = (CharSequence) presetsV.elementAt(i);
+		
+				
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Pick a color");
-		builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+		builder.setTitle(R.string.select_vibration);
+		final AlertDialog alert;
+		
+		//Al hacer click en una vibracion
+		builder.setSingleChoiceItems(presetsA, -1, new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int item) {
-		        Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
+		        
+		    	
+		    	
+				try {
+					long vi[] = new PresetsConfig().loadPresets().getPresetByName((String) presetsA[item]).getVib().get();
+					
+					Vib vibResultante = new Vib(vi);
+
+					//La asignamos y guardamos
+					selectContact.setVib(vibResultante);
+					vcl.add(selectContact);
+
+					DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), vi);
+					mToast.Make(mContext, getResources().getString(R.string.vib_add_ok), 0);
+					dump();
+					
+					AgregarVibracion.this.finish();
+			    	
+					
+				} catch (Exception e) { e.printStackTrace(); } 
+		    			    	
 		    }
 		});
-		AlertDialog alert = builder.create();
 		
+		alert = builder.create();
 		alert.show();
 		
 		
@@ -384,11 +443,38 @@ public final class AgregarVibracion extends ListActivity
 			}
 		});
 		
+		
+		final ActionItem remove = new ActionItem();
+		
+		remove.setTitle(mContext.getResources().getString(R.string.remove_vib));
+		remove.setIcon(getResources().getDrawable(android.R.drawable.ic_menu_delete));
+		remove.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+				vcl.remove(selectContact);							
+				dump();
+				
+				mToast.Make(AgregarVibracion.this, getResources().getString(R.string.removed), 0);
+				
+				ImageView i = (ImageView) findViewById(R.id.item_list_image);
+				i.setBackgroundResource(R.drawable.btn_check_off);
+				
+				myAdapter.notifyDataSetChanged();
+				
+				q.dismiss();
+			}
+		});
+		
+		
+		
+		
 		q = new QuickAction(v);
 		q.addActionItem(edit);
 		q.addActionItem(createVib);
 		q.addActionItem(createMorse);
 		q.addActionItem(nameMorse);
+		q.addActionItem(remove);
 		q.show();
 		
 	}
@@ -488,12 +574,14 @@ public final class AgregarVibracion extends ListActivity
 			}
 
 			LinearLayout l = (LinearLayout) view.findViewById(R.id.lay_item);
+			/*
 			if ((cursor.getPosition() % 2) == 0){
 				l.setBackgroundResource(R.color.white);	
 			}
 			else {
 				l.setBackgroundResource(R.color.lista_yellow);
 			}
+			*/
 
 
 			super.bindView(view, context, cursor);

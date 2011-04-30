@@ -55,12 +55,24 @@
 		   		android:layout_height="wrap_content"
 		   		android:id="@+id/main_button_preset"
 		    	android:gravity="center"
-		   		android:text="@string/presets_list"
+		   		android:text="@string/vibrations_list"
 		    	android:textStyle="bold"
 		    	android:textColor="@color/black"
 		    	android:textSize="20dip"
 		    	android:onClick="clickPresets"
-		    	></Button>		    
+		    	></Button>
+		   	<Button
+		   		android:layout_width="fill_parent" 
+		   		android:layout_height="wrap_content"
+		   		android:id="@+id/main_button_master"
+		    	android:gravity="center"
+		   		android:text="@string/master_vibration"
+		    	android:textStyle="bold"
+		    	android:textColor="@color/black"
+		    	android:textSize="20dip"
+		    	android:onClick="clickMaster"
+		    	></Button>			    			    	
+		    		    
 		</LinearLayout> 
 	</LinearLayout>
 
