@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public final class AgregarVibracion extends ListActivity
+public final class AgregarVibracionNO extends ListActivity
 {
 
 

@@ -81,7 +81,7 @@ public final class AgregarVibracion extends ListActivity
 		setContentView(R.layout.lista_contactos); 
 		
 		//Lista de items del dialog cuando se pulsa un contacto
-		CharSequence[] aux = {getResources().getString(R.string.edit_vibracion) ,
+		CharSequence[] aux = {getResources().getString(R.string.select_vibration) ,
 							getResources().getString(R.string.custom_vibration),
 							getResources().getString(R.string.custom_vibration_morse),
 							getResources().getString(R.string.name_morse)};
@@ -249,7 +249,7 @@ public final class AgregarVibracion extends ListActivity
 
 		switch (seleccion){
 		case 0:
-			mToast.Make(this,"Elegido edit",0);
+			mToast.Make(this,"Elegido edit 2",0);
 			break;
 		case 1:
 			createVib();
@@ -301,16 +301,48 @@ public final class AgregarVibracion extends ListActivity
 		
 	}
 	
+	
+	
+	//Abre un dialogo con la lista de vibraciones y elige una al clickar sobre ella
+	private void selectVib() {
+		
+		final CharSequence[] items = {"Red", "Green", "Blue"};
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Pick a color");
+		builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int item) {
+		        Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
+		    }
+		});
+		AlertDialog alert = builder.create();
+		
+		alert.show();
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private void createQuickAction(View v){
 		
 		final ActionItem edit = new ActionItem();
 		
-		edit.setTitle(mContext.getResources().getString(R.string.edit_vibracion));
-		edit.setIcon(getResources().getDrawable(android.R.drawable.ic_menu_manage));
+		edit.setTitle(mContext.getResources().getString(R.string.select_vibration));
+		edit.setIcon(getResources().getDrawable(android.R.drawable.ic_menu_agenda));
 		edit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mToast.Make(mContext,"Elegido edit",0);
+				selectVib();
 				q.dismiss();
 			}
 		});

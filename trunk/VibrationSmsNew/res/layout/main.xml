@@ -50,7 +50,17 @@
 		    	android:textSize="20dip"
 		    	android:onClick="clickAgregar"
 		    	></Button>
-		    
+		   	<Button
+		   		android:layout_width="fill_parent" 
+		   		android:layout_height="wrap_content"
+		   		android:id="@+id/main_button_preset"
+		    	android:gravity="center"
+		   		android:text="@string/presets_list"
+		    	android:textStyle="bold"
+		    	android:textColor="@color/black"
+		    	android:textSize="20dip"
+		    	android:onClick="clickPresets"
+		    	></Button>		    
 		</LinearLayout> 
 	</LinearLayout>
 
