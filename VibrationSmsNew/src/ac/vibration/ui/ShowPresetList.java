@@ -8,28 +8,22 @@ package ac.vibration.ui;
 import java.util.Iterator;
 import java.util.Vector;
 
-import ac.vibration.Inicio;
 import ac.vibration.R;
 import ac.vibration.exceptions.GeneralException;
 import ac.vibration.exceptions.NoFileException;
 import ac.vibration.types.Preset;
 import ac.vibration.types.PresetList;
-import ac.vibration.types.Vib;
 import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.PresetsConfig;
 import ac.vibration.util.mToast.mToast;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.provider.ContactsContract.Data;
-import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -41,11 +35,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 public final class ShowPresetList extends Activity {

@@ -3,9 +3,10 @@
     <string name="app_name">VibrationSMS</string>
     <string name="tittle">SMS Custom Vibration</string>
     
-    <string name="main_button_asignar">Assign vibration</string>
+    <string name="main_button_asignar">Set vibration for contact</string>
     <string name="main_button_agregar">Create new vibration</string>
-    <string name="presets_list">Presets list</string>
+    <string name="vibrations_list">Saved vibrations</string>
+    <string name="master_vibration">Master vibration</string>
     
     <string name="hello">hello:)</string>
     
@@ -20,9 +21,9 @@
 	<string name = "dialog_str_morse_button">Assign</string>  
 	
 	<!-- Miscelanea -->
-	<string name = "first_time_toast">This is the first time that you use VibrationSMS\n....</string>
+	<string name = "first_time_toast">This is the first time you use VibrationSMS\n....</string>
 	<string name = "smsfrom">SMS from </string>
-	<string name = "vib_add_ok">successfully added vibration</string>
+	<string name = "vib_add_ok">Vibration successfully set</string>
 	<string name = "dialog_str_morse_tittle">Text to morse</string>
 	<string name = "dialog_str_morse_text">Type text to convert to morse</string>
 	<string name = "in_morse">In morse</string>
@@ -35,6 +36,11 @@
 	<string name = "hold_long">Click and hold an item to edit its options.</string>
 	<string name = "preset_exist_overwrite_question">This preset already exists, do you want to overwrite it ?</string>
 	<string name = "preset_clear_question">This will clean your list, do you want to continue ?</string>
+	<string name = "master_info">The master vibration will be called when no other is selected for a contact.</string>
+	<string name = "reset_to_default">Reset to default</string>
+	<string name = "select_from_list">Select from list</string>
+	<string name = "remove_vib">Remove vibration</string>		
+
 	
 	
 	
@@ -55,6 +61,7 @@
     <string name = "information">Information</string>
     <string name = "clear">Clear</string>
     <string name = "loading">Loading...</string>
+    <string name = "removed">Removed</string>
 	
 	
 	<!-- Errores -->
@@ -72,4 +79,5 @@
     
     
 </resources>
+
 

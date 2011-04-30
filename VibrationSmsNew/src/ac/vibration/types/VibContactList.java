@@ -60,9 +60,8 @@ public class VibContactList {
 	 * 
 	 * @param num El numero de telefono
 	 * 
-	 * @return El VibContact
+	 * @return El VibContact o null
 	 * 
-	 * @throws NoContactFoundException Cuando no se encuentra el contacto
 	 * */
 	public VibContact getVibContactByNumber(String num) throws NoContactFoundException{
 		
@@ -70,7 +69,7 @@ public class VibContactList {
 		
 		if (num.length() < 1) throw new NoContactFoundException("Contact list is void");
 		
-		if (!hm.containsKey(num)) throw new NoContactFoundException("Contact number doesn't exist");
+		if (!hm.containsKey(num)) return null;
 		
 		
 	return hm.get(num);
@@ -82,11 +81,13 @@ public class VibContactList {
 	/**
 	 * La Vibracion master es la que suplanta a todas
 	 * las que no esten definidas para un usuario
-	 * especifico.
+	 * especifico. Si no esta develve null
 	 *  
 	 * */
 	public VibContact getMasterContact() throws NoVibrationFoundException {
 
+		
+		if (!hm.containsKey(MASTERNUMBER)) return null;		
 		
 		return hm.get(MASTERNUMBER);		
 	}	

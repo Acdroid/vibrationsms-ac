@@ -18,5 +18,5 @@
 		    android:id="@android:id/empty"
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
-		    android:text="@string/noContacts"  />
+		    android:text="@string/noContacts" />
 </LinearLayout>

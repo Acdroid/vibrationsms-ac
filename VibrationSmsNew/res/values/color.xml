@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background">#FFFFFF</color>
+    <color name="background">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="grey">#666666</color>
+    <color name="light_grey">#CCCCCC</color>
     <color name="lista_green2">#41A128</color>
     <color name="lista_green">#85EB64</color>
     <color name="lista_yellow">#FFFFEE</color>

@@ -54,15 +54,3 @@
     
     
 </LinearLayout>
-
-
-<!-- 
-	  <TextView
-	    android:id="@+id/footer"
-	    android:layout_width="fill_parent"
-	    android:layout_height="60dip"
-	    android:text="@string/hold_long"
-	    android:padding="4dip"
-	    android:background="#FF666666"
-	    />
--->

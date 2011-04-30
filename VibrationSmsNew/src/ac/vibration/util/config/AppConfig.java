@@ -5,6 +5,7 @@ import ac.vibration.R;
 import ac.vibration.exceptions.ContactFileErrorException;
 import ac.vibration.exceptions.GeneralException;
 import ac.vibration.exceptions.NoFileException;
+import ac.vibration.exceptions.NoVibrationFoundException;
 import ac.vibration.morse.MorseCode;
 import ac.vibration.types.Vib;
 import ac.vibration.types.VibContact;
@@ -20,7 +21,7 @@ import android.util.Log;
  * se encarga de interceder entre esta y la aplicacion
  * facilitando su uso. Contiene una serie de Static con
  * todas las posibles preferencias que se pueden guardar.
- * Durante el primer uso guarda la configuración inicial.
+ * Durante el primer uso guarda la configuraciï¿½n inicial.
  * @author mtrujillo & cdiaz
  */
 public class AppConfig extends MSharedPreferences{
@@ -54,14 +55,21 @@ public class AppConfig extends MSharedPreferences{
 			put(true,DO_VIB_MASTER); //Se realiza vibmaster cuando llega un sms de contacto desconocido?
 			
 			
-			//Agregamos vibracion master
+			//Agregamos vibracion master si no existe
 			try {
 				vcl = new ContactsConfig().loadVibContactList();
-				vcl.add(new VibContact("master", VibContactList.MASTERNUMBER, new Vib(MorseCode.stringToVib("sms",150, 2))));
+				
+				if (vcl.getMasterContact() == null)				
+					vcl.add(new VibContact("master", VibContactList.MASTERNUMBER, new Vib(MorseCode.stringToVib("sms",150, 2))));
+				
+				
 			} catch (NoFileException e1) {
 				Log.e("VS_AppConfig", e1.getMessage());
 				e1.printStackTrace();
 			} catch (ContactFileErrorException e1) {
+				Log.e("VS_AppConfic", e1.getMessage());
+				e1.printStackTrace();
+			} catch (NoVibrationFoundException e1) {
 				Log.e("VS_AppConfic", e1.getMessage());
 				e1.printStackTrace();
 			}
