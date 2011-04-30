@@ -14,6 +14,7 @@ import ac.vibration.types.VibContactList;
 import ac.vibration.types.Vib;
 import ac.vibration.ui.AddVib;
 import ac.vibration.ui.MasterMenu;
+import ac.vibration.ui.Settings;
 import ac.vibration.ui.ShowPresetList;
 import ac.vibration.util.Vibration.DoVibration;
 import ac.vibration.util.config.AppConfig;
@@ -23,12 +24,16 @@ import ac.vibration.ui.AgregarVibracion;
 import ac.vibration.util.mToast.mToast;
 import ac.vibration.util.tools.Tools;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 public class Inicio extends Activity {
@@ -95,19 +100,14 @@ public class Inicio extends Activity {
      * @param v Componente que llama a la funcion
     */ 
     public void clickAsignar(View v){
-    	
-    	
     	progress.setMessage(this.getString(R.string.loading));
     	progress.show();
     	progressOn = true;
     	
     	Intent i = new Intent(Inicio.this,AgregarVibracion.class);
-    	startActivityForResult(i, ID);
-    	
-    	
+    	startActivityForResult(i, ID);    	   
     }
-    
-    
+        
     /**
      *  Este metodo es llamado por el boton Agregar
      *  nueva vibracion.
@@ -143,7 +143,44 @@ public class Inicio extends Activity {
     
     
     
+	//Menu al pulsar boton menu
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_button_main, menu);
+		return true;
+	}
     
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		// Handle item selection
+		switch (item.getItemId()) {
+		
+		
+			case R.id.menu_main_settings:
+				
+		    	Intent i = new Intent(Inicio.this,Settings.class);
+		    	startActivityForResult(i, ID);
+				
+				return true;
+			
+				
+			case R.id.menu_main_exit: Inicio.this.finish(); return true;
+			
+			
+			case R.id.menu_main_credits:
+				
+				Dialog dialog = new Dialog(this);
+				dialog.setContentView(R.layout.credits_layout);
+				dialog.setTitle(R.string.credits);				
+				dialog.show();				
+				return true;
+		
+				
+			default: return super.onOptionsItemSelected(item);
+		}
+	}
 
     
     

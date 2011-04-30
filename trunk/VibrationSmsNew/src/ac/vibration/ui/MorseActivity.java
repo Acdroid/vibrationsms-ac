@@ -62,17 +62,23 @@ public class MorseActivity extends Activity {
 			public void onClick(View v) {
 				
 				
+				
+				
 				//Sacamos el texto que hay en el edit text
 				EditText texto = (EditText) findViewById(R.id.morseText);
-				SeekBar delayBar = (SeekBar) findViewById(R.id.morseDelaySeek);
-				SeekBar speedBar = (SeekBar) findViewById(R.id.morseSpeedSeek);
-								
-				int speed = (100-speedBar.getProgress())/10;
-				if (speed == 0) speed++;
 				
-				long[] vi = MorseCode.stringToVib(texto.getText().toString(), delayBar.getProgress()*20, speed);
 				
-				DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), vi);
+				if (texto.getText().toString().compareTo("") != 0) {
+					SeekBar delayBar = (SeekBar) findViewById(R.id.morseDelaySeek);
+					SeekBar speedBar = (SeekBar) findViewById(R.id.morseSpeedSeek);
+									
+					int speed = (100-speedBar.getProgress())/10;
+					if (speed == 0) speed++;
+					
+					long[] vi = MorseCode.stringToVib(texto.getText().toString(), delayBar.getProgress()*20, speed);
+					
+					DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), vi);
+				}
 
 			}
 		});

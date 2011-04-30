@@ -32,6 +32,11 @@ public class AppConfig extends MSharedPreferences{
 	public static final String VELOCIDAD_VIB = "velocidad_vib";
 	public static final String DO_VIB_MASTER = "do_vib_master";
 	
+	public static final String VIBRATE_ON_SMS  = "vib_on_sms";
+	public static final String VIBRATE_ON_CALL = "vib_on_call";
+	
+	public static final String VIBRATE_SYSTEM = "vib_system";
+	
 	VibContactList vcl;
 	
 		
@@ -52,7 +57,19 @@ public class AppConfig extends MSharedPreferences{
 			put(150, DELAY_INI); //delay inicio, predefinido a 0
 			put(50, DELAY_ENTRE_VIB); //delay entre vibraciones, predefinido a 40 milisegundos
 			put(2, VELOCIDAD_VIB);
-			put(true,DO_VIB_MASTER); //Se realiza vibmaster cuando llega un sms de contacto desconocido?
+			put(true, DO_VIB_MASTER); //Se realiza vibmaster cuando llega un sms de contacto desconocido?
+			
+			
+			//Por defecto vibrar siempre
+			put(true, VIBRATE_ON_SMS);
+			put(true, VIBRATE_ON_CALL);
+			
+			//Pero que podamos elimianr las vibraciones del sistema
+			put(false, VIBRATE_SYSTEM);
+			
+			
+			
+			
 			
 			
 			//Agregamos vibracion master si no existe

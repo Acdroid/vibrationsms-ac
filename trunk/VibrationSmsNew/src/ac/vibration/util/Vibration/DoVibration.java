@@ -74,6 +74,11 @@ public class DoVibration {
 	}
 	
 	
+	public static void CustomRepeatInfinity(Vibrator vibrator, long[] miliseg ){
+		vibrator.vibrate(miliseg, 0); //Vibra para avisar
+	}
+	
+	
 	/**
 	 * <b>SMS</b><br><br>
 	 *   public static void SMS()<br>

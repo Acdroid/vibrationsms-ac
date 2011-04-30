@@ -39,7 +39,11 @@
 	<string name = "master_info">The master vibration will be called when no other is selected for a contact.</string>
 	<string name = "reset_to_default">Reset to default</string>
 	<string name = "select_from_list">Select from list</string>
-	<string name = "remove_vib">Remove vibration</string>		
+	<string name = "remove_vib">Remove vibration</string>
+	<string name = "vibrate_on_call">Vibrate when a call is received </string>
+	<string name = "vibrate_on_sms">Vibrate when a SMS is received</string>
+	<string name = "vibrate_system">Disable other system vibrations</string>
+		
 
 	
 	
@@ -62,6 +66,9 @@
     <string name = "clear">Clear</string>
     <string name = "loading">Loading...</string>
     <string name = "removed">Removed</string>
+    <string name = "settings">Settings</string>
+    <string name = "exit">Exit</string>
+    <string name = "credits">Credits</string>
 	
 	
 	<!-- Errores -->
