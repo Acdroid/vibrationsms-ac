@@ -445,21 +445,28 @@ final PresetList pl;
 			
 			//brr brr brr
 			if (pl.getPresetByName("brr brr brr") == null){
-				long auxLong[] ={ 0, 250, 75, 250,75, 250};
+				long auxLong[] ={ 0, 250, 80, 250,80, 325};
 				pl.add(new Preset("brr brr brr",new Vib(auxLong)));
+				
+			}
+			
+			//brr brr brr Long
+			if (pl.getPresetByName("brr brr brr Long") == null){
+				long auxLong[] ={ 0, 375, 80, 400, 90 , 450};
+				pl.add(new Preset("brr brr brr Long",new Vib(auxLong)));
 				
 			}
 			
 			//Blink
 			if (pl.getPresetByName("Blink") == null){
-				long auxLong[] ={ 0, 100, 50 , 100 , 50 , 100, 50 , 100, 50, 175};
+				long auxLong[] ={ 0, 100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,300};
 				pl.add(new Preset("Blink",new Vib(auxLong)));
 				
 			}
 			
 			//InCrescendo
 			if (pl.getPresetByName("In Crescendo") == null){
-				long auxLong[] ={ 0, 75, 70 , 125 , 70 , 185, 70 , 230, 70, 300};
+				long auxLong[] ={ 0, 75, 70 ,120 , 80 , 200,90 , 320, 100, 450, 135, 520};
 				pl.add(new Preset("In Crescendo",new Vib(auxLong)));
 				
 			}
