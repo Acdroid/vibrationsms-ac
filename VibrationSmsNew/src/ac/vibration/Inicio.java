@@ -6,6 +6,7 @@ import ac.vibration.exceptions.ContactFileErrorException;
 import ac.vibration.exceptions.GeneralException;
 import ac.vibration.exceptions.NoContactFoundException;
 import ac.vibration.exceptions.NoFileException;
+import ac.vibration.exceptions.NoPreferenceException;
 import ac.vibration.morse.MorseCode;
 import ac.vibration.types.Preset;
 import ac.vibration.types.PresetList;
@@ -29,6 +30,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -46,19 +48,48 @@ public class Inicio extends Activity {
 	public static final int RESULT_SALIR = 3;
 	
 	private AppConfig ac;
-	
+	private AudioManager am;
 	
 	private boolean progressOn = false;
 	private ProgressDialog progress;
 	
 	
+	private int vibNotificationOriginal;
+	private int vibRingerOriginal;
+	
     @Override 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
         
+        //Se crea, no se muestra
         progress = new ProgressDialog(Inicio.this);
+        
+        
+        
+        
+        
+        //Configuraciones de vibracion originales
+        vibNotificationOriginal = am.getVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION);
+        vibRingerOriginal = am.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
+        
+        
+        try {
+        
+	        //Se deshablitan las vibraciones del sistema si se ha pedido en las pref
+	        if (ac.getBool(AppConfig.VIBRATE_SYSTEM)) {
+	        	        	
+	        	//am.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
+				am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
+	        	
+	        }
+        }catch(NoPreferenceException e) {
+        	e.printStackTrace();
+        	Log.w("main", "No hay preferencias");
+        }
         
         
         
@@ -221,9 +252,10 @@ public class Inicio extends Activity {
 			case RESULT_ERROR:
 				break;
 			case RESULT_SALIR:
+				am.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, vibNotificationOriginal);
+				am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, vibRingerOriginal);
 				Inicio.this.finish();
-			case RESULT_VIBRATION_EDIT_OK:
-				mToast.Make(this, "Vibration Saved!", 0);
+			case RESULT_VIBRATION_EDIT_OK:;
 				break;
 			default:
 				

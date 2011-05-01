@@ -90,13 +90,13 @@ public class Settings extends Activity{
 				
 				//Han activado las vibraciones
 				if (!isChecked) {
-					am.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, vibNotificationOriginal);
+					//am.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, vibNotificationOriginal);
 					am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, vibRingerOriginal);
 				}
 				
 				//Han DESactivado las vibraciones
 				else {
-					am.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
+					//am.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
 					am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);										
 				}
 				

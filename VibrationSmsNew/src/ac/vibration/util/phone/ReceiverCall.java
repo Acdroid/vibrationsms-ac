@@ -105,7 +105,7 @@ public class ReceiverCall extends BroadcastReceiver {
 			//Sacamos la vibración master
 			if (masterContact != null) {
 				long[] v = masterContact.getVib().get();
-				DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE),v);
+				DoVibration.CustomRepeatInfinity((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE),v);
 			}
 			
 		} catch (NoVibrationFoundException e) {

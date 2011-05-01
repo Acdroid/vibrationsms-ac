@@ -101,9 +101,12 @@ public class ReceiverSMS extends BroadcastReceiver {
 						//Buscamos el contacto por si tiene una vibracion propia
 						VibContact vc = vcl.getVibContactByNumber(numTelf[i]);
 						
+						Log.i("ReceiverSMS", "From: "+numTelf[i]);
+						
 						if (vc != null) {
 							long[] v = vc.getVib().get();					
 							DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), v);
+							Log.i("ReceiverSMS", "Custom vibration");
 						}
 						else doVibrationMaster(mContext);
 						
@@ -168,6 +171,7 @@ public class ReceiverSMS extends BroadcastReceiver {
 			if (masterContact != null) {
 				long[] v = masterContact.getVib().get();
 				DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE),v);
+				Log.i("ReceiverSMS", "Master vibration");
 			}
 			
 		} catch (NoVibrationFoundException e) {
