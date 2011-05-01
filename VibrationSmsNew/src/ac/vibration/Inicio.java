@@ -14,6 +14,7 @@ import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.types.Vib;
 import ac.vibration.ui.AddVib;
+import ac.vibration.ui.FingerActivity;
 import ac.vibration.ui.ListContactsWithVib;
 import ac.vibration.ui.MasterMenu;
 import ac.vibration.ui.Settings;
@@ -26,9 +27,11 @@ import ac.vibration.ui.AgregarVibracion;
 import ac.vibration.util.mToast.mToast;
 import ac.vibration.util.tools.Tools;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -64,6 +67,10 @@ public class Inicio extends Activity {
         
         am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
+        
+        //Creacion de las vibraciones por defecto, por si los desastres
+        builtInVib();
+        
         
         //Se crea, no se muestra
         progress = new ProgressDialog(Inicio.this);
@@ -112,7 +119,6 @@ public class Inicio extends Activity {
         //Vib vv = new Vib(v);
         //Log.i("main", vv.vibToString());
         
- 
     }
     
    //Al volver a la app, quitamos el progreso si es que estaba
@@ -400,6 +406,73 @@ public class Inicio extends Activity {
 			Log.e("main", "No se ha encontrado el contacto: "+e.getMessage());
 		}
 		
+    	
+    	
+    	
+    }
+    
+    
+    /**
+     * Guarda las vibraciones predefinidas al iniciarse la aplicación
+     */
+    public void builtInVib(){
+    	
+final PresetList pl;
+		
+        try {
+			pl = new PresetsConfig().loadPresets();
+			
+			//[morse]sms
+			if (pl.getPresetByName("[morse]sms") == null){
+				pl.add(new Preset("[morse]sms",new Vib(MorseCode.stringToVib("sms",150, 2))));
+				
+			}
+			
+			//Long
+			if (pl.getPresetByName("Long") == null){
+				long auxLong[] ={ 0, 1000};
+				pl.add(new Preset("Long",new Vib(auxLong)));
+				
+			}
+			
+			//Looong
+			if (pl.getPresetByName("Looong") == null){
+				long auxLong[] ={ 0, 2500};
+				pl.add(new Preset("Looong",new Vib(auxLong)));
+				
+			}
+			
+			
+			//brr brr brr
+			if (pl.getPresetByName("brr brr brr") == null){
+				long auxLong[] ={ 0, 250, 75, 250,75, 250};
+				pl.add(new Preset("brr brr brr",new Vib(auxLong)));
+				
+			}
+			
+			//Blink
+			if (pl.getPresetByName("Blink") == null){
+				long auxLong[] ={ 0, 100, 50 , 100 , 50 , 100, 50 , 100, 50, 175};
+				pl.add(new Preset("Blink",new Vib(auxLong)));
+				
+			}
+			
+			//InCrescendo
+			if (pl.getPresetByName("In Crescendo") == null){
+				long auxLong[] ={ 0, 75, 70 , 125 , 70 , 185, 70 , 230, 70, 300};
+				pl.add(new Preset("In Crescendo",new Vib(auxLong)));
+				
+			}
+			
+			
+			
+			
+			new PresetsConfig().dumpPresetList(pl);
+						
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
     	
     	
     	
