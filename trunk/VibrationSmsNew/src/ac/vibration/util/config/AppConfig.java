@@ -64,8 +64,8 @@ public class AppConfig extends MSharedPreferences{
 			put(true, VIBRATE_ON_SMS);
 			put(true, VIBRATE_ON_CALL);
 			
-			//Pero que podamos elimianr las vibraciones del sistema
-			put(false, VIBRATE_SYSTEM);
+			//Para que podamos elimianr las vibraciones del sistema
+			put(true, VIBRATE_SYSTEM);
 			
 			
 			

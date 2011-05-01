@@ -242,6 +242,8 @@ public final class ShowPresetList extends Activity {
 		} catch (Exception e) {
 			
 			mToast.Make(this, R.string.error, 0);
+			Log.w("ShowPresetList", e.getMessage());
+			e.printStackTrace();
 		}
 	  	  
 	  

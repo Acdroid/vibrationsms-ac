@@ -7,6 +7,8 @@
     <string name="main_button_agregar">Create new vibration</string>
     <string name="vibrations_list">Saved vibrations</string>
     <string name="master_vibration">Master vibration</string>
+    <string name="list_contacts">List contacts with vibrations</string>
+    
     
     <string name="hello">hello:)</string>
     
@@ -21,7 +23,7 @@
 	<string name = "dialog_str_morse_button">Assign</string>  
 	
 	<!-- Miscelanea -->
-	<string name = "first_time_toast">This is the first time you use VibrationSMS\n....</string>
+	<string name = "first_time_toast">This is the first run. Welcome and enjoy !</string>
 	<string name = "smsfrom">SMS from </string>
 	<string name = "vib_add_ok">Vibration successfully set</string>
 	<string name = "dialog_str_morse_tittle">Text to morse</string>
@@ -86,5 +88,6 @@
     
     
 </resources>
+
 
 

@@ -56,8 +56,10 @@ import android.widget.Toast;
 
 
 
-public final class AgregarVibracion extends ListActivity
+public final class ListContactsWithVib extends ListActivity 
 {
+	
+	
 	public static final int DIALOG_LIST_OPTIONS = 0;
 	public static final int DIALOG_STR_MORSE = 1;
 	public static final int ID = 2;
@@ -76,6 +78,8 @@ public final class AgregarVibracion extends ListActivity
 	
 	MiCursorAdapter myAdapter;
 
+	
+	
 	/**
 	 * Called when the activity is first created. Responsible for initializing the UI.
 	 */
@@ -100,29 +104,26 @@ public final class AgregarVibracion extends ListActivity
 			e1.printStackTrace();
 			setResult(Inicio.RESULT_ERROR);
 			mToast.Make(this, "Error al cargar la lista de configuracion.El fichero no existe", 1);
-			AgregarVibracion.this.finish();
+			ListContactsWithVib.this.finish();
 		} catch (ContactFileErrorException e1) {
 			Log.e("VS_AgregarVibracion", e1.getMessage());
 			e1.printStackTrace();
 			setResult(Inicio.RESULT_ERROR);
 			mToast.Make(this, "Error al cargar la lista de configuracion", 1);
-			AgregarVibracion.this.finish();
+			ListContactsWithVib.this.finish();
 		}
 
 		mContext = this;
 		cursor = getContacts();
 		startManagingCursor(cursor);
-		String[] fields = new String[] {
-				Data.DISPLAY_NAME,
-				Phone.NUMBER
-		};
+		
+		String[] fields = new String[] { Data.DISPLAY_NAME,	Phone.NUMBER };
 
 		int[] to = new int[] { R.id.item_lista_nombre, R.id.item_lista_numero};
 
-		//		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.item_lista_contactos, cursor,
-		//				fields, to);
-		myAdapter = new MiCursorAdapter(this, R.layout.item_lista_contactos, cursor,
-				fields, to);
+		//		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.item_lista_contactos, cursor,fields, to);
+		
+		myAdapter = new MiCursorAdapter(this, R.layout.item_lista_contactos, cursor, fields, to);
 	
 		
 		setListAdapter(myAdapter);
@@ -221,7 +222,7 @@ public final class AgregarVibracion extends ListActivity
 
 					dialogStrMorse.cancel();
 					
-					AgregarVibracion.this.finish();
+					ListContactsWithVib.this.finish();
 
 				}
 			});
@@ -240,10 +241,45 @@ public final class AgregarVibracion extends ListActivity
 	 */
 	private Cursor getContacts()
 	{
+		
+		Log.i("ListContactsWithVib", "0");
+		
+		//Creamos una lista de los telefonos con vibracion para filtrar la query
+		Iterator it = vcl.getIterator();
+		
+		Log.i("ListContactsWithVib", "1");
+		
+		String filter = " AND " + Phone.NUMBER + " IN (";
+		
+		
+		if (it != null) {
+			while (it.hasNext()) {			
+				
+				Log.i("ListContactsWithVib", "2");
+				
+				VibContact vc = (VibContact) it.next();
+				
+				if (vc.getNumber().compareTo("master") != 0)
+					//filter += " AND " + Phone.NUMBER + " = " + vc.getNumber() + " ";
+					filter += vc.getNumber() + ",";
+			}
+		}				
+		filter += ")";
+		filter = filter.replace(",)", ")");
+		
+		Log.i("ListContactsWithVib", "3 "+filter);
+		
+		
+		
+		
 		return  getContentResolver().query(Data.CONTENT_URI,
 				new String[] { Data._ID, Data.DISPLAY_NAME, Phone.NUMBER, Phone.TYPE },
-				Data.MIMETYPE + "='" + Phone.CONTENT_ITEM_TYPE + "' AND "
-				+ Phone.NUMBER + " IS NOT NULL", null,
+				
+				Data.MIMETYPE + "='" + Phone.CONTENT_ITEM_TYPE +
+				"' AND " + Phone.NUMBER + " IS NOT NULL" +
+				filter,
+				
+				null,
 				Data.DISPLAY_NAME + " ASC");
 	}
 
@@ -300,18 +336,17 @@ public final class AgregarVibracion extends ListActivity
 		mToast.Make(this, getResources().getString(R.string.vib_add_ok), 0);
 		dump();
 		
-		AgregarVibracion.this.finish();
+		ListContactsWithVib.this.finish();
 	}
 	
 	
 	private void createVib(){
-		Intent intent = new Intent(AgregarVibracion.this, AddVib.class);
+		Intent intent = new Intent(ListContactsWithVib.this, AddVib.class);
 		intent.putExtra("KEY_CONTACTO", selectContact.getName());
 		intent.putExtra("KEY_NUMERO", selectContact.getNumber());
 		startActivityForResult(intent, ID);
 		
 	}
-	
 	
 	
 	//Abre un dialogo con la lista de vibraciones y elige una al clickar sobre ella
@@ -367,7 +402,7 @@ public final class AgregarVibracion extends ListActivity
 					mToast.Make(mContext, getResources().getString(R.string.vib_add_ok), 0);
 					dump();
 					
-					AgregarVibracion.this.finish();
+					ListContactsWithVib.this.finish();
 			    	
 					
 				} catch (Exception e) { e.printStackTrace(); } 
@@ -382,15 +417,7 @@ public final class AgregarVibracion extends ListActivity
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	private void createQuickAction(View v){
 		
@@ -455,7 +482,7 @@ public final class AgregarVibracion extends ListActivity
 				vcl.remove(selectContact);							
 				dump();
 				
-				mToast.Make(AgregarVibracion.this, getResources().getString(R.string.removed), 0);
+				mToast.Make(ListContactsWithVib.this, getResources().getString(R.string.removed), 0);
 				
 				ImageView i = (ImageView) findViewById(R.id.item_list_image);
 				i.setBackgroundResource(R.drawable.btn_check_off);
@@ -488,7 +515,7 @@ public final class AgregarVibracion extends ListActivity
 				break;
 			case Inicio.RESULT_SALIR:
 				setResult(Inicio.RESULT_SALIR);
-				AgregarVibracion.this.finish();
+				ListContactsWithVib.this.finish();
 			case Inicio.RESULT_VIBRATION_EDIT_OK:
 				mToast.Make(this, "Vibration Save!", 0);
 				break;
@@ -531,8 +558,8 @@ public final class AgregarVibracion extends ListActivity
 		try {
 			new ContactsConfig().dumpVibContactList(vcl);
 		} catch (GeneralException e) {
-			Log.w("VS_AgregarVibracion",e.getMessage());
-			//e.printStackTrace();
+			Log.e("VS_AgregarVibracion",e.getMessage());
+			e.printStackTrace();
 		} catch (NoFileException e) {
 			Log.e("VS_AgregarVibracion",e.getMessage());
 			e.printStackTrace();
@@ -547,15 +574,23 @@ public final class AgregarVibracion extends ListActivity
 	public EditText getTextDialog() {
 		return textDialog;
 	}
+	
+	
+	
+	
+	
+	
+	
 
-	class MiCursorAdapter extends SimpleCursorAdapter implements SectionIndexer{
+	class MiCursorAdapter extends SimpleCursorAdapter implements SectionIndexer {
 		AlphabetIndexer alphaIndexer;
 
-		public MiCursorAdapter(Context context, int layout, Cursor c,
-				String[] from, int[] to) {
+		public MiCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to) {
+			
 			super(context, layout, c, from, to);
-			// TODO Auto-generated constructor stub
+			
 			alphaIndexer=new AlphabetIndexer(c,c.getColumnIndex(Data.DISPLAY_NAME), " ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			
 		}
 
 
@@ -564,6 +599,7 @@ public final class AgregarVibracion extends ListActivity
 		@Override
 		public void bindView(View view, Context context, Cursor cursor) {
 			String phone = cursor.getString(cursor.getColumnIndex(Phone.NUMBER));
+			
 			if (vcl.contactExists(phone)){
 				ImageView i = (ImageView) view.findViewById(R.id.item_list_image);
 				i.setBackgroundResource(R.drawable.btn_check_on);
@@ -573,15 +609,7 @@ public final class AgregarVibracion extends ListActivity
 				i.setBackgroundResource(R.drawable.btn_check_off);
 			}
 
-			LinearLayout l = (LinearLayout) view.findViewById(R.id.lay_item);
-			/*
-			if ((cursor.getPosition() % 2) == 0){
-				l.setBackgroundResource(R.color.white);	
-			}
-			else {
-				l.setBackgroundResource(R.color.lista_yellow);
-			}
-			*/
+			//LinearLayout l = (LinearLayout) view.findViewById(R.id.lay_item);
 
 
 			super.bindView(view, context, cursor);
