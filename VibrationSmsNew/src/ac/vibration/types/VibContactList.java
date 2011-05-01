@@ -76,9 +76,10 @@ public class VibContactList {
 		//Vamos a comparar todo lo que tenemos, por culpa del codigo de area etc...
 		Iterator it = hm.values().iterator();		
 		while (it.hasNext()) {
-			
-			VibContact vc = (VibContact)it.next();			
-			if (PhoneNumberUtils.compare(num, vc.getNumber())) return hm.get(num);	
+									
+			VibContact vc = (VibContact)it.next();
+			Log.i("VibContactList", num+" - "+vc.getNumber());
+			if (PhoneNumberUtils.compare(num, vc.getNumber())) return hm.get(vc.getNumber());
 			
 		}
 		
