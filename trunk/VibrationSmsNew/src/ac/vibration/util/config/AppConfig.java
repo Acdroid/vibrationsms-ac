@@ -12,6 +12,7 @@ import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.util.mToast.mToast;
 import android.content.Context;
+import android.media.AudioManager;
 import android.util.Log;
 
 /**
@@ -66,9 +67,7 @@ public class AppConfig extends MSharedPreferences{
 			
 			//Para que podamos elimianr las vibraciones del sistema
 			put(true, VIBRATE_SYSTEM);
-			
-			
-			
+									
 			
 			
 			
