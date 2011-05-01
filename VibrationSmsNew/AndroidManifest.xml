@@ -44,6 +44,7 @@
         <activity android:name=".ui.AgregarVibracion"></activity>
         <activity android:name=".ui.MasterMenu"></activity>
         <activity android:name=".ui.Settings"></activity>
+        <activity android:name=".ui.ListContactsWithVib"></activity>
 
     </application>
 </manifest>

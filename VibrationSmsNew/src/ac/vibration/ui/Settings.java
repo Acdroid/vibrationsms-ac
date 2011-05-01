@@ -81,7 +81,7 @@ public class Settings extends Activity{
         
         
         //Tocan system
-        callCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        systemCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

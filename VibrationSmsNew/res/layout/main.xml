@@ -61,7 +61,19 @@
 		    	android:textColor="@color/black"
 		    	android:textSize="20dip"
 		    	android:onClick="clickMaster"
-		    	></Button>			    			    	
+		    	></Button>
+		    <Button
+		   		android:layout_width="fill_parent" 
+		   		android:layout_height="wrap_content"
+		   		android:id="@+id/main_button_list"
+		    	android:gravity="center"
+		   		android:text="@string/list_contacts"
+		    	android:textStyle="bold"
+		    	android:textColor="@color/black"
+		    	android:textSize="20dip"
+		    	android:onClick="clickList"
+		    	></Button>
+		    	
 		    		    
 		</LinearLayout> 
 	</LinearLayout>

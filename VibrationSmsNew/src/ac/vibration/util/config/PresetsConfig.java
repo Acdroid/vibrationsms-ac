@@ -165,7 +165,7 @@ public class PresetsConfig {
 	 * */
 	public void dumpPresetList(PresetList pl) throws GeneralException {
 
-		if (pl.length() < 1) throw new GeneralException("List is void");
+		if (pl.length() < 0) throw new GeneralException("List length incorrect");
 
 		//Delete old file	
 		boolean ok = deleteConfig();
@@ -241,20 +241,6 @@ public class PresetsConfig {
 		File f = new File(PRESETFILE);
 		return f.delete();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

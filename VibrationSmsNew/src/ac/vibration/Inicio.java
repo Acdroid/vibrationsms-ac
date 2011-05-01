@@ -13,6 +13,7 @@ import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
 import ac.vibration.types.Vib;
 import ac.vibration.ui.AddVib;
+import ac.vibration.ui.ListContactsWithVib;
 import ac.vibration.ui.MasterMenu;
 import ac.vibration.ui.Settings;
 import ac.vibration.ui.ShowPresetList;
@@ -58,6 +59,21 @@ public class Inicio extends Activity {
         ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
         
         progress = new ProgressDialog(Inicio.this);
+        
+        
+        
+        
+        //Reset config
+        /*
+        try {
+			new ContactsConfig().deleteConfig();
+		} catch (NoFileException e) {
+			e.printStackTrace();
+		}
+		*/
+		
+
+        
         
         //leeConfig();
         //escribirConfig();
@@ -137,6 +153,16 @@ public class Inicio extends Activity {
      */
     public void clickMaster(View v){
     	Intent i = new Intent(Inicio.this,MasterMenu.class);
+    	startActivityForResult(i, ID);
+    }
+    
+    /**
+     *  Este metodo es llamado por el boton List
+     * 
+     * @param v Componente que llama a la funcion
+     */
+    public void clickList(View v){
+    	Intent i = new Intent(Inicio.this,ListContactsWithVib.class);
     	startActivityForResult(i, ID);
     }
     
@@ -324,7 +350,8 @@ public class Inicio extends Activity {
 
 						
 			//Este no esta
-			Log.w("main", vcl.getVibContactByNumber("34").getVib().vibToString());
+			if (vcl.getVibContactByNumber("34") == null) Log.w("main", "34 no esta");
+			//Log.w("main", vcl.getVibContactByNumber("34").getVib().vibToString());
 			
 			
 		} catch (NoContactFoundException e) {
