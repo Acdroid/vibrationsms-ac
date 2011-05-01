@@ -54,8 +54,8 @@ public class Inicio extends Activity {
 	private ProgressDialog progress;
 	
 	
-	private int vibNotificationOriginal;
-	private int vibRingerOriginal;
+	private static int vibNotificationOriginal;
+	private static int vibRingerOriginal;
 	
     @Override 
     public void onCreate(Bundle savedInstanceState) {
@@ -67,9 +67,7 @@ public class Inicio extends Activity {
         
         //Se crea, no se muestra
         progress = new ProgressDialog(Inicio.this);
-        
-        
-        
+                       
         
         
         //Configuraciones de vibracion originales
@@ -223,7 +221,11 @@ public class Inicio extends Activity {
 				return true;
 			
 				
-			case R.id.menu_main_exit: Inicio.this.finish(); return true;
+			case R.id.menu_main_exit:				
+				am.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, getVibNotificationOriginal());
+				am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, getVibRingerOriginal());
+				Inicio.this.finish();
+				return true;
 			
 			
 			case R.id.menu_main_credits:
@@ -252,8 +254,8 @@ public class Inicio extends Activity {
 			case RESULT_ERROR:
 				break;
 			case RESULT_SALIR:
-				am.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, vibNotificationOriginal);
-				am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, vibRingerOriginal);
+				am.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, getVibNotificationOriginal());
+				am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, getVibRingerOriginal());
 				Inicio.this.finish();
 			case RESULT_VIBRATION_EDIT_OK:;
 				break;
@@ -267,7 +269,14 @@ public class Inicio extends Activity {
     
     
     
-    
+    //Configuraciones de notificacion originales
+	public static int getVibNotificationOriginal() {	
+		return vibNotificationOriginal;
+	}
+	
+	public static int getVibRingerOriginal() {
+		return vibRingerOriginal;		
+	}
     
     
     

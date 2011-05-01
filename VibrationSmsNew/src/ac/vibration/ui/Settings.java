@@ -1,5 +1,6 @@
 package ac.vibration.ui;
 
+import ac.vibration.Inicio;
 import ac.vibration.R;
 import ac.vibration.exceptions.NoPreferenceException;
 import ac.vibration.util.config.AppConfig;
@@ -31,8 +32,8 @@ public class Settings extends Activity{
         final AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
         //Configuraciones de vibracion originales
-        final int vibNotificationOriginal = am.getVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION);
-        final int vibRingerOriginal = am.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
+        //final int vibNotificationOriginal = am.getVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION);
+        //final int vibRingerOriginal = am.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
         
         
         final AppConfig ac =  new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
@@ -91,7 +92,10 @@ public class Settings extends Activity{
 				//Han activado las vibraciones
 				if (!isChecked) {
 					//am.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, vibNotificationOriginal);
-					am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, vibRingerOriginal);
+					//am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, vibRingerOriginal);
+					am.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, Inicio.getVibNotificationOriginal());
+					am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, Inicio.getVibRingerOriginal());
+					
 				}
 				
 				//Han DESactivado las vibraciones
