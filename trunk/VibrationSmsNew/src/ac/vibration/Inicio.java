@@ -452,7 +452,7 @@ final PresetList pl;
 			
 			//Long in the middle
 			if (pl.getPresetByName("*UCI") == null){
-				long auxLong[] ={ 0, 70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70};
+				long auxLong[] ={ 0, 70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,300};
 				pl.add(new Preset("*UCI",new Vib(auxLong)));
 				
 			}
