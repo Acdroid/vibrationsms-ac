@@ -20,6 +20,7 @@ import ac.vibration.ui.MasterMenu;
 import ac.vibration.ui.Settings;
 import ac.vibration.ui.ShowPresetList;
 import ac.vibration.util.Vibration.DoVibration;
+import ac.vibration.util.builtIn.defVibBuiltIn;
 import ac.vibration.util.config.AppConfig;
 import ac.vibration.util.config.ContactsConfig;
 import ac.vibration.util.config.PresetsConfig;
@@ -69,7 +70,7 @@ public class Inicio extends Activity {
         ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
         
         //Creacion de las vibraciones por defecto, por si los desastres
-        builtInVib();
+       defVibBuiltIn.builtInDefVib();
         
         
         //Se crea, no se muestra
@@ -412,140 +413,7 @@ public class Inicio extends Activity {
     }
     
     
-    /**
-     * Guarda las vibraciones predefinidas al iniciarse la aplicación
-     */
-    public void builtInVib(){
-    	
-final PresetList pl;
-		
-        try {
-			pl = new PresetsConfig().loadPresets();
-			
-			//[morse]sms
-			if (pl.getPresetByName("*[morse]sms") == null){
-				pl.add(new Preset("*[morse]sms",new Vib(MorseCode.stringToVib("sms",150, 2))));
-				
-			}
-			
-			//Long
-			if (pl.getPresetByName("*Long") == null){
-				long auxLong[] ={ 0, 1000};
-				pl.add(new Preset("*Long",new Vib(auxLong)));
-				
-			}
-			
-			//Looong
-			if (pl.getPresetByName("*Looong") == null){
-				long auxLong[] ={ 0, 2500};
-				pl.add(new Preset("*Looong",new Vib(auxLong)));
-				
-			}
-			
-			//Long in the middle
-			if (pl.getPresetByName("*Long in the middle") == null){
-				long auxLong[] ={ 0, 70,50,70,50,70,50,70,50,70,50,70,50,70,50,600,70,50,70,50,70,50,70,50,70,50,70,50,70,};
-				pl.add(new Preset("*Long in the middle",new Vib(auxLong)));
-				
-			}
-			
-			
-			//Long in the middle
-			if (pl.getPresetByName("*UCI") == null){
-				long auxLong[] ={ 0, 70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,50,70,300};
-				pl.add(new Preset("*UCI",new Vib(auxLong)));
-				
-			}
-			
-			
-			
-			//2 times
-			if (pl.getPresetByName("*2 times") == null){
-				long auxLong[] ={ 0, 250, 200, 450};
-				pl.add(new Preset("*2 times",new Vib(auxLong)));
-				
-			}
-			
-			//3 times
-			if (pl.getPresetByName("*3 times") == null){
-				long auxLong[] ={ 0, 200, 150, 250, 190,  650};
-				pl.add(new Preset("*3 times",new Vib(auxLong)));
-				
-			}
-			
-				
-			
-			
-			//brr brr brr brrrrr
-			if (pl.getPresetByName("*brr brr brr brrrrr") == null){
-				long auxLong[] ={ 0, 250, 80, 250,80, 260, 100, 550};
-				pl.add(new Preset("*brr brr brr brrrrr",new Vib(auxLong)));
-				
-			}
-			
-			
-			//brr brr brr
-			if (pl.getPresetByName("*brr brr brr") == null){
-				long auxLong[] ={ 0, 250, 80, 250,80, 325};
-				pl.add(new Preset("*brr brr brr",new Vib(auxLong)));
-				
-			}
-			
-			//brr brr brr SuperShort
-			if (pl.getPresetByName("*brr brr brr SuperShort") == null){
-				long auxLong[] ={ 0, 125, 40, 125,40, 180};
-				pl.add(new Preset("*brr brr brr SuperShort",new Vib(auxLong)));
-				
-			}
-			
-			//brr brr brr Fast
-			if (pl.getPresetByName("*brr brr brr Fast") == null){
-				long auxLong[] ={ 0, 170, 40, 170,55, 260};
-				pl.add(new Preset("*brr brr brr Fast",new Vib(auxLong)));
-				
-			}
-			
-			//brr brr brr Long
-			if (pl.getPresetByName("*brr brr brr Long") == null){
-				long auxLong[] ={ 0, 375, 80, 400, 90 , 450};
-				pl.add(new Preset("*brr brr brr Long",new Vib(auxLong)));
-				
-			}
-			
-			//Blink
-			if (pl.getPresetByName("*Blink") == null){
-				long auxLong[] ={ 0, 100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,100, 65,300};
-				pl.add(new Preset("*Blink",new Vib(auxLong)));
-				
-			}
-			
-			//Blink
-			if (pl.getPresetByName("*Blink Fast") == null){
-				long auxLong[] ={ 0, 90, 32, 90, 32, 90, 32, 90, 32, 90, 32, 90, 32, 90, 32, 90, 32, 90, 32, 90, 32, 90, 32, 90, 32, 90, 32, 65,300};
-				pl.add(new Preset("*Blink Fast",new Vib(auxLong)));
-				
-			}
-			
-			//InCrescendo
-			if (pl.getPresetByName("*In Crescendo") == null){
-				long auxLong[] ={ 0, 85, 70 ,119 , 75 , 166,80 ,235, 87, 327, 95,457,102, 640};
-				pl.add(new Preset("*In Crescendo",new Vib(auxLong)));
-				
-			}
-			
-			
-			
-			
-			new PresetsConfig().dumpPresetList(pl);
-						
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-    	
-    	
-    	
-    }
+
   
     
    
