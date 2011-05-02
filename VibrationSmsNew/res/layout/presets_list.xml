@@ -14,20 +14,33 @@
     />
     
     
-  <LinearLayout android:layout_height="75sp" android:layout_width="fill_parent" android:id="@+id/linearLayout1" android:orientation="horizontal" android:background="#FF666666">
+  <LinearLayout
+    style="@android:style/ButtonBar"
+    android:layout_height="wrap_content"
+  	android:layout_width="fill_parent"
+  	android:id="@+id/linearLayout1"
+  	android:orientation="vertical"
+  	
+  	>
       <TextView
 	      	android:text="@string/hold_long"
 	      	android:id="@+id/footer"
-	      	android:layout_weight=".70"
-	  		android:layout_width="0dip"
-	  		android:layout_height="fill_parent">
+	      	android:layout_width="fill_parent"
+	  		android:layout_height="wrap_content">
   		</TextView>
   		
+  		
+  	  <LinearLayout 
+  	  	android:layout_height="wrap_content"
+	  	android:layout_width="fill_parent"
+	  	android:orientation="horizontal"
+	  	>	
       	<Button
       		android:text="@string/new_common"
       		android:id="@+id/preset_list_new_vibration_button"
-      		android:layout_width="wrap_content"
+      		android:layout_width="60dip"
       		android:layout_height="fill_parent"
+      		android:layout_weight="1"
       		android:onClick="clickAgregar">
       	</Button>
       	
@@ -36,6 +49,7 @@
       		android:id="@+id/preset_list_refresh_button"
       		android:layout_width="wrap_content"
       		android:layout_height="fill_parent"
+      		android:layout_weight="1"
       		android:onClick="clickRefresh">
       	</Button>
       	
@@ -44,8 +58,10 @@
       		android:id="@+id/preset_list_clear_button"
       		android:layout_width="wrap_content"
       		android:layout_height="fill_parent"
+      		android:layout_weight="1"
       		android:onClick="clickClear">
       	</Button>
+   </LinearLayout>
   
   </LinearLayout>
     
