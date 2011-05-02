@@ -10,7 +10,9 @@ import ac.vibration.morse.MorseCode;
 import ac.vibration.types.Vib;
 import ac.vibration.types.VibContact;
 import ac.vibration.types.VibContactList;
+import ac.vibration.util.builtIn.defVibBuiltIn;
 import ac.vibration.util.mToast.mToast;
+import android.bluetooth.BluetoothClass.Device;
 import android.content.Context;
 import android.media.AudioManager;
 import android.util.Log;
@@ -69,7 +71,8 @@ public class AppConfig extends MSharedPreferences{
 			put(true, VIBRATE_SYSTEM);
 									
 			
-			
+			//Guardamos las vibraciones predefinidas
+			defVibBuiltIn.builtInDefVibForce();
 			
 			//Agregamos vibracion master si no existe
 			try {
