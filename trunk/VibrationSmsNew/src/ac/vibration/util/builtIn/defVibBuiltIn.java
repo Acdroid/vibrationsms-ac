@@ -9,7 +9,7 @@ import ac.vibration.util.config.PresetsConfig;
 public class defVibBuiltIn {
 
 	/**
-	 * Guarda las vibraciones predefinidas al iniciarse la aplicación
+	 * Guarda las vibraciones predefinidas al iniciarse la aplicaciï¿½n
 	 */
 	public static void builtInDefVib(){
 		final PresetList pl;
@@ -18,8 +18,8 @@ public class defVibBuiltIn {
 			pl = new PresetsConfig().loadPresets();
 
 			//[morse]sms
-			if (pl.getPresetByName("*[morse]sms") == null){
-				pl.add(new Preset("*[morse]sms",new Vib(MorseCode.stringToVib("sms",150, 2))));
+			if (pl.getPresetByName("*[Morse] SMS") == null){
+				pl.add(new Preset("*[Morse] SMS",new Vib(MorseCode.stringToVib("sms",150, 2))));
 
 			}
 
@@ -55,9 +55,9 @@ public class defVibBuiltIn {
 
 
 			//2 times
-			if (pl.getPresetByName("*2 times") == null){
+			if (pl.getPresetByName("*Twice") == null){
 				long auxLong[] ={ 300, 250, 200, 450};
-				pl.add(new Preset("*2 times",new Vib(auxLong)));
+				pl.add(new Preset("*Twice",new Vib(auxLong)));
 
 			}
 
@@ -87,23 +87,23 @@ public class defVibBuiltIn {
 			}
 
 			//brr brr brr SuperShort
-			if (pl.getPresetByName("*brr brr brr SuperShort") == null){
+			if (pl.getPresetByName("*brr brr brr short") == null){
 				long auxLong[] ={ 300, 125, 40, 125,40, 180};
-				pl.add(new Preset("*brr brr brr SuperShort",new Vib(auxLong)));
+				pl.add(new Preset("*brr brr brr short",new Vib(auxLong)));
 
 			}
 
 			//brr brr brr Fast
-			if (pl.getPresetByName("*brr brr brr Fast") == null){
+			if (pl.getPresetByName("*brr brr brr fast") == null){
 				long auxLong[] ={ 300, 170, 40, 170,55, 260};
-				pl.add(new Preset("*brr brr brr Fast",new Vib(auxLong)));
+				pl.add(new Preset("*brr brr brr fast",new Vib(auxLong)));
 
 			}
 
 			//brr brr brr Long
-			if (pl.getPresetByName("*brr brr brr Long") == null){
+			if (pl.getPresetByName("*brr brr brr long") == null){
 				long auxLong[] ={ 300, 375, 80, 400, 90 , 450};
-				pl.add(new Preset("*brr brr brr Long",new Vib(auxLong)));
+				pl.add(new Preset("*brr brr brr long",new Vib(auxLong)));
 
 			}
 
@@ -142,8 +142,8 @@ public class defVibBuiltIn {
 
 
 	/**
-	 * Guarda las vibraciones predefinidas al iniciarse la aplicación
-	 * Este método fuerza a guardar las vibraciones, útil para
+	 * Guarda las vibraciones predefinidas al iniciarse la aplicaciï¿½n
+	 * Este mï¿½todo fuerza a guardar las vibraciones, ï¿½til para
 	 * actualizaciones del programa.
 	 */
 	public static void builtInDefVibForce(){

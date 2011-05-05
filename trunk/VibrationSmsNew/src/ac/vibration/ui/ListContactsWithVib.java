@@ -12,6 +12,7 @@ import ac.vibration.Inicio;
 import ac.vibration.R;
 import ac.vibration.exceptions.ContactFileErrorException;
 import ac.vibration.exceptions.GeneralException;
+import ac.vibration.exceptions.NoContactFoundException;
 import ac.vibration.exceptions.NoFileException;
 import ac.vibration.exceptions.NoPreferenceException;
 import ac.vibration.morse.MorseCode;
@@ -94,7 +95,8 @@ public final class ListContactsWithVib extends ListActivity
 							getResources().getString(R.string.custom_vibration),
 							getResources().getString(R.string.custom_vibration_morse),
 							getResources().getString(R.string.name_morse),
-							getResources().getString(R.string.remove_vib)};
+							getResources().getString(R.string.remove_vib),
+							getResources().getString(R.string.test)};
 		items = aux;
 
 		try {
@@ -495,13 +497,39 @@ public final class ListContactsWithVib extends ListActivity
 		
 		
 		
+		final ActionItem testVib = new ActionItem();
+		
+		nameMorse.setTitle(mContext.getResources().getString(R.string.test));
+		nameMorse.setIcon(getResources().getDrawable(android.R.drawable.ic_menu_help));
+		nameMorse.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+			
+				try {
+					DoVibration.CustomRepeat((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), vcl.getVibContactByNumber(selectContact.getNumber()).getVib().get());
+				} catch (NoContactFoundException e) {
+					Log.w("ListContactWithVib", "Contacto no encontrado");
+					e.printStackTrace();
+				}
+				
+				q.dismiss();
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
 		
 		q = new QuickAction(v);
 		q.addActionItem(edit);
-		q.addActionItem(createVib);
+		//q.addActionItem(createVib);
 		q.addActionItem(createMorse);
 		q.addActionItem(nameMorse);
 		q.addActionItem(remove);
+		q.addActionItem(testVib);
 		q.show();
 		
 	}

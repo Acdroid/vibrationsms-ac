@@ -11,4 +11,5 @@
     <color name="colorTapButtonOFF">#AA1111</color>
     <color name="colorTapButtonON">#00CC00</color>
     <color name="yellow">#FFFF00</color>
+    <color name="menutopbg">#132319</color>
 </resources>
