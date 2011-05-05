@@ -46,12 +46,14 @@ public class ContactsConfig {
 
 	//Carpeta para guardar el archivo
 	private static String CONTACTPATH = Environment.getExternalStorageDirectory()+"/VibrationSMS/";
+	private static String INTERNAL_CONTACTPATH = Environment.getDataDirectory()+"/VibrationSMS/";
 
 	//Nombre del archivo donde se guardan los contactos
 	private static String CONTACTFILENAME = "contacts.vib";
 
 	//Path completo
 	private static String CONTACTFILE = CONTACTPATH+CONTACTFILENAME;
+	private static String INTERNAL_CONTACTFILE = INTERNAL_CONTACTPATH+CONTACTFILENAME;
 
 
 
@@ -70,9 +72,18 @@ public class ContactsConfig {
 		//Si no existe intentamos crearlo
 		if (!exists) {
 
-			ConfigBackend.createStructure(CONTACTPATH, CONTACTFILE);
+			try {
+				
+				//Lo intentamos en la SD
+				ConfigBackend.createStructure(CONTACTPATH, CONTACTFILE);
+			} catch (NoFileException e) {
+				
+				//Si en la SD no se puede lo intentamos en el sitio por defecto
+				ConfigBackend.createStructure(INTERNAL_CONTACTPATH, INTERNAL_CONTACTFILE);
+				CONTACTPATH = INTERNAL_CONTACTPATH;
+				CONTACTFILE = INTERNAL_CONTACTFILE;
+			}						
 		}
-
 	}
 
 

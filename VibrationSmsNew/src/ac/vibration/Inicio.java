@@ -42,6 +42,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class Inicio extends Activity {
 	
@@ -58,13 +62,23 @@ public class Inicio extends Activity {
 	private ProgressDialog progress;
 	
 	
+	public static final int SET_VIBRATION = 0;
+	public static final int CREATE_VIBRATION = 1;
+	public static final int SAVED_VIBRATION = 2;
+	public static final int MASTER_VIBRATION = 3;
+	public static final int LIST_CONTACTS = 4;
+	
+	
+	
+	
+	
 	private static int vibNotificationOriginal;
 	private static int vibRingerOriginal;
 	
     @Override 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.new_main);
         
         am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
@@ -76,6 +90,42 @@ public class Inicio extends Activity {
         //Se crea, no se muestra
         progress = new ProgressDialog(Inicio.this);
                        
+        
+        //Los elementos del menú principal
+        String[] listItems = new String[] {
+        		
+        		this.getString(R.string.main_button_asignar),
+        		this.getString(R.string.main_button_agregar),
+        		this.getString(R.string.vibrations_list),
+        		this.getString(R.string.master_vibration),
+        		this.getString(R.string.list_contacts)        		
+        };
+        
+        
+        //Lista del menú principal
+        ListView mainList = (ListView) findViewById(R.id.main_menu_list);        
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.preset_list_item, listItems);
+		mainList.setAdapter(adapter);
+
+		//Al hacer click en cada elemento del menu llamamos a diferentes funciones
+		mainList.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView parent, View v, int position, long id) {
+			
+				
+				switch (position) {
+					
+					case SET_VIBRATION:		clickAsignar(v); break;
+					case CREATE_VIBRATION:	clickAgregar(v); break;
+					case SAVED_VIBRATION:	clickPresets(v); break;
+					case MASTER_VIBRATION:	clickMaster(v);  break;
+					case LIST_CONTACTS:		clickList(v);	 break;
+				
+				}
+				
+				
+			}
+		});
+        
         
         
         //Configuraciones de vibracion originales
