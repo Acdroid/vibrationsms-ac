@@ -72,11 +72,11 @@ public class AppConfig extends MSharedPreferences{
 									
 			
 			//Guardamos las vibraciones predefinidas
-			defVibBuiltIn.builtInDefVibForce();
+			defVibBuiltIn.builtInDefVibForce(mContext);
 			
 			//Agregamos vibracion master si no existe
 			try {
-				vcl = new ContactsConfig().loadVibContactList();
+				vcl = new ContactsConfig(mContext).loadVibContactList();
 				
 				if (vcl.getMasterContact() == null)				
 					vcl.add(new VibContact("master", VibContactList.MASTERNUMBER, new Vib(MorseCode.stringToVib("sms",150, 2))));
@@ -94,7 +94,7 @@ public class AppConfig extends MSharedPreferences{
 			}
 			
 			try {
-				new ContactsConfig().dumpVibContactList(vcl);
+				new ContactsConfig(mContext).dumpVibContactList(vcl);
 			} catch (GeneralException e) {
 				Log.e("VS_AppConfig",e.getMessage());
 				e.printStackTrace();

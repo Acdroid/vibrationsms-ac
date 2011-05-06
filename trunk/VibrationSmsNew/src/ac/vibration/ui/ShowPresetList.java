@@ -41,6 +41,8 @@ import android.widget.ListView;
 public final class ShowPresetList extends Activity {
 
 	
+	private Context mContext;
+	
 	private static final int CONTEXT_RENAME = 0x0;
 	private static final int CONTEXT_DELETE = 0x1;
 	private static final int CONTEXT_TEST = 0x2;
@@ -58,6 +60,8 @@ public final class ShowPresetList extends Activity {
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		
+		mContext = this;
 
 		//Los layouts necesarios
 		setContentView(R.layout.presets_list);
@@ -90,7 +94,7 @@ public final class ShowPresetList extends Activity {
 		
 		PresetList pl;
 		try {
-			pl = new PresetsConfig().loadPresets();
+			pl = new PresetsConfig(mContext).loadPresets();
 			Iterator iter = pl.getIterator();				
 			
 			while (iter.hasNext()){
@@ -152,7 +156,7 @@ public final class ShowPresetList extends Activity {
 	public boolean onContextItemSelected(MenuItem item) {
 		
 		try {
-			final PresetsConfig pc = new PresetsConfig(); 
+			final PresetsConfig pc = new PresetsConfig(mContext); 
 			final PresetList pl = pc.loadPresets();
 		
 			
@@ -285,7 +289,7 @@ public final class ShowPresetList extends Activity {
 			
 			//Limpiamos...
 	    	try {
-				new PresetsConfig().deleteConfig();
+				new PresetsConfig(mContext).deleteConfig();
 			} catch (NoFileException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

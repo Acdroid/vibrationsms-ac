@@ -59,6 +59,7 @@ public class FingerActivity extends Activity {
 	Vector vibVec = new Vector();
 	
 	
+	private Context mContext;
 	
 	
 	
@@ -66,7 +67,7 @@ public class FingerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fingerlayout);
         
-        final Context mContext = this;                
+        mContext = this;                
         final Dialog dialog = new Dialog(mContext);
         
         
@@ -206,7 +207,7 @@ public class FingerActivity extends Activity {
 			 				//La guardamos en la lsta de presets
 			 				final PresetList pl;
 							try {
-								pl = new PresetsConfig().loadPresets();
+								pl = new PresetsConfig(mContext).loadPresets();
 								
 								
 								//El preset ya existe !
@@ -222,7 +223,7 @@ public class FingerActivity extends Activity {
 										pl.add(new Preset(textName.getText().toString(), new Vib(vt)));
 										
 										try {
-											new PresetsConfig().dumpPresetList(pl);
+											new PresetsConfig(mContext).dumpPresetList(pl);
 										} catch (Exception e) {
 											e.printStackTrace();
 										}
@@ -242,7 +243,7 @@ public class FingerActivity extends Activity {
 								else {					
 																
 									pl.add(new Preset(textName.getText().toString(), new Vib(vt)));
-									new PresetsConfig().dumpPresetList(pl);
+									new PresetsConfig(mContext).dumpPresetList(pl);
 									FingerActivity.this.finish();
 								}
 								

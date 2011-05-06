@@ -77,14 +77,40 @@ public class Inicio extends Activity {
 	
     @Override 
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);        
+        
+        
+        
+        
+        //Verificamos que haya donde escribir
+        String message = "", title = "", button = "";
+        
+        switch (Tools.externalStorage()) {            
+        
+        	case 0: break;
+        	
+        	case 1: message = this.getString(R.string.sd_ro);
+					title 	= this.getString(R.string.error);
+					button 	= this.getString(R.string.ok);
+					popup1buttonClose(title, message, button);
+					break;
+        			
+        	case 2: message = this.getString(R.string.no_sd);
+        			title 	= this.getString(R.string.error);
+        			button 	= this.getString(R.string.ok);
+        			popup1buttonClose(title, message, button);
+					break;
+        
+        }
+        
+        
         setContentView(R.layout.new_main);
         
         am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
         
         //Creacion de las vibraciones por defecto, por si los desastres
-       defVibBuiltIn.builtInDefVib();
+        defVibBuiltIn.builtInDefVib(this);
         
         
         //Se crea, no se muestra
@@ -338,6 +364,32 @@ public class Inicio extends Activity {
     
     
     
+	
+	
+	/**
+	 * Popup de alert de 1 boton que cierra el main
+	 * */
+	public void popup1buttonClose(String title, String message, String button) {
+		
+		
+		AlertDialog dialog=new AlertDialog.Builder(Inicio.this).create();
+		dialog.setTitle(title);
+		dialog.setMessage(message);
+		
+		dialog.setButton(button, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {		
+				dialog.dismiss();
+				Inicio.this.finish();
+			}
+		});
+
+		dialog.show();
+	}
+	
+	
+	
+	
+	
     
     
     
@@ -360,7 +412,7 @@ public class Inicio extends Activity {
     	   //Creamos una instancia del cm (un handlder)
     	ContactsConfig cm = null;        
         try {
-        	cm  = new ContactsConfig();
+        	cm  = new ContactsConfig(this);
 		} catch (NoFileException e) {
 
 			Log.e("main", "error: "+e.getMessage());
@@ -405,7 +457,7 @@ public class Inicio extends Activity {
         //Creamos una instancia del cm (un handlder)
     	ContactsConfig cm = null;        
         try {
-        	cm  = new ContactsConfig();
+        	cm  = new ContactsConfig(this);
 		} catch (NoFileException e) {
 
 			Log.e("main", "error: "+e.getMessage());

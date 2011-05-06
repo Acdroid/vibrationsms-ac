@@ -43,7 +43,8 @@ public final class MasterMenu extends Activity {
 	private static final int OPTION_TEST  = 0x2;
 	
 
-
+	private Context mContext;
+	
 	/**
 	 * Called when the activity is first created. Responsible for initializing the UI.
 	 */
@@ -51,6 +52,8 @@ public final class MasterMenu extends Activity {
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		
+		mContext = this;
 
 		//Los layouts necesarios
 		setContentView(R.layout.master_dialog);
@@ -78,7 +81,7 @@ public final class MasterMenu extends Activity {
 				
 				//Cargamos la lista
 				try {
-					VibContactList vcl = new ContactsConfig().loadVibContactList();
+					VibContactList vcl = new ContactsConfig(mContext).loadVibContactList();
 					
 					
 				      switch (position) {
@@ -89,7 +92,7 @@ public final class MasterMenu extends Activity {
 					      
 					      case OPTION_RESET:
 					    	  vcl.add(new VibContact("master", VibContactList.MASTERNUMBER, new Vib(MorseCode.stringToVib("sms",150, 2))));
-					    	  new ContactsConfig().dumpVibContactList(vcl);
+					    	  new ContactsConfig(mContext).dumpVibContactList(vcl);
 					    	  mToast.Make(MasterMenu.this, R.string.reset, 0);
 					    	  break;
 					    	  
@@ -124,14 +127,14 @@ public final class MasterMenu extends Activity {
 		
 
 		//Lista de contactos
-		final VibContactList vcl = new ContactsConfig().loadVibContactList();			
+		final VibContactList vcl = new ContactsConfig(mContext).loadVibContactList();			
 		
 		//Leemos la lista de presets y los metemos en un array
 		Vector presetsV = new Vector(); 
 		
 		PresetList pl;
 		try {
-			pl = new PresetsConfig().loadPresets();
+			pl = new PresetsConfig(this).loadPresets();
 			Iterator iter = pl.getIterator();				
 			
 			while (iter.hasNext()){
@@ -162,14 +165,14 @@ public final class MasterMenu extends Activity {
 		    	
 		    	
 				try {
-					long vi[] = new PresetsConfig().loadPresets().getPresetByName((String) presetsA[item]).getVib().get();
+					long vi[] = new PresetsConfig(mContext).loadPresets().getPresetByName((String) presetsA[item]).getVib().get();
 					
 					Vib vibResultante = new Vib(vi);
 
 					//La asignamos y guardamos
 					vcl.add(new VibContact("master", VibContactList.MASTERNUMBER, new Vib(vi)));
 					
-					new ContactsConfig().dumpVibContactList(vcl);
+					new ContactsConfig(mContext).dumpVibContactList(vcl);
 					
 					DoVibration.CustomRepeat((Vibrator) getSystemService(Context.VIBRATOR_SERVICE), vi);
 					

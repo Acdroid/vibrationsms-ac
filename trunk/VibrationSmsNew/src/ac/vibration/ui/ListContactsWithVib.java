@@ -100,7 +100,7 @@ public final class ListContactsWithVib extends ListActivity
 		items = aux;
 
 		try {
-			vcl = new ContactsConfig().loadVibContactList();
+			vcl = new ContactsConfig(mContext).loadVibContactList();
 		} catch (NoFileException e1) {
 			Log.e("VS_AgregarVibracion", e1.getMessage());
 			e1.printStackTrace();
@@ -206,7 +206,7 @@ public final class ListContactsWithVib extends ListActivity
 					Preset preset = new Preset(aux + getResources().getString(R.string.in_morse), vibResultante);
 					PresetsConfig pc;
 					try {
-						pc = new PresetsConfig();
+						pc = new PresetsConfig(mContext);
 
 						PresetList pl = pc.loadPresets();
 						pl.add(preset);
@@ -361,7 +361,7 @@ public final class ListContactsWithVib extends ListActivity
 		
 		PresetList pl;
 		try {
-			pl = new PresetsConfig().loadPresets();
+			pl = new PresetsConfig(this).loadPresets();
 			Iterator iter = pl.getIterator();				
 			
 			while (iter.hasNext()){
@@ -392,7 +392,7 @@ public final class ListContactsWithVib extends ListActivity
 		    	
 		    	
 				try {
-					long vi[] = new PresetsConfig().loadPresets().getPresetByName((String) presetsA[item]).getVib().get();
+					long vi[] = new PresetsConfig(mContext).loadPresets().getPresetByName((String) presetsA[item]).getVib().get();
 					
 					Vib vibResultante = new Vib(vi);
 
@@ -584,7 +584,7 @@ public final class ListContactsWithVib extends ListActivity
 
 	public void dump(){
 		try {
-			new ContactsConfig().dumpVibContactList(vcl);
+			new ContactsConfig(mContext).dumpVibContactList(vcl);
 		} catch (GeneralException e) {
 			Log.e("VS_AgregarVibracion",e.getMessage());
 			e.printStackTrace();

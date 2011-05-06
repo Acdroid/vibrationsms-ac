@@ -18,6 +18,10 @@ import ac.vibration.exceptions.VibrationErrorException;
 import ac.vibration.types.Preset;
 import ac.vibration.types.PresetList;
 import ac.vibration.types.Vib;
+import android.accessibilityservice.AccessibilityService;
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.os.Environment;
 import android.util.Log;
 
@@ -42,19 +46,31 @@ public class PresetsConfig {
 	
 	/**
 	 * El constructor verifica si existe ee archivo y si no lo crea
+	 * @param mContext TODO
 	 * 
 	 * @throws NoContactFileException
 	 */
-	public PresetsConfig() throws NoFileException {
+	public PresetsConfig(Context mContext) throws NoFileException {
 
 		Log.i("PresetsConfig", "PresetsConfig called");
-
+		Log.i("PresetsConfig", "> "+mContext.getFilesDir().getAbsolutePath());
+				
 		boolean exists = (new File(PRESETFILE)).exists();
 
 		//Si no existe intentamos crearlo
 		if (!exists) {
 
-			ConfigBackend.createStructure(PRESETPATH, PRESETFILE);
+			//try {
+				ConfigBackend.createStructure(PRESETPATH, PRESETFILE);
+				
+//			} catch (NoFileException e) {
+//				
+//				//Si en la SD no se puede lo intentamos en el sitio por defecto
+//				PRESETPATH = mContext.getFilesDir().getAbsolutePath()+"/VibrationSMS/";
+//				PRESETFILE = PRESETPATH+PRESETFILENAME;
+//				ConfigBackend.createStructure(PRESETPATH, PRESETFILE);
+//				
+//			}
 		}
 
 	}
@@ -198,9 +214,7 @@ public class PresetsConfig {
 			while (iter.hasNext()) {
 
 				p = iter.next();
-
-				
-				Log.i("PresetsConfig", "in");	        	
+								       
 				try {
 					out.write(p.getName()+"="+p.getVib().vibToString()+"\n");
 					Log.i("PresetsConfig", "Written: "+p.getName()+"="+p.getVib().vibToString()+"\n");
@@ -241,10 +255,6 @@ public class PresetsConfig {
 		File f = new File(PRESETFILE);
 		return f.delete();
 	}
-	
-	
-	
-	
 	
 	
 	

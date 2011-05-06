@@ -97,7 +97,7 @@ public class ReceiverSMS extends BroadcastReceiver {
 	
 					try {
 						//Cargamos la lista
-						vcl = new ContactsConfig().loadVibContactList();
+						vcl = new ContactsConfig(mContext).loadVibContactList();
 						//Buscamos el contacto por si tiene una vibracion propia
 						VibContact vc = vcl.getVibContactByNumber(numTelf[i]);
 						

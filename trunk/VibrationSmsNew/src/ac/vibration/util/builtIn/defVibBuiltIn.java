@@ -5,17 +5,18 @@ import ac.vibration.types.Preset;
 import ac.vibration.types.PresetList;
 import ac.vibration.types.Vib;
 import ac.vibration.util.config.PresetsConfig;
+import android.content.Context;
 
 public class defVibBuiltIn {
 
 	/**
 	 * Guarda las vibraciones predefinidas al iniciarse la aplicaci�n
 	 */
-	public static void builtInDefVib(){
+	public static void builtInDefVib(Context mContext){
 		final PresetList pl;
 
 		try {
-			pl = new PresetsConfig().loadPresets();
+			pl = new PresetsConfig(mContext).loadPresets();
 
 			//[morse]sms
 			if (pl.getPresetByName("*[Morse] SMS") == null){
@@ -131,7 +132,7 @@ public class defVibBuiltIn {
 
 
 
-			new PresetsConfig().dumpPresetList(pl);
+			new PresetsConfig(mContext).dumpPresetList(pl);
 
 
 		} catch (Exception e) {
@@ -146,11 +147,11 @@ public class defVibBuiltIn {
 	 * Este m�todo fuerza a guardar las vibraciones, �til para
 	 * actualizaciones del programa.
 	 */
-	public static void builtInDefVibForce(){
+	public static void builtInDefVibForce(Context mContext){
 		final PresetList pl;
 
 		try {
-			pl = new PresetsConfig().loadPresets();
+			pl = new PresetsConfig(mContext).loadPresets();
 
 			pl.add(new Preset("*[morse]sms",new Vib(MorseCode.stringToVib("sms",150, 2))));
 
@@ -240,7 +241,7 @@ public class defVibBuiltIn {
 
 
 
-			new PresetsConfig().dumpPresetList(pl);
+			new PresetsConfig(mContext).dumpPresetList(pl);
 
 
 		} catch (Exception e) {
