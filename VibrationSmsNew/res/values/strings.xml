@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">VibrationSMS</string>
+    <string name="app_name">Contact Vibrate</string>
     <string name="tittle">SMS Custom Vibration</string>
     
     <string name="main_button_asignar">Set vibration for contact</string>
@@ -45,6 +45,9 @@
 	<string name = "vibrate_on_call">Vibrate when a call is received </string>
 	<string name = "vibrate_on_sms">Vibrate when a SMS is received</string>
 	<string name = "vibrate_system">Disable other system vibrations</string>
+	<string name = "sd_ro">"Your external storage is mounted read only, please re-mount it RW mode."</string>
+	<string name = "no_sd">"No SD card found, please install one."</string>
+	<string name = "ok">OK</string>
 		
 
 	

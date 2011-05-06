@@ -33,6 +33,7 @@ import android.widget.Toast;
 public class MorseActivity extends Activity {
 	
 	public Context pContext;
+	private Context mContext;
 	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class MorseActivity extends Activity {
         final EditText textName = (EditText) dialog.findViewById(R.id.chooserName);
         */
         pContext = this.getParent();
+        mContext = this;
                 
 
         setContentView(R.layout.dialog_str_morse_save);
@@ -157,7 +159,7 @@ public class MorseActivity extends Activity {
 								//La guardamos en la lsta de presets
 				 				final PresetList pl;
 								try {
-									pl = new PresetsConfig().loadPresets();
+									pl = new PresetsConfig(mContext).loadPresets();
 									
 									
 									//El preset ya existe !
@@ -173,7 +175,7 @@ public class MorseActivity extends Activity {
 											pl.add(new Preset(textName.getText().toString(), new Vib(vt)));
 											
 											try {
-												new PresetsConfig().dumpPresetList(pl);
+												new PresetsConfig(mContext).dumpPresetList(pl);
 											} catch (Exception e) {
 												e.printStackTrace();
 											}
@@ -190,7 +192,7 @@ public class MorseActivity extends Activity {
 									//El preset no existe
 									else {																					
 										pl.add(new Preset(textName.getText().toString(), new Vib(vt)));
-										new PresetsConfig().dumpPresetList(pl);
+										new PresetsConfig(mContext).dumpPresetList(pl);
 										MorseActivity.this.finish();
 									}
 
