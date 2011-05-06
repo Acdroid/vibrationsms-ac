@@ -48,6 +48,8 @@
 	<string name = "sd_ro">"Tu tarjeta SD está montada como solo-lectura, por favor montala con permisos de escritura."</string>
 	<string name = "no_sd">"No se ha encontrado una tarjeta SD, por favor instala una."</string>
 	<string name = "ok">OK</string>
+	<string name = "tap_mode">Modo táctil</string>
+	<string name = "morse_mode">Modo morse</string>
 		
 
 	

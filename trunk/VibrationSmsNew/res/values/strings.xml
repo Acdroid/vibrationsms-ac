@@ -48,6 +48,8 @@
 	<string name = "sd_ro">"Your external storage is mounted read only, please re-mount it RW mode."</string>
 	<string name = "no_sd">"No SD card found, please install one."</string>
 	<string name = "ok">OK</string>
+	<string name = "tap_mode">Tap mode</string>
+	<string name = "morse_mode">Morse mode</string>
 		
 
 	
