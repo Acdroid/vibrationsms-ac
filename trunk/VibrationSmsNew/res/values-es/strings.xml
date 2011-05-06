@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Contact Vibrate</string>
+    <string name="tittle">Vibraciones personalizadas</string>
+    
+    <string name="main_button_asignar">Asignar vibración a un contacto</string>
+    <string name="main_button_agregar">Crear nueva vibración</string>
+    <string name="vibrations_list">Vibraciones guardadas</string>
+    <string name="master_vibration">Vibración master</string>
+    <string name="list_contacts">Contactos con vibración</string>
+    
+    
+    <string name="hello">hello:)</string>
+    
+    <!-- Dialog -->
+	<string name = "dialog_selection">¿Qué quieres hacer?</string>  
+	<string name = "select_vibration">"Selecciona una vibración"</string>
+	<string name = "custom_vibration">"Crear nueva vibración"</string>
+	<string name = "custom_vibration_morse">"Vibración morse personalizada"</string>
+	<string name = "name_morse">"Nombre en morse"</string>
+	
+	<!-- Button -->
+	<string name = "dialog_str_morse_button">Asignar</string>  
+	
+	<!-- Miscelanea -->
+	<string name = "first_time_toast">Esta es la primera vez que ejecutas la aplicación. ¡ Bienvenido y disfruta !</string>
+	<string name = "smsfrom">SMS de </string>
+	<string name = "vib_add_ok">Vibración asignada correctamente</string>
+	<string name = "dialog_str_morse_tittle">Texto a morse</string>
+	<string name = "dialog_str_morse_text">Escribe texto para convertirlo a morse</string>
+	<string name = "in_morse">En morse</string>
+	<string name = "vibration_saved_title">Escribe un nombre para la vibración</string>
+	<string name = "vibration_saved">La vibración fue guardada y asignada</string>
+	<string name = "enter_name">Por favor, escribe un nombre para la vibración:</string>
+	<string name = "write_something">Hey, debes escribir algo !</string>
+	<string name = "noContacts">No se han encontrado contactos</string>
+	<string name = "noPresets">No se han encontrado vibraciones</string>
+	<string name = "hold_long">Mantén pulsado un elemento para editarlo.</string>
+	<string name = "preset_exist_overwrite_question">Una vibración con este nombre ya existe. ¿ Deseas sobreescrirla ?</string>
+	<string name = "preset_clear_question">Esto limpiará la lista. ¿ Continuar ?</string>
+	<string name = "master_info">La vibración master será usada cuando un contacto no tenga ninguna asignada.</string>
+	<string name = "reset_to_default">Volver al valor por defecto</string>
+	<string name = "select_from_list">Seleccionar de la lista</string>
+	<string name = "remove_vib">Eliminar vibración</string>
+	<string name = "vibrate_on_call">Vibrar al recibir una llamada</string>
+	<string name = "vibrate_on_sms">Vibrar cuando se recibe un SMS/MMS</string>
+	<string name = "vibrate_system">Deshabilitar otras vibraciones del sistema</string>
+	<string name = "sd_ro">"Tu tarjeta SD está montada como solo-lectura, por favor montala con permisos de escritura."</string>
+	<string name = "no_sd">"No se ha encontrado una tarjeta SD, por favor instala una."</string>
+	<string name = "ok">OK</string>
+		
+
+	
+	
+	
+	
+	<!-- Comun -->
+	<string name = "yes">Sí</string>
+	<string name = "no">No</string>
+	<string name = "options">Opciones</string>
+	<string name = "cancel">Cancelar</string>
+    <string name = "reset">Restablecer</string>
+    <string name = "save">Guardar</string>
+    <string name = "test">Probar</string>
+    <string name = "rename">Renombrar</string>
+    <string name = "delete">Borrar</string>
+    <string name = "error">Error</string>
+    <string name = "new_common">Nuevo</string>
+    <string name = "refresh">Actualizar</string>
+    <string name = "information">Información</string>
+    <string name = "clear">Limpiar</string>
+    <string name = "loading">Cargando...</string>
+    <string name = "removed">Eliminado</string>
+    <string name = "settings">Parámetros</string>
+    <string name = "exit">Salir</string>
+    <string name = "credits">Créditos</string>
+	
+	
+	<!-- Errores -->
+	<string name = "error_missing_name_tomorse">¡ Dedes escribir algo !</string>
+	<string name = "error_guardar_preset">Error al guardar. ¡ Hicimos lo que pudimos !</string>
+	
+    
+    
+    <!-- Crear vibracion -->
+    <string name="taphere">Toca aquí para crear tu vibración:</string>
+    <string name="typehere">Escribe aquí para crear tu vibración:</string>
+    <string name="delay">Retardo:</string>
+    <string name="speed">Velocidad:</string>
+
+    
+    
+</resources>
+
+
+

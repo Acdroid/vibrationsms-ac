@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/linearLayout1" android:orientation="vertical">
-        <ListView
-        android:layout_height="0px"
-    	android:layout_weight="1"
-    	android:id="@+id/main_menu_list"
-    	android:layout_width="fill_parent">
-    	</ListView>
-        
-        
-        
-        
-         	<LinearLayout android:layout_height="50sp" android:layout_width="fill_parent" android:id="@+id/linearLayout1" android:orientation="vertical" android:background="#FF222222">
-         		<ProgressBar android:gravity="center_vertical|center_horizontal" android:layout_gravity="center_vertical|center_horizontal|center" android:id="@+id/progressBar1" android:layout_width="wrap_content" android:layout_height="wrap_content"></ProgressBar>
-		      
-  
-  			</LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:ads="http://schemas.android.com/apk/res/ac.vibration"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:id="@+id/mainLinearLayout"
+		android:orientation="vertical">
+		
+		
+		
+			        <ListView
+			        android:layout_height="0px"
+			    	android:layout_weight="1"
+			    	android:id="@+id/main_menu_list"
+			    	android:layout_width="fill_parent">
+			    	</ListView>
+			        <FrameLayout android:id="@+id/frameLayout1" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			            <ProgressBar android:id="@+id/progressBar1" android:layout_width="wrap_content" android:layout_height="wrap_content"></ProgressBar>
+			             <com.google.ads.AdView
+		 	 			android:id="@+id/Publicidad"
+		                android:layout_width="fill_parent"
+		                android:layout_height="wrap_content"
+		                ads:adUnitId="a14dbd6cd640261"
+		                ads:adSize="BANNER"/>
+			        </FrameLayout>
+			        
+			        
+		        <!-- 
+				    <com.google.ads.AdView
+		 	 			android:id="@+id/Publicidad"
+		                android:layout_width="fill_parent"
+		                android:layout_height="wrap_content"
+		                ads:adUnitId="a14dbd6cd640261"
+		                ads:adSize="BANNER"/>
+				-->
+		        
+		        
+		  			
+		  			
+		  	
     </LinearLayout>
