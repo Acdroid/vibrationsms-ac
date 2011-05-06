@@ -36,12 +36,12 @@ public class AddVib extends TabActivity {
         intent = new Intent().setClass(this, FingerActivity.class);
 
         // Initialize a TabSpec for each tab and add it to the TabHost
-        spec = tabHost.newTabSpec("finger").setIndicator("Tap mode", res.getDrawable(android.R.drawable.ic_dialog_dialer)).setContent(intent);
+        spec = tabHost.newTabSpec("finger").setIndicator(this.getString(R.string.tap_mode), res.getDrawable(android.R.drawable.ic_dialog_dialer)).setContent(intent);
         tabHost.addTab(spec);
 
         // Do the same for the other tabs
         intent = new Intent().setClass(this, MorseActivity.class);
-        spec = tabHost.newTabSpec("morse").setIndicator("Morse mode", res.getDrawable(android.R.drawable.sym_action_chat)).setContent(intent);
+        spec = tabHost.newTabSpec("morse").setIndicator(this.getString(R.string.morse_mode), res.getDrawable(android.R.drawable.sym_action_chat)).setContent(intent);
         tabHost.addTab(spec);
 
 
