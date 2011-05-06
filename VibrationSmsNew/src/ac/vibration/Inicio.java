@@ -2,6 +2,8 @@ package ac.vibration;
 
 import java.util.Iterator;
 
+import com.google.ads.*;
+
 import ac.vibration.exceptions.ContactFileErrorException;
 import ac.vibration.exceptions.GeneralException;
 import ac.vibration.exceptions.NoContactFoundException;
@@ -45,6 +47,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class Inicio extends Activity {
@@ -69,7 +72,7 @@ public class Inicio extends Activity {
 	public static final int LIST_CONTACTS = 4;
 	
 	
-	
+	public AdView adView;
 	
 	
 	private static int vibNotificationOriginal;
@@ -78,9 +81,9 @@ public class Inicio extends Activity {
     @Override 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);        
+
         
-        
-        
+
         
         //Verificamos que haya donde escribir
         String message = "", title = "", button = "";
@@ -105,6 +108,21 @@ public class Inicio extends Activity {
         
         
         setContentView(R.layout.new_main);
+        
+        /*
+        // Create the adView
+        AdView adView = new AdView(this, AdSize.BANNER, "a14dbd6cd640261");
+        // Lookup your LinearLayout assuming it’s been given
+        // the attribute android:id="@+id/mainLayout"
+        LinearLayout layout = (LinearLayout)findViewById(R.id.mainLinearLayout);
+        // Add the adView to it
+        layout.addView(adView);
+        // Initiate a generic request to load it with an ad
+        adView.loadAd(new AdRequest());
+        */
+        adView = (AdView)this.findViewById(R.id.Publicidad);
+        adView.loadAd(new AdRequest());
+        
         
         am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         ac = new AppConfig(this, AppConfig.CONFIG_NAME_DEF);
