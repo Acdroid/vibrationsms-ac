@@ -53,28 +53,33 @@ public class ReceiverCall extends BroadcastReceiver {
 				if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
 					String phoneNumber = extras.getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
 					
-					Log.w("ReceiverCall", phoneNumber);
+					//Log.w("ReceiverCall", phoneNumber);
 														
 					
 					
 					
 					try {
 					
-					
-						//Cargamos la lista
-						vcl = new ContactsConfig(mContext).loadVibContactList();
+						if (phoneNumber != null) {
+							
+							Log.i("ReceiverCall", "custom ?");
+							
+							//Cargamos la lista
+							vcl = new ContactsConfig(mContext).loadVibContactList();
+							
+							//Buscamos el contacto por si tiene una vibracion propia
+							VibContact vc = vcl.getVibContactByNumber(phoneNumber);
+							
+							//Si se ha encontrado su vib propia se vibra
+							if (vc != null) {
+								Log.i("ReceiverCall", "custom !");
+								long[] v = vc.getVib().get();
+								DoVibration.CustomRepeatInfinity((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), v);
+							}						
 						
-						//Buscamos el contacto por si tiene una vibracion propia
-						VibContact vc = vcl.getVibContactByNumber(phoneNumber);
-						
-						//Si se ha encontrado su vib propia se vibra
-						if (vc != null) {
-							long[] v = vc.getVib().get();
-							DoVibration.CustomRepeatInfinity((Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE), v);
+							//Sino ejecutamos la master
+							else doVibrationMaster(mContext);
 						}
-						
-						//Sino ejecutamos la master
-						else doVibrationMaster(mContext);
 						
 					} catch(Exception e) {
 						e.printStackTrace();
@@ -99,6 +104,7 @@ public class ReceiverCall extends BroadcastReceiver {
 		
 		try {
 			
+			Log.i("ReceiverCall", "master");
 			
 			VibContact masterContact = vcl.getMasterContact(); 
 			
